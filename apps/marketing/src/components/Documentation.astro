@@ -1,0 +1,97 @@
+---
+import { LINK_KONSULTASI } from '@langsungonline/ui/constants';
+---
+
+<section class="py-16 md:py-24 bg-white">
+    <div class="container mx-auto px-4">
+        <!-- Header Section -->
+        <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16" data-aos="fade-up">
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+                Yang Sudah Kami Bereskan
+            </h2>
+            <p class="text-base md:text-lg text-gray-600">
+                Lihat bagaimana kami mengubah aset digital bisnis yang tadinya terpisah-pisah menjadi satu jalur yang rapi dan siap mendatangkan pelanggan.
+            </p>
+        </div>
+
+        <!-- Case Study Card -->
+        <div class="max-w-4xl mx-auto bg-gray-50/70 rounded-3xl p-6 md:p-10 border border-gray-100 shadow-sm" data-aos="fade-up" data-aos-delay="100">
+            <div class="grid md:grid-cols-12 gap-8 items-center">
+                
+                <!-- Info Bisnis & Kondisi Sebelum -->
+                <div class="md:col-span-5 space-y-4">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wider border border-blue-200">
+                        Studi Kasus Nyata
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold text-gray-900">
+                        Bengkel ABC
+                    </h3>
+
+                    <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-xs space-y-2">
+                        <span class="text-xs font-bold tracking-wider text-gray-400 uppercase">Kondisi Sebelum:</span>
+                        <p class="text-sm text-gray-700 font-medium flex items-center gap-2">
+                            <i class="fas fa-exclamation-circle text-amber-500"></i>
+                            Hanya mengandalkan Instagram + WhatsApp
+                        </p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-xs space-y-2">
+                        <span class="text-xs font-bold tracking-wider text-gray-400 uppercase">Hasil Akhir (Setelah):</span>
+                        <p class="text-sm text-gray-700 font-medium leading-relaxed">
+                            Calon pelanggan punya satu jalur jelas dari <span class="text-green-700 font-semibold">Google</span> → <span class="text-blue-700 font-semibold">informasi pusat</span> → <span class="text-emerald-700 font-semibold">WhatsApp</span>.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Detail Yang Dibereskan -->
+                <div class="md:col-span-7 bg-white rounded-2xl p-6 md:p-8 border border-gray-100 shadow-sm space-y-5">
+                    <h4 class="text-sm font-bold text-gray-900 uppercase tracking-wide border-b border-gray-100 pb-3">
+                        Yang Kami Bereskan:
+                    </h4>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="flex items-center gap-3 p-3 rounded-xl bg-green-50/50 border border-green-100">
+                            <div class="w-8 h-8 rounded-lg bg-green-500 text-white flex items-center justify-center font-bold text-xs shadow-xs shrink-0">
+                                ✓
+                            </div>
+                            <span class="text-sm font-semibold text-gray-800">Google presence</span>
+                        </div>
+
+                        <div class="flex items-center gap-3 p-3 rounded-xl bg-green-50/50 border border-green-100">
+                            <div class="w-8 h-8 rounded-lg bg-green-500 text-white flex items-center justify-center font-bold text-xs shadow-xs shrink-0">
+                                ✓
+                            </div>
+                            <span class="text-sm font-semibold text-gray-800">Domain</span>
+                        </div>
+
+                        <div class="flex items-center gap-3 p-3 rounded-xl bg-green-50/50 border border-green-100">
+                            <div class="w-8 h-8 rounded-lg bg-green-500 text-white flex items-center justify-center font-bold text-xs shadow-xs shrink-0">
+                                ✓
+                            </div>
+                            <span class="text-sm font-semibold text-gray-800">Website</span>
+                        </div>
+
+                        <div class="flex items-center gap-3 p-3 rounded-xl bg-green-50/50 border border-green-100">
+                            <div class="w-8 h-8 rounded-lg bg-green-500 text-white flex items-center justify-center font-bold text-xs shadow-xs shrink-0">
+                                ✓
+                            </div>
+                            <span class="text-sm font-semibold text-gray-800">WhatsApp flow</span>
+                        </div>
+                    </div>
+
+                    <!-- Tombol Hasil -->
+                    <div class="pt-2">
+                        <a
+                            href={LINK_KONSULTASI}
+                            class="inline-flex items-center justify-center w-full bg-gray-900 hover:bg-gray-800 text-white text-sm font-medium py-3 px-6 rounded-xl transition-all shadow-md hover:shadow-lg"
+                        >
+                            Lihat hasilnya <i class="fas fa-arrow-right ml-2 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

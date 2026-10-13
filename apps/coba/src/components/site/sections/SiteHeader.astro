@@ -1,0 +1,17 @@
+---
+import Icon from "../../ui/Icon.astro";
+import { initials } from "../../../format";
+const { business: b, links, current, href } = Astro.props;
+---
+<header class="hd"><div class="w hd-in">
+  <a class="brand" href={links[0].href}><span class="mark"><Icon n={b.logo_icon ?? "store"} /></span><span>{b.name}</span></a>
+  <nav class="dnav" aria-label="Menu situs">{links.map((l) => <a href={l.href} class:list={{ on: l.id === current }}>{l.label}</a>)}</nav>
+  <a class="b b-p b-s hd-cta" href={href} target="_blank" rel="noopener"><Icon n="whatsapp" s="brands" /> Hubungi</a>
+  <details class="mnav">
+    <summary aria-label="Buka menu"><Icon n="bars" /></summary>
+    <div class="mpanel">
+      {links.map((l) => <a href={l.href} class:list={{ on: l.id === current }}>{l.label}</a>)}
+      <a class="b b-p" href={href} target="_blank" rel="noopener"><Icon n="whatsapp" s="brands" /> Hubungi via WhatsApp</a>
+    </div>
+  </details>
+</div></header>

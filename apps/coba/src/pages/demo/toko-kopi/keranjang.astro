@@ -1,0 +1,37 @@
+---
+import TokoLayout from "./_TokoLayout.astro";
+import ProductCard from "./_ProductCard.astro";
+import { products, BASE } from "./_products.js";
+const rec = products.filter((p) => ["tumbler-teduh-450", "timbangan-kopi-digital", "tote-bag-kanvas", "gooseneck-kettle-600"].includes(p.slug));
+---
+<TokoLayout title="Keranjang Belanja | Teduh Coffee" description="Tinjau isi keranjang belanja Anda di Teduh Coffee." active="">
+<section class="phero"><div class="wrap"><div class="crumb"><a href={`${BASE}/`}>Beranda</a><i class="fa-solid fa-chevron-right"></i>Keranjang</div><h1>Keranjang Belanja</h1></div></section>
+<section class="sec" style="padding-top:48px"><div class="wrap">
+  <div class="cl" id="cartPage"></div>
+  <div style="margin-top:72px"><div class="sh"><h2>Lengkapi seduhan Anda</h2></div><div class="pgrid">{rec.map((p) => <ProductCard p={p} />)}</div></div>
+</div></section>
+</TokoLayout>
+
+<script>
+  import { Cart, fmt, toast } from "./_cart.js";
+  const base = document.querySelector(".toko").dataset.base, root = document.getElementById("cartPage");
+  const draw = () => {
+    const T = Cart.totals();
+    if (!T.L.length) { root.style.display = "block"; root.innerHTML = `<div class="box cart-empty"><i class="fa-solid fa-bag-shopping"></i><h2>Keranjang masih kosong</h2><p class="mute" style="margin:8px 0 22px">Yuk mulai dengan memilih biji kopi favorit.</p><a class="btn moss" href="${base}/produk">Mulai Belanja</a></div>`; return; }
+    root.style.display = "";
+    root.innerHTML = `<div class="box">${T.L.map((l) => `<div class="ci"><img src="${l.img}" alt="" onerror="this.style.visibility='hidden'"><div><h3><a href="${l.url}">${l.name}</a></h3><div class="mute">Varian: ${l.label} · ${fmt(l.price)}</div><div><div class="qty"><button data-d="${l.slug}|${l.v}|-1" aria-label="Kurangi"><i class="fa-solid fa-minus"></i></button><span>${l.qty}</span><button data-d="${l.slug}|${l.v}|1" aria-label="Tambah"><i class="fa-solid fa-plus"></i></button></div><button class="rm" data-rm="${l.slug}|${l.v}"><i class="fa-regular fa-trash-can"></i> Hapus</button></div></div><b>${fmt(l.total)}</b></div>`).join("")}</div>
+    <div class="box"><h3 style="margin-bottom:16px">Ringkasan pesanan</h3>
+      <div class="ship">${T.left ? `Belanja <b>${fmt(T.left)}</b> lagi untuk gratis ongkir` : `<i class="fa-solid fa-circle-check ok"></i> Anda dapat gratis ongkir`}<div class="trk"><i style="width:${Math.min(100, (T.sub - T.disc) / 2500)}%"></i></div></div>
+      <div class="vc"><input id="vin" placeholder="Kode voucher" aria-label="Kode voucher" value="${Cart.voucher}"><button class="btn sm moss" id="vbtn">Pakai</button></div>
+      <p class="mute" style="font-size:12.5px;margin-top:-8px;margin-bottom:16px">Coba kode <b>TEDUH10</b></p>
+      <div class="sum"><div><span>Subtotal (${T.count} item)</span><span>${fmt(T.sub)}</span></div>${T.disc ? `<div class="sav"><span>Diskon voucher</span><span>-${fmt(T.disc)}</span></div>` : ""}<div><span>Ongkir</span><span>${T.ship ? fmt(T.ship) : "Gratis"}</span></div><div class="t"><span>Total</span><span>${fmt(T.total)}</span></div></div>
+      <a class="btn moss full" href="${base}/checkout" style="margin-top:20px">Lanjut ke Checkout</a></div>`;
+  };
+  root.addEventListener("click", (e) => {
+    const d = e.target.closest("[data-d]"), r = e.target.closest("[data-rm]");
+    if (d) { const [s, v, n] = d.dataset.d.split("|"); const cur = Cart.totals().L.find((l) => l.slug === s && l.v === +v); Cart.setQty(s, +v, cur.qty + +n); }
+    if (r) { const [s, v] = r.dataset.rm.split("|"); Cart.remove(s, +v); }
+    if (e.target.id === "vbtn") toast(Cart.setVoucher(document.getElementById("vin").value) ? "Voucher berhasil dipakai" : "Kode tidak valid. Coba TEDUH10");
+  });
+  document.addEventListener("cart:change", draw); draw();
+</script>

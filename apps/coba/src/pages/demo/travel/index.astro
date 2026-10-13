@@ -1,0 +1,341 @@
+---
+import TravelLayout from "./_TravelLayout.astro";
+import PaketCard from "./_PaketCard.astro";
+import { BASE, WA_DEFAULT, img, paket, destinasi, layanan, langkah, testimoni, faq, PHONE } from "./_data";
+
+const populer = paket.filter((p) => ["bali-eksotis", "labuan-bajo-sailing", "bromo-ijen", "jepang-sakura", "lombok-gili", "korea-selatan"].includes(p.slug));
+const bulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+---
+
+<TravelLayout
+    title="Biro Perjalanan & Paket Wisata Surabaya | Langkah Nusa Travel"
+    description="Paket wisata domestik dan internasional, tiket, hotel, visa, dan custom itinerary dari Surabaya. Konsultasi gratis, harga transparan, tour leader berpengalaman."
+    active="beranda"
+>
+    <!-- HERO -->
+    <section class="ix-hero">
+        <img src={img("1469854523086-cc02fe5d8800", 1800)} alt="Jalan menembus pegunungan saat matahari terbit" loading="eager" fetchpriority="high" />
+        <div class="tv-wrap ix-hero-inner">
+            <div class="ix-hero-copy">
+                <p class="ix-pill"><i class="fa-solid fa-star"></i> Dipercaya 3.400+ traveler sejak 2017</p>
+                <h1>Liburan yang sudah diurus, tinggal Anda nikmati.</h1>
+                <p class="ix-lead">
+                    Paket wisata domestik dan luar negeri dengan itinerary jelas, harga tertulis di awal, dan tour leader yang mendampingi dari berangkat sampai pulang.
+                </p>
+                <ul class="ix-checks">
+                    <li><i class="fa-solid fa-circle-check"></i> Konsultasi dan penawaran gratis</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Bantuan visa dan tiket</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Bisa private atau custom</li>
+                </ul>
+            </div>
+
+            <form class="ix-finder" id="finder" aria-label="Cari rencana liburan">
+                <h2>Rencanakan perjalanan Anda</h2>
+                <p>Isi singkat, kami balas lewat WhatsApp dengan pilihan paket dan perkiraan biaya.</p>
+                <label>
+                    Tujuan
+                    <select id="fTujuan">
+                        <option value="">Belum tahu, mohon rekomendasi</option>
+                        {destinasi.map((d) => <option value={d.nama}>{d.nama}</option>)}
+                    </select>
+                </label>
+                <div class="ix-row">
+                    <label>
+                        Bulan berangkat
+                        <select id="fBulan">
+                            <option value="">Fleksibel</option>
+                            {bulan.map((b) => <option value={b}>{b}</option>)}
+                        </select>
+                    </label>
+                    <label>
+                        Peserta
+                        <input type="number" id="fPeserta" min="1" max="200" value="2" inputmode="numeric" />
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-sun">
+                    <i class="fa-brands fa-whatsapp"></i> Kirim ke WhatsApp
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- TRUST STRIP -->
+    <section class="ix-trust" aria-label="Pencapaian">
+        <div class="tv-wrap ix-trust-grid">
+            <div><strong>9 tahun</strong><span>melayani perjalanan</span></div>
+            <div><strong>3.400+</strong><span>traveler berangkat</span></div>
+            <div><strong>4,9 / 5</strong><span>rating dari 340 ulasan</span></div>
+            <div><strong>24 jam</strong><span>pendampingan selama trip</span></div>
+        </div>
+    </section>
+
+    <!-- WHY US -->
+    <section class="tv-section">
+        <div class="tv-wrap ix-why">
+            <div class="ix-why-media">
+                <img src={img("1488646953014-85cb44e25828", 900)} alt="Peralatan traveler: peta, kamera, dan paspor di atas meja" loading="lazy" width="900" height="1100" />
+                <div class="ix-why-note">
+                    <i class="fa-solid fa-shield-heart"></i>
+                    <div><strong>Harga transparan</strong><span>Yang termasuk dan tidak termasuk ditulis jelas di awal.</span></div>
+                </div>
+            </div>
+            <div>
+                <div class="tv-head">
+                    <h2>Merencanakan liburan seharusnya tidak melelahkan.</h2>
+                    <p>Banyak orang batal berangkat bukan karena tidak mau, tetapi karena bingung memilih hotel, rute, dan takut biaya tambahan. Kami ambil bagian yang rumit itu.</p>
+                </div>
+                <ul class="ix-why-list">
+                    <li><i class="fa-solid fa-route"></i><div><h3>Itinerary realistis</h3><p>Waktu tempuh dan jam istirahat dihitung, bukan sekadar menumpuk destinasi.</p></div></li>
+                    <li><i class="fa-solid fa-user-tie"></i><div><h3>Tour leader berpengalaman</h3><p>Pendamping yang tahu lokasi, bukan hanya membawa bendera.</p></div></li>
+                    <li><i class="fa-solid fa-file-invoice-dollar"></i><div><h3>Tanpa biaya mengejutkan</h3><p>Biaya tambahan seperti tiket opsional dan tip diinformasikan sebelum DP.</p></div></li>
+                    <li><i class="fa-solid fa-headset"></i><div><h3>Dibantu sampai pulang</h3><p>Ada kontak darurat dan tim di Surabaya yang siap dihubungi.</p></div></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- PACKAGES -->
+    <section class="tv-section alt" id="paket-populer">
+        <div class="tv-wrap">
+            <div class="tv-head">
+                <h2>Paket yang paling sering dipilih</h2>
+                <p>Berangkat bersama rombongan (open trip) atau atur sendiri (private trip). Semua harga per orang, minimal 2 peserta untuk private.</p>
+            </div>
+            <div class="tv-grid-3">
+                {populer.map((p) => <PaketCard p={p} />)}
+            </div>
+            <div style="text-align:center;margin-top:44px;">
+                <a href={`${BASE}/paket/`} class="btn btn-deep">Lihat semua paket wisata <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- DESTINATIONS -->
+    <section class="tv-section">
+        <div class="tv-wrap">
+            <div class="tv-head">
+                <h2>Pilih tujuan sesuai suasana hati</h2>
+                <p>Mau pantai, gunung, kota tua, atau salju? Mulai dari sini, kami bantu sesuaikan dengan budget dan waktu cuti Anda.</p>
+            </div>
+            <div class="ix-mosaic">
+                {destinasi.slice(0, 5).map((d, i) => (
+                    <a href={`${BASE}/destinasi/#${d.nama.toLowerCase().replace(/[^a-z]+/g, "-")}`} class={`ix-tile ix-tile-${i + 1}`}>
+                        <img src={img(d.foto, 900)} alt={`Pemandangan ${d.nama}`} loading="lazy" />
+                        <div class="ix-tile-text">
+                            <h3>{d.nama}</h3>
+                            <span>Waktu terbaik: {d.waktu}</span>
+                        </div>
+                    </a>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="tv-section dark">
+        <div class="tv-wrap">
+            <div class="tv-head center">
+                <h2>Bukan hanya paket wisata</h2>
+                <p>Butuh tiket saja, hotel saja, atau mengurus visa sendiri? Tidak masalah. Layanan kami bisa dipesan terpisah.</p>
+            </div>
+            <div class="ix-services">
+                {layanan.map((l) => (
+                    <div class="ix-service">
+                        <i class={`fa-solid ${l.ikon}`}></i>
+                        <h3>{l.judul}</h3>
+                        <p>{l.isi}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="tv-section">
+        <div class="tv-wrap">
+            <div class="tv-head center">
+                <h2>Empat langkah dari ide sampai berangkat</h2>
+            </div>
+            <ol class="ix-steps">
+                {langkah.map((s, i) => (
+                    <li data-reveal style={`transition-delay:${i * 90}ms`}>
+                        <span class="ix-step-no">{i + 1}</span>
+                        <h3>{s.judul}</h3>
+                        <p>{s.isi}</p>
+                    </li>
+                ))}
+            </ol>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="tv-section alt">
+        <div class="tv-wrap">
+            <div class="tv-head">
+                <h2>Cerita dari yang sudah berangkat</h2>
+                <p>Rating 4,9 dari 340 ulasan Google dan WhatsApp (data contoh).</p>
+            </div>
+            <div class="tv-grid-3">
+                {testimoni.map((t) => (
+                    <figure class="ix-quote">
+                        <div class="ix-stars" aria-label="Bintang 5 dari 5">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <blockquote>{t.isi}</blockquote>
+                        <figcaption>
+                            <img src={img(t.foto, 120)} alt={`Foto ${t.nama}`} loading="lazy" width="48" height="48" />
+                            <div><strong>{t.nama}</strong><span>{t.asal} · {t.trip}</span></div>
+                        </figcaption>
+                    </figure>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="tv-section">
+        <div class="tv-wrap">
+            <div class="tv-head center">
+                <h2>Pertanyaan yang sering ditanyakan</h2>
+            </div>
+            <div class="tv-faq">
+                {faq.slice(0, 5).map((f) => (
+                    <details>
+                        <summary>{f.q}</summary>
+                        <p>{f.a}</p>
+                    </details>
+                ))}
+            </div>
+            <p style="text-align:center;margin-top:28px;">
+                <a href={`${BASE}/kontak/#faq`} class="tv-link">Lihat semua pertanyaan <i class="fa-solid fa-arrow-right"></i></a>
+            </p>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="tv-section" style="padding-top:0;">
+        <div class="tv-wrap">
+            <div class="tv-cta">
+                <div>
+                    <h2>Sudah ada tanggal cuti? Mari kita isi dengan perjalanan yang pas.</h2>
+                    <p>Kirim tujuan dan jumlah peserta. Penawaran awal kami kirim maksimal 1 hari kerja.</p>
+                </div>
+                <div class="tv-cta-actions">
+                    <a href={WA_DEFAULT} class="btn btn-sun" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Chat WhatsApp</a>
+                    <a href={`${BASE}/kontak/`} class="btn btn-ghost">Halaman kontak</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script define:vars={{ PHONE }}>
+        document.getElementById("finder")?.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const t = document.getElementById("fTujuan").value;
+            const b = document.getElementById("fBulan").value;
+            const p = document.getElementById("fPeserta").value || "2";
+            const msg =
+                "Halo Langkah Nusa, saya ingin konsultasi liburan.\n" +
+                "Tujuan: " + (t || "mohon rekomendasi") + "\n" +
+                "Bulan berangkat: " + (b || "fleksibel") + "\n" +
+                "Jumlah peserta: " + p;
+            window.open("https://wa.me/" + PHONE + "?text=" + encodeURIComponent(msg), "_blank", "noopener");
+        });
+    </script>
+</TravelLayout>
+
+<style is:global>
+    .ix-hero { position: relative; color: #fff; padding: 88px 0 96px; overflow: hidden; background: #0d4657; }
+    .ix-hero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .ix-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(95deg, rgba(6,29,38,.92) 20%, rgba(6,29,38,.45) 70%, rgba(6,29,38,.25)); }
+    .ix-hero-inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1.25fr 1fr; gap: 56px; align-items: center; }
+    .ix-pill { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.25); padding: 7px 16px; border-radius: 999px; font-size: 13.5px; font-weight: 600; margin-bottom: 24px; }
+    .ix-pill i { color: #f4a62a; }
+    .ix-hero h1 { color: #fff; font-size: clamp(38px, 5.6vw, 66px); font-weight: 800; }
+    .ix-lead { margin-top: 22px; font-size: 18px; color: #d6e9ee; max-width: 540px; }
+    .ix-checks { margin-top: 28px; display: grid; gap: 10px; font-weight: 500; }
+    .ix-checks i { color: #f4a62a; margin-right: 10px; }
+
+    .ix-finder { background: #fff; color: #1d3640; border-radius: 20px; padding: 30px; display: grid; gap: 16px; box-shadow: 0 30px 60px rgba(0,0,0,.35); }
+    .ix-finder h2 { font-size: 24px; font-weight: 800; }
+    .ix-finder p { font-size: 14.5px; color: #50686f; margin-top: -6px; }
+    .ix-finder label { display: grid; gap: 6px; font-size: 13.5px; font-weight: 700; color: #0a2a36; }
+    .ix-finder select, .ix-finder input { font: inherit; font-weight: 500; padding: 13px 14px; border: 1.5px solid #d5e4e7; border-radius: 12px; background: #fff; color: #1d3640; width: 100%; }
+    .ix-finder select:focus, .ix-finder input:focus { outline: none; border-color: #1b8ea3; box-shadow: 0 0 0 3px rgba(27,142,163,.2); }
+    .ix-row { display: grid; grid-template-columns: 1.4fr 1fr; gap: 12px; }
+
+    .ix-trust { background: #0a2a36; color: #fff; }
+    .ix-trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .ix-trust-grid > div { padding: 28px 20px; display: grid; gap: 2px; border-right: 1px solid rgba(255,255,255,.1); }
+    .ix-trust-grid > div:last-child { border-right: 0; }
+    .ix-trust-grid strong { font-family: "Bricolage Grotesque", sans-serif; font-size: 30px; color: #f4a62a; }
+    .ix-trust-grid span { font-size: 14px; color: #a9c4cb; }
+
+    .ix-why { display: grid; grid-template-columns: .9fr 1.1fr; gap: 72px; align-items: center; }
+    .ix-why-media { position: relative; }
+    .ix-why-media img { border-radius: 24px; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+    .ix-why-note { position: absolute; right: -24px; bottom: 32px; background: #fff; border-radius: 16px; padding: 18px 20px; display: flex; gap: 14px; align-items: center; max-width: 280px; box-shadow: 0 18px 40px rgba(10,42,54,.2); }
+    .ix-why-note i { font-size: 26px; color: #1b8ea3; }
+    .ix-why-note strong { display: block; color: #0a2a36; }
+    .ix-why-note span { font-size: 13px; color: #50686f; line-height: 1.4; display: block; }
+    .ix-why-list { display: grid; gap: 22px; }
+    .ix-why-list li { display: flex; gap: 18px; }
+    .ix-why-list li > i { flex: none; width: 48px; height: 48px; border-radius: 14px; background: #e9f4f5; color: #146f80; display: grid; place-items: center; font-size: 19px; }
+    .ix-why-list h3 { font-size: 18px; margin-bottom: 4px; }
+    .ix-why-list p { color: #50686f; font-size: 15px; }
+
+    .ix-mosaic { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 200px; gap: 18px; }
+    .ix-tile { position: relative; border-radius: 18px; overflow: hidden; background: #e9f4f5; display: block; }
+    .ix-tile img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s; }
+    .ix-tile:hover img { transform: scale(1.06); }
+    .ix-tile::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(6,29,38,.82), transparent 55%); }
+    .ix-tile-text { position: absolute; left: 20px; right: 20px; bottom: 18px; z-index: 2; color: #fff; }
+    .ix-tile-text h3 { color: #fff; font-size: 24px; font-weight: 800; }
+    .ix-tile-text span { font-size: 13px; color: #d6e9ee; }
+    .ix-tile-1 { grid-column: span 3; grid-row: span 2; }
+    .ix-tile-2 { grid-column: span 3; }
+    .ix-tile-3 { grid-column: span 3; }
+    .ix-tile-4 { grid-column: span 3; }
+    .ix-tile-5 { grid-column: span 3; }
+
+    .ix-services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .ix-service { padding: 30px; border: 1px solid rgba(255,255,255,.14); border-radius: 18px; background: rgba(255,255,255,.04); }
+    .ix-service i { font-size: 26px; color: #f4a62a; margin-bottom: 18px; }
+    .ix-service h3 { font-size: 20px; margin-bottom: 8px; }
+    .ix-service p { font-size: 15px; color: #a9c4cb; }
+
+    .ix-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; counter-reset: s; position: relative; }
+    .ix-steps li { position: relative; }
+    .ix-step-no { width: 52px; height: 52px; border-radius: 50%; background: #0d4657; color: #fff; font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 22px; display: grid; place-items: center; margin-bottom: 18px; }
+    .ix-steps li:not(:last-child)::after { content: ""; position: absolute; top: 26px; left: 66px; right: -12px; border-top: 2px dashed #b9d3d8; }
+    .ix-steps h3 { font-size: 19px; margin-bottom: 6px; }
+    .ix-steps p { color: #50686f; font-size: 15px; }
+
+    .ix-quote { margin: 0; background: #fff; border: 1px solid #d5e4e7; border-radius: 18px; padding: 30px; display: flex; flex-direction: column; gap: 18px; }
+    .ix-stars { color: #f4a62a; font-size: 14px; display: flex; gap: 3px; }
+    .ix-quote blockquote { margin: 0; font-size: 16px; color: #1d3640; flex: 1; }
+    .ix-quote figcaption { display: flex; gap: 14px; align-items: center; }
+    .ix-quote figcaption img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+    .ix-quote figcaption strong { display: block; color: #0a2a36; }
+    .ix-quote figcaption span { font-size: 13px; color: #50686f; }
+
+    @media (max-width: 980px) {
+        .ix-hero-inner { grid-template-columns: 1fr; gap: 40px; }
+        .ix-trust-grid { grid-template-columns: repeat(2, 1fr); }
+        .ix-trust-grid > div:nth-child(2) { border-right: 0; }
+        .ix-trust-grid > div:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.1); }
+        .ix-why { grid-template-columns: 1fr; gap: 48px; }
+        .ix-why-note { right: 16px; }
+        .ix-services { grid-template-columns: repeat(2, 1fr); }
+        .ix-steps { grid-template-columns: repeat(2, 1fr); }
+        .ix-steps li::after { display: none; }
+    }
+    @media (max-width: 640px) {
+        .ix-hero { padding: 56px 0 64px; }
+        .ix-finder { padding: 24px; }
+        .ix-mosaic { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+        .ix-tile-1, .ix-tile-2, .ix-tile-3, .ix-tile-4, .ix-tile-5 { grid-column: span 1; grid-row: span 1; }
+        .ix-services, .ix-steps { grid-template-columns: 1fr; }
+        .ix-row { grid-template-columns: 1fr; }
+    }
+</style>

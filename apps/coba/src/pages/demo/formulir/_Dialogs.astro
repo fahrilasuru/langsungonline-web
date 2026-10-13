@@ -1,0 +1,58 @@
+<!-- ===== DIALOG & TOAST ===== -->
+<dialog class="dlg" id="shareDlg" aria-labelledby="shareTitle">
+    <div class="dlg-box">
+        <div class="dlg-head">
+            <div>
+                <h2 class="dlg-title" id="shareTitle">Bagikan formulir</h2>
+                <p class="dlg-sub">Siapa pun dengan tautan ini bisa mengisi formulir.</p>
+            </div>
+            <button type="button" class="icon-btn" data-close aria-label="Tutup dialog">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+            </button>
+        </div>
+        <div class="fld">
+            <label class="fld-label" for="shareLink">Tautan formulir</label>
+            <div class="copy-row">
+                <input id="shareLink" class="inp" type="text" readonly />
+                <button type="button" id="btnCopyLink" class="btn btn-primary btn-sm">Salin</button>
+            </div>
+        </div>
+        <div class="sw-list">
+            <label class="sw sw-sm"><input type="checkbox" role="switch" class="sw-in" checked /><span class="sw-track" aria-hidden="true"><span class="sw-thumb"></span></span><span class="sw-text">Terima respons baru</span></label>
+            <label class="sw sw-sm"><input type="checkbox" role="switch" class="sw-in" /><span class="sw-track" aria-hidden="true"><span class="sw-thumb"></span></span><span class="sw-text">Batasi satu respons per perangkat</span></label>
+            <label class="sw sw-sm"><input type="checkbox" role="switch" class="sw-in" checked /><span class="sw-track" aria-hidden="true"><span class="sw-thumb"></span></span><span class="sw-text">Beri tahu saya lewat email setiap ada respons</span></label>
+        </div>
+        <div class="fld">
+            <p class="fld-label">Kode untuk disematkan di website</p>
+            <pre id="embedPre" class="code"></pre>
+            <button type="button" id="btnCopyEmbed" class="btn btn-ghost btn-sm">Salin kode</button>
+        </div>
+    </div>
+</dialog>
+
+<dialog class="dlg" id="jsonDlg" aria-labelledby="jsonTitle">
+    <div class="dlg-box">
+        <div class="dlg-head">
+            <div>
+                <h2 class="dlg-title" id="jsonTitle">Struktur formulir (JSON)</h2>
+                <p class="dlg-sub">Inilah data yang dipakai untuk menampilkan formulir.</p>
+            </div>
+            <button type="button" class="icon-btn" data-close aria-label="Tutup dialog">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+            </button>
+        </div>
+        <pre id="jsonPre" class="code code-tall" tabindex="0"></pre>
+        <button type="button" id="btnJsonCopy" class="btn btn-primary btn-sm">Salin JSON</button>
+    </div>
+</dialog>
+
+<dialog class="dlg" id="respDlg" aria-labelledby="respTitle">
+    <div class="dlg-box">
+        <button type="button" class="icon-btn dlg-x" data-close aria-label="Tutup dialog">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+        </button>
+        <div id="respBody"></div>
+    </div>
+</dialog>
+
+<div id="toasts" class="toasts" role="status" aria-live="polite"></div>

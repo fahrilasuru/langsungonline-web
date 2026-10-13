@@ -1,0 +1,11 @@
+---
+import Icon from "../../ui/Icon.astro";
+import SecHead from "./SecHead.astro";
+const { data } = Astro.props;
+---
+<section class="sec alt"><div class="w">
+  <SecHead eyebrow="FAQ" title={data.title} suggested={data.suggested} />
+  <div class="faq">{data.items.map((f, i) => (
+    <details class="rv" open={i === 0}><summary>{f.q}<Icon n="plus" /></summary><p>{f.a}</p></details>
+  ))}</div>
+</div></section>

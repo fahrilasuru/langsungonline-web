@@ -1,0 +1,213 @@
+---
+import { LINK_KONSULTASI } from "../constants";
+---
+
+<form id="form-cerita" class="relative" novalidate>
+    <label for="cerita-brand" class="mb-2 block text-sm font-semibold text-gray-800">
+        Ceritakan brand Anda
+    </label>
+
+    <div
+        data-composer
+        class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition focus-within:border-green-500 focus-within:ring-2 focus-within:ring-green-500/20"
+    >
+        <textarea
+            id="cerita-brand"
+            name="text"
+            rows="4"
+            maxlength="2000"
+            required
+            placeholder="Contoh: Saya punya kedai kopi kecil bernama Kopi Senja di Bandung. Selama ini promosi lewat Instagram dan WhatsApp. Saya ingin terlihat lebih profesional dan mudah ditemukan."
+            class="block w-full resize-none border-0 bg-transparent px-4 pt-4 pb-3 text-base text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-0"
+        ></textarea>
+
+        <ul data-files class="grid grid-cols-2 gap-2 px-3 pb-3 sm:grid-cols-3" hidden></ul>
+
+        <div class="flex items-center justify-between px-3 pb-3">
+            <button
+                type="button"
+                data-add-files
+                aria-label="Tambah lampiran"
+                class="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-700 transition hover:border-green-500 hover:bg-green-50 hover:text-green-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+                <i class="fas fa-plus text-green-600"></i>
+                <span>Tambah lampiran</span>
+            </button>
+            <span data-file-count class="text-xs tabular-nums text-gray-400">0/6</span>
+            <span data-count class="sr-only">0/2000</span>
+        </div>
+    </div>
+
+    <input
+        id="berkas-brand"
+        type="file"
+        multiple
+        accept="image/jpeg,image/png,image/webp,application/pdf"
+        class="sr-only"
+        aria-label="Pilih foto atau berkas pendukung"
+    />
+
+    <template data-file-tpl>
+        <li class="min-w-0 rounded-xl border border-gray-200 bg-white p-2">
+            <div class="flex min-w-0 items-center gap-2">
+                <span data-thumb class="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-gray-100 text-gray-500"></span>
+                <span class="min-w-0 flex-1">
+                    <span data-name class="block truncate text-xs font-medium text-gray-800"></span>
+                    <span data-size class="block text-xs text-gray-500"></span>
+                </span>
+                <button type="button" data-remove aria-label="Hapus berkas" class="flex size-7 shrink-0 items-center justify-center rounded-full text-gray-500 hover:bg-gray-100 hover:text-gray-900">
+                    <i class="fas fa-xmark text-xs"></i>
+                </button>
+            </div>
+        </li>
+    </template>
+
+    <p data-error hidden role="alert" class="mt-3 text-sm text-red-600"></p>
+
+    <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="absolute -left-[9999px] h-0 w-0 opacity-0" />
+
+    <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <button
+            type="submit"
+            class="inline-flex items-center justify-center gap-2 rounded-xl bg-linear-to-r from-green-600 to-blue-600 px-6 py-3 font-semibold text-white shadow-sm transition hover:shadow-lg hover:brightness-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+            <i data-icon class="fas fa-wand-magic-sparkles text-lg"></i>
+            <span data-label>Buat Preview</span>
+        </button>
+        <a
+            href={LINK_KONSULTASI}
+            class="inline-flex items-center justify-center gap-2 rounded-xl border border-gray-300 bg-white px-5 py-3 font-medium text-gray-700 transition hover:border-green-600 hover:bg-green-50 hover:text-green-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2"
+        >
+            <i class="fab fa-whatsapp text-lg text-green-600"></i>
+            <span>Konsultasi dulu</span>
+        </a>
+    </div>
+</form>
+
+<script>
+    import { upsert } from "../scripts/history";
+    import { COBA_URL } from "../constants";
+
+    const MAX_FILES = 6;
+    const MAX_BYTES = 20 * 1024 * 1024;
+    const OK_TYPES = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
+
+    function init() {
+        const form = document.getElementById("form-cerita") as HTMLFormElement | null;
+        if (!form || form.dataset.ready) return; // aman dipanggil berulang (navigasi Astro)
+        form.dataset.ready = "1";
+
+        const api = ((import.meta.env.PUBLIC_API_URL as string | undefined) ?? "").replace(/\/$/, "");
+        const area = form.querySelector<HTMLTextAreaElement>("#cerita-brand")!;
+        const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+        const label = btn.querySelector<HTMLElement>("[data-label]")!;
+        const icon = btn.querySelector<HTMLElement>("[data-icon]")!;
+        const err = form.querySelector<HTMLElement>("[data-error]")!;
+        const count = form.querySelector<HTMLElement>("[data-count]")!;
+        const input = form.querySelector<HTMLInputElement>("#berkas-brand")!;
+        const addButton = form.querySelector<HTMLButtonElement>("[data-add-files]")!;
+        const fileCount = form.querySelector<HTMLElement>("[data-file-count]")!;
+        const list = form.querySelector<HTMLUListElement>("[data-files]")!;
+        const tpl = form.querySelector<HTMLTemplateElement>("[data-file-tpl]")!;
+        const idleLabel = label.textContent!, idleIcon = icon.className;
+
+        let files: File[] = [];
+        const previews = new Map<File, string>();
+
+        const reset = () => { btn.disabled = false; label.textContent = idleLabel; icon.className = idleIcon; };
+        const show = (m: string) => { err.textContent = m; err.hidden = false; };
+        const fail = (m: string) => { show(m); reset(); };
+        const size = (n: number) => (n >= 1048576 ? `${(n / 1048576).toFixed(1)} MB` : `${Math.max(1, Math.round(n / 1024))} KB`);
+        const same = (a: File, b: File) => a.name === b.name && a.size === b.size && a.lastModified === b.lastModified && a.type === b.type;
+
+        function renderFiles() {
+            list.replaceChildren(...files.map((file) => {
+                const li = (tpl.content.cloneNode(true) as DocumentFragment).querySelector("li")!;
+                li.querySelector<HTMLElement>("[data-name]")!.textContent = file.name;
+                li.querySelector<HTMLElement>("[data-size]")!.textContent = size(file.size);
+                const thumb = li.querySelector<HTMLElement>("[data-thumb]")!;
+                if (file.type.startsWith("image/")) {
+                    let url = previews.get(file);
+                    if (!url) { url = URL.createObjectURL(file); previews.set(file, url); }
+                    const img = new Image();
+                    img.src = url; img.alt = ""; img.className = "size-full object-cover";
+                    thumb.append(img);
+                } else {
+                    const pdf = document.createElement("i");
+                    pdf.className = "fas fa-file-pdf text-lg text-red-500";
+                    thumb.append(pdf);
+                }
+                li.querySelector<HTMLButtonElement>("[data-remove]")!.addEventListener("click", () => {
+                    const url = previews.get(file);
+                    if (url) { URL.revokeObjectURL(url); previews.delete(file); }
+                    files = files.filter((x) => x !== file);
+                    err.hidden = true;
+                    renderFiles();
+                });
+                return li;
+            }));
+            list.hidden = files.length === 0;
+            fileCount.textContent = `${files.length}/${MAX_FILES}`;
+            const full = files.length >= MAX_FILES;
+            addButton.disabled = full;
+            addButton.setAttribute("aria-disabled", String(full));
+        }
+
+        function addFiles(incoming: FileList | File[]) {
+            const problems: string[] = [];
+            for (const file of Array.from(incoming)) {
+                if (files.some((x) => same(x, file))) continue;
+                if (!OK_TYPES.includes(file.type)) { problems.push(`${file.name}: format belum didukung`); continue; }
+                if (file.size > MAX_BYTES) { problems.push(`${file.name}: lebih dari 20 MB`); continue; }
+                if (files.length >= MAX_FILES) { problems.push(`Maksimal ${MAX_FILES} berkas`); break; }
+                files.push(file);
+            }
+            renderFiles();
+            if (problems.length) show(problems.slice(0, 2).join(". ") + "."); else err.hidden = true;
+        }
+
+        addButton.addEventListener("click", () => { if (files.length < MAX_FILES) input.click(); });
+        input.addEventListener("change", () => { if (input.files) addFiles(input.files); input.value = ""; });
+        area.addEventListener("input", () => { count.textContent = `${area.value.length}/2000`; err.hidden = true; });
+        window.addEventListener("pageshow", reset);
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            if (btn.disabled) return;
+            if ((form.elements.namedItem("website") as HTMLInputElement).value) return;
+
+            const text = area.value.trim();
+            if (!files.length && text.length < 10) {
+                return fail("Ceritakan sedikit lebih banyak, misalnya jenis usaha dan kotanya, atau unggah foto pendukung.");
+            }
+            if (!api) return fail("Layanan belum bisa dihubungi. Silakan coba lagi nanti.");
+
+            btn.disabled = true;
+            label.textContent = files.length ? "Mengunggah..." : "Menyiapkan...";
+            icon.className = "fas fa-spinner fa-spin text-lg";
+
+            try {
+                const body = new FormData();
+                body.append("text", text);
+                files.forEach((f) => body.append("files", f));
+                const res = await fetch(`${api}/preview`, {
+                    method: "POST", body, headers: { Accept: "application/json" },
+                    signal: AbortSignal.timeout(files.length ? 120000 : 30000),
+                });
+                if (!res.ok) {
+                    const j = await res.json().catch(() => null);
+                    return fail(typeof j?.detail === "string" ? j.detail : "Terjadi kendala. Silakan coba lagi.");
+                }
+                const { id } = await res.json();
+                if (!id) return fail("Respons layanan tidak valid. Silakan coba lagi.");
+                upsert({ id, status: "processing" });
+                window.location.href = `${COBA_URL}/preview/${id}`; // preview dirender app coba; riwayat dicatat ulang di sana oleh RememberPreview
+            } catch {
+                fail("Koneksi bermasalah. Periksa internet Anda lalu coba lagi.");
+            }
+        });
+    }
+
+    init();
+    document.addEventListener("astro:page-load", init);
+</script>

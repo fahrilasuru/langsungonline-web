@@ -1,0 +1,29 @@
+---
+// Layout halaman /preview dan /preview/[id]: Header dan Footer yang sama dengan beranda.
+// Tanpa WhatsAppFAB (digantikan tombol "Konsultasikan preview ini") dan tanpa ViewTransitions (skrip mockup perlu muat penuh).
+import "../styles/layers.css";
+import "@langsungonline/ui/styles/global.css";
+import "../styles/main.css";
+import Header from "@langsungonline/ui/components/Header.astro";
+import Footer from "@langsungonline/ui/components/Footer.astro";
+const { title } = Astro.props;
+---
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title}</title>
+    <slot name="head" />
+  </head>
+  <body>
+    <Header />
+    <main class="pv pt-20"><slot /></main>
+    <Footer />
+  </body>
+</html>
+<style is:global>
+  html { scroll-padding-top: 9.5rem; }
+</style>

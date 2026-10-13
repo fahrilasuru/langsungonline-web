@@ -1,0 +1,146 @@
+/* Gaya bersama halaman Jasa Interior.
+ *
+ * Aturan di sini dipakai oleh lebih dari satu komponen (tombol, kepala bagian, logo) atau berlaku
+ * untuk seluruh halaman (reset). Semuanya diawali `.body`: pembungkus di index.astro. Awalan itu meniru
+ * cakupan (scoped) yang dulu diberikan Astro, supaya tidak bocor ke FloatingBar atau layout.
+ * Diimpor PERTAMA di index.astro; gaya khusus tiap komponen ada di <style> komponennya. */
+.body,
+.body * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.body img {
+    max-width: 100%;
+    display: block;
+}
+
+.body a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.body button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+.body .logo {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.body .logo-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.body .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 28px;
+    border-radius: var(--radius-full);
+    font-size: 15px;
+    font-weight: 600;
+    transition: var(--transition);
+    white-space: nowrap;
+}
+
+.body .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(217, 122, 74, 0.35);
+}
+
+.body .btn-primary:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(217, 122, 74, 0.4);
+}
+
+.body .btn svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+}
+
+.body .section {
+    padding: 100px 24px;
+}
+
+.body .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.body .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--accent);
+    margin-bottom: 16px;
+}
+
+.body .section-label::before {
+    content: "";
+    width: 24px;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+}
+
+.body .section-title {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -1px;
+    color: var(--primary);
+    margin-bottom: 16px;
+}
+
+.body .section-subtitle {
+    font-size: 16px;
+    color: var(--text-light);
+    max-width: 600px;
+    line-height: 1.7;
+}
+
+.body .section-header {
+    margin-bottom: 56px;
+}
+
+.body .section-header.center {
+    text-align: center;
+}
+
+.body .section-header.center .section-subtitle {
+    margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+    .body .section {
+        padding: 64px 20px;
+    }
+}

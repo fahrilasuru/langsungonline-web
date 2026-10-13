@@ -1,0 +1,75 @@
+---
+// Satu renderer untuk /preview/[id]/site[/halaman] dan (nanti) coba.langsung.online/[slug]. Beda hanya `mode` dan `base`.
+import SiteHeader from "./sections/SiteHeader.astro";
+import Hero from "./sections/Hero.astro";
+import Highlights from "./sections/Highlights.astro";
+import Stats from "./sections/Stats.astro";
+import Positioning from "./sections/Positioning.astro";
+import Offering from "./sections/Offering.astro";
+import Process from "./sections/Process.astro";
+import Gallery from "./sections/Gallery.astro";
+import Testimonials from "./sections/Testimonials.astro";
+import Faq from "./sections/Faq.astro";
+import Contact from "./sections/Contact.astro";
+import PageHeader from "./sections/PageHeader.astro";
+import CtaBand from "./sections/CtaBand.astro";
+import SiteFooter from "./sections/SiteFooter.astro";
+import { wa } from "../../format";
+import { pagesOf } from "../../site";
+
+const { business: b, site: s, mode = "preview", base = "", page = "" } = Astro.props;
+const FONT = {
+  sans: 'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
+  serif: 'ui-serif, Georgia, "Iowan Old Style", "Times New Roman", serif',
+};
+const t = s.theme;
+const pages = pagesOf(s).map((p) => ({ ...p, href: `${base}${p.path ? `/${p.path}` : ""}` || "/" }));
+const cur = pages.find((p) => p.path === page) ?? pages[0];
+const to = (id: string) => pages.find((p) => p.id === id)?.href;
+const href = wa(b.whatsapp, `Halo ${b.name}, saya ingin bertanya.`);
+const acc2 = t.accent ?? t.primary;
+const style = [
+  `--s-bg:${t.background}`, `--s-ink:${t.ink}`, `--s-acc:${t.primary}`, `--s-acc2:${acc2}`,
+  `--s-soft:color-mix(in srgb,${t.primary} 9%,${t.background})`,
+  `--s-line:color-mix(in srgb,${t.ink} 13%,${t.background})`,
+  `--s-mute:color-mix(in srgb,${t.ink} 64%,${t.background})`,
+  `--s-card:color-mix(in srgb,#fff 62%,${t.background})`,
+  `--s-font:${FONT[t.font ?? "sans"]}`,
+].join(";");
+const lead = { about: s.positioning.title, offering: s.offering?.intro, gallery: s.proof?.title, contact: s.cta.body }[cur.id];
+---
+<div class="sr" style={style}>
+  <SiteHeader business={b} links={pages} current={cur.id} href={href} />
+
+  {cur.id === "home" && (
+    <>
+      <Hero hero={s.hero} href={href} more={s.hero.secondary_label ? (to("offering") ?? to("about")) : undefined} />
+      {s.highlights && <Highlights data={s.highlights} />}
+      {s.stats && <Stats stats={s.stats} />}
+      <Positioning p={s.positioning} teaser={!!to("about")} more={to("about")} />
+      {s.offering && <Offering offering={s.offering} business={b} limit={4} more={to("offering")} />}
+      {s.proof && s.proof.photos.length > 0 && <Gallery proof={s.proof} limit={4} more={to("gallery")} />}
+      {s.testimonials && <Testimonials data={s.testimonials} />}
+    </>
+  )}
+  {cur.id !== "home" && <PageHeader title={cur.label} lead={lead} home={pages[0].href} name={b.name} />}
+  {cur.id === "about" && (
+    <>
+      <Positioning p={s.positioning} proof={s.proof} />
+      {s.stats && <Stats stats={s.stats} />}
+      {s.process && <Process data={s.process} />}
+      {s.testimonials && <Testimonials data={s.testimonials} />}
+    </>
+  )}
+  {cur.id === "offering" && s.offering && <Offering offering={s.offering} business={b} />}
+  {cur.id === "gallery" && s.proof && <Gallery proof={s.proof} />}
+  {cur.id === "contact" && (
+    <>
+      <Contact business={b} href={href} />
+      {s.faq && <Faq data={s.faq} />}
+    </>
+  )}
+
+  <CtaBand cta={s.cta} href={href} />
+  <SiteFooter business={b} links={pages} mode={mode} />
+</div>

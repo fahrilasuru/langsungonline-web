@@ -1,0 +1,121 @@
+---
+import Layout from "./_Layout.astro";
+import { BASE, profile, faqs, waDefault } from "./_data";
+---
+
+<Layout
+    active="kontak"
+    title="Kontak & Konsultasi Proyek | Raka Pratama"
+    description="Hubungi Raka Pratama untuk konsultasi proyek website, aplikasi, atau desain UI/UX. Balasan dalam 1 hari kerja."
+>
+    <section class="page-hero">
+        <div class="page-hero-inner">
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href={`${BASE}/`}>Beranda</a> <i class="fa-solid fa-chevron-right" style="font-size:10px"></i> <span>Kontak</span>
+            </nav>
+            <h1>Ceritakan proyek Anda</h1>
+            <p>Isi formulir singkat di bawah. Pesan akan terbuka di WhatsApp dan saya balas dalam 1 hari kerja.</p>
+        </div>
+    </section>
+
+    <section class="section" style="padding-top:24px;">
+        <div class="section-inner contact-grid">
+            <div>
+                <div class="contact-card">
+                    <div class="ic"><i class="fa-brands fa-whatsapp"></i></div>
+                    <div><strong>WhatsApp</strong><a href={waDefault} target="_blank" rel="noopener">{profile.phone}</a><br /><span>Respons tercepat</span></div>
+                </div>
+                <div class="contact-card">
+                    <div class="ic"><i class="fa-regular fa-envelope"></i></div>
+                    <div><strong>Email</strong><a href={`mailto:${profile.email}`}>{profile.email}</a></div>
+                </div>
+                <div class="contact-card">
+                    <div class="ic"><i class="fa-solid fa-location-dot"></i></div>
+                    <div><strong>Lokasi</strong><span>{profile.city}. Tersedia pertemuan tatap muka di Surabaya, Sidoarjo, dan Gresik.</span></div>
+                </div>
+                <div class="contact-card">
+                    <div class="ic"><i class="fa-regular fa-clock"></i></div>
+                    <div><strong>Jam kerja</strong><span>Senin sampai Jumat, 09.00 - 17.00 WIB</span></div>
+                </div>
+            </div>
+
+            <form class="form" id="contactForm" novalidate>
+                <div class="form-row">
+                    <div class="field">
+                        <label for="nama">Nama</label>
+                        <input id="nama" name="nama" type="text" placeholder="Nama Anda" required autocomplete="name" />
+                    </div>
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input id="email" name="email" type="email" placeholder="nama@email.com" autocomplete="email" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="field">
+                        <label for="jenis">Jenis proyek</label>
+                        <select id="jenis" name="jenis">
+                            <option>Desain UI/UX</option>
+                            <option>Pembuatan website</option>
+                            <option>Audit & redesain UX</option>
+                            <option>Design system</option>
+                            <option>Belum tahu, ingin diskusi</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="budget">Perkiraan budget</label>
+                        <select id="budget" name="budget">
+                            <option>Di bawah Rp5 juta</option>
+                            <option>Rp5 - 10 juta</option>
+                            <option>Rp10 - 25 juta</option>
+                            <option>Di atas Rp25 juta</option>
+                            <option>Belum ditentukan</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="pesan">Ceritakan kebutuhan Anda</label>
+                    <textarea id="pesan" name="pesan" placeholder="Contoh: Saya punya klinik gigi dan ingin website agar pasien bisa daftar online."></textarea>
+                </div>
+                <p id="formError" class="form-note" role="alert" style="color:#c0392b;" hidden>Mohon isi nama dan ceritakan kebutuhan Anda terlebih dahulu.</p>
+                <button type="submit" class="btn btn-primary"><i class="fa-brands fa-whatsapp"></i> Kirim via WhatsApp</button>
+                <p class="form-note">Data tidak disimpan di server. Formulir hanya menyusun pesan dan membukanya di WhatsApp.</p>
+            </form>
+        </div>
+    </section>
+
+    <section class="section alt" aria-labelledby="faq-title">
+        <div class="section-inner">
+            <div class="section-header center">
+                <div class="section-label"><i class="fa-solid fa-circle-question"></i> FAQ</div>
+                <h2 class="section-title" id="faq-title">Sebelum menghubungi, mungkin ini yang ingin Anda tahu</h2>
+            </div>
+            <div class="faq-list">
+                {faqs.slice(0, 4).map((f) => (
+                    <details class="faq-item"><summary>{f.q} <i class="fa-solid fa-plus"></i></summary><p>{f.a}</p></details>
+                ))}
+            </div>
+        </div>
+    </section>
+</Layout>
+
+<script define:vars={{ wa: profile.wa }}>
+    const form = document.getElementById("contactForm");
+    const err = document.getElementById("formError");
+    form?.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const d = new FormData(form);
+        const nama = String(d.get("nama") || "").trim();
+        const pesan = String(d.get("pesan") || "").trim();
+        if (!nama || !pesan) { err.hidden = false; return; }
+        err.hidden = true;
+        const text = [
+            `Halo Raka, saya ${nama}.`,
+            `Jenis proyek: ${d.get("jenis")}`,
+            `Budget: ${d.get("budget")}`,
+            d.get("email") ? `Email: ${d.get("email")}` : "",
+            ``,
+            pesan,
+        ].filter((l, i) => l !== "" || i === 4).join("\n");
+        window.open(`https://wa.me/${wa}?text=${encodeURIComponent(text)}`, "_blank", "noopener");
+    });
+</script>

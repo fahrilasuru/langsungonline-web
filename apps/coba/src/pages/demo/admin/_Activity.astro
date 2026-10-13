@@ -1,0 +1,31 @@
+<!-- ===== LOG AKTIVITAS ===== -->
+<section class="view" id="view-aktivitas" data-view="aktivitas" hidden>
+    <div class="view-head">
+        <div>
+            <h2 class="view-title">Log aktivitas</h2>
+            <p class="view-sub" id="activitySub"></p>
+        </div>
+        <div class="view-actions">
+            <button class="btn btn-ghost" data-action="export-activity">
+                <span class="material-icons">download</span><span class="hide-sm">Ekspor CSV</span>
+            </button>
+            <button class="btn btn-primary" data-action="refresh-log" id="refreshLogBtn">
+                <span class="material-icons">refresh</span>Segarkan
+            </button>
+        </div>
+    </div>
+
+    <div class="chips" id="activityChips" role="tablist" aria-label="Jenis aktivitas"></div>
+
+    <div class="toolbar">
+        <div class="input-icon grow">
+            <span class="material-icons">search</span>
+            <input class="input" type="search" placeholder="Cari aktivitas" data-bind="activity.q" aria-label="Cari aktivitas" />
+        </div>
+    </div>
+
+    <div class="panel" id="activityFeed"></div>
+    <div class="center-row">
+        <button class="btn btn-ghost" id="moreLogBtn" data-action="more-log">Muat lebih banyak</button>
+    </div>
+</section>

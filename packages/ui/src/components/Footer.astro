@@ -1,0 +1,235 @@
+---
+const currentYear = new Date().getFullYear();
+import { LINK_KONSULTASI, MARKETING_URL, COBA_URL } from "../constants";
+
+const navLinks = [
+    { href: `${MARKETING_URL}/`, label: "Beranda" },
+    { href: `${MARKETING_URL}/layanan`, label: "Layanan" },
+    { href: `${COBA_URL}/demo`, label: "Demo" },
+    { href: `${MARKETING_URL}/kontak`, label: "Kontak" },
+];
+
+const socialLinks = [
+    {
+        href: "https://www.instagram.com/langsungonline/",
+        icon: "fab fa-instagram",
+        label: "Instagram",
+        color: "hover:bg-pink-600",
+    },
+    {
+        href: "https://www.tiktok.com/@langsung.online",
+        icon: "fab fa-tiktok",
+        label: "TikTok",
+        color: "hover:bg-black",
+    },
+    {
+        href: "https://www.facebook.com/langsungonline",
+        icon: "fab fa-facebook",
+        label: "Facebook",
+        color: "hover:bg-blue-600",
+    },
+    {
+        href: "https://x.com/langsung_online",
+        icon: "fab fa-x-twitter",
+        label: "X",
+        color: "hover:bg-gray-700",
+    },
+    {
+        href: "https://www.youtube.com/@langsungonline",
+        icon: "fab fa-youtube",
+        label: "YouTube",
+        color: "hover:bg-red-600",
+    },
+];
+
+const contactInfo = [
+    {
+        icon: "fas fa-envelope",
+        bgColor: "from-green-900 to-green-800",
+        iconColor: "text-green-300",
+        title: "Email",
+        value: "info@langsung.online",
+        href: "mailto:info@langsung.online",
+    },
+    {
+        icon: "fab fa-whatsapp",
+        bgColor: "from-blue-900 to-blue-800",
+        iconColor: "text-blue-300",
+        title: "WhatsApp",
+        value: "+62 881-0362-09010",
+        href: LINK_KONSULTASI,
+    },
+    {
+        icon: "fab fa-telegram",
+        bgColor: "from-sky-900 to-sky-800",
+        iconColor: "text-sky-300",
+        title: "Telegram",
+        value: "@langsungonline",
+        href: "https://t.me/langsungonline",
+    },
+];
+---
+
+<footer id="contact" class="bg-gray-900 text-white pt-16 pb-8">
+    <div class="container mx-auto px-4">
+        <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-16 mb-12"
+        >
+            <div class="lg:col-span-1">
+                <div class="flex items-center mb-6">
+                    <div
+                        class="logo-icon w-12 h-12 rounded-xl flex items-center justify-center mr-4"
+                    >
+                        <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <rect
+                                x="2"
+                                y="2"
+                                width="8"
+                                height="20"
+                                rx="4"
+                                ry="4"
+                                fill="#10b981"></rect>
+                            <circle cx="17" cy="12" r="4" fill="#7dd3fc"
+                            ></circle>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold">
+                            langsung<span class="text-blue-400">.online</span>
+                        </h2>
+                        <p class="text-gray-400 text-sm">
+                            Bisnis jalan. Online beres.
+                        </p>
+                    </div>
+                </div>
+                <p class="text-gray-400 mb-6 max-w-xs leading-relaxed text-sm">
+                    Kami membantu bisnis membereskan kehadiran digitalnya—dari ditemukan sampai dihubungi pelanggan.
+                </p>
+                <div class="flex flex-wrap gap-3">
+                    {
+                        socialLinks.map((link) => (
+                            <a
+                                href={link.href}
+                                class={`w-10 h-10 rounded-full bg-gray-800 ${link.color} transition-all duration-300 flex items-center justify-center hover:scale-110 hover:text-white`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={link.label}
+                            >
+                                <i class={link.icon} />
+                            </a>
+                        ))
+                    }
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-bold mb-6 relative inline-block">
+                    Navigasi
+                    <span
+                        class="absolute -bottom-2 left-0 w-12 h-0.5 bg-blue-500 rounded-full"
+                    ></span>
+                </h3>
+                <ul class="space-y-3">
+                    {
+                        navLinks.map((link) => (
+                            <li>
+                                <a
+                                    href={link.href}
+                                    class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                                >
+                                    <span class="w-1 h-1 bg-blue-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                                    <span>{link.label}</span>
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-bold mb-6 relative inline-block">
+                    Hubungi Kami
+                    <span
+                        class="absolute -bottom-2 left-0 w-12 h-0.5 bg-green-500 rounded-full"
+                    ></span>
+                </h3>
+                <ul class="space-y-5">
+                    {
+                        contactInfo.map((contact) => (
+                            <li class="flex items-start group">
+                                <div
+                                    class={`w-10 h-10 rounded-xl bg-linear-to-br ${contact.bgColor} flex items-center justify-center mr-4 shrink-0 group-hover:scale-110 transition-transform duration-300`}
+                                >
+                                    <i
+                                        class={`${contact.icon} ${contact.iconColor}`}
+                                    />
+                                </div>
+                                <div>
+                                    <p class="font-medium text-sm text-gray-300">
+                                        {contact.title}
+                                    </p>
+                                    <a
+                                        href={contact.href}
+                                        class="text-gray-400 hover:text-white transition-colors break-all"
+                                        target={
+                                            contact.href.startsWith("http")
+                                                ? "_blank"
+                                                : undefined
+                                        }
+                                        rel={
+                                            contact.href.startsWith("http")
+                                                ? "noopener noreferrer"
+                                                : undefined
+                                        }
+                                    >
+                                        {contact.value}
+                                    </a>
+                                </div>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-bold mb-6 relative inline-block">
+                    Belum Tahu?
+                    <span
+                        class="absolute -bottom-2 left-0 w-12 h-0.5 bg-amber-500 rounded-full"
+                    ></span>
+                </h3>
+                <p class="text-gray-400 mb-4 text-sm leading-relaxed">
+                    Belum tahu yang Anda butuhkan? Cek bisnis Anda sekarang juga.
+                </p>
+                <a
+                    href={LINK_KONSULTASI}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-2 bg-linear-to-r from-blue-600 to-green-600 text-white px-5 py-3 rounded-xl font-medium text-sm hover:shadow-lg hover:shadow-green-600/20 transition-all hover:scale-105"
+                >
+                    <i class="fab fa-whatsapp"></i>
+                    <span>Cek bisnis Anda gratis &rarr;</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-800 pt-8 mt-8">
+            <div class="text-center">
+                <p class="text-gray-500 text-sm">
+                    &copy; {currentYear} langsung.online. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+    footer a {
+        transition: all 0.2s ease;
+    }
+</style>

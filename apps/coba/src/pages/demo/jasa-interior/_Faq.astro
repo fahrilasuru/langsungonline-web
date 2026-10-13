@@ -1,0 +1,194 @@
+<!-- ===== FAQ ===== -->
+<section class="section" id="faq" aria-labelledby="faq-title">
+    <div class="section-inner">
+        <div class="section-header center reveal">
+            <div class="section-label">FAQ</div>
+            <h2 class="section-title" id="faq-title">
+                Pertanyaan yang Sering Ditanyakan
+            </h2>
+            <p class="section-subtitle">
+                Beberapa pertanyaan umum seputar layanan kami. Jika belum
+                terjawab, silakan hubungi kami langsung.
+            </p>
+        </div>
+
+        <div class="faq-list">
+            <div class="faq-item reveal">
+                <button class="faq-question" aria-expanded="false">
+                    Apakah konsultasi awal berbayar?
+                    <span class="faq-icon" aria-hidden="true"></span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Tidak. Konsultasi awal gratis, baik melalui WhatsApp
+                        maupun tatap muka. Kami akan mendengarkan kebutuhan
+                        Anda dan memberikan gambaran solusi tanpa biaya.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item reveal">
+                <button class="faq-question" aria-expanded="false">
+                    Apakah bisa hanya pesan desain tanpa pengerjaan?
+                    <span class="faq-icon" aria-hidden="true"></span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Bisa. Kami menyediakan layanan desain saja, termasuk
+                        gambar kerja dan visualisasi 3D. Anda bisa
+                        mengerjakan sendiri atau menggunakan kontraktor
+                        lain.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item reveal">
+                <button class="faq-question" aria-expanded="false">
+                    Apakah bisa menyesuaikan budget?
+                    <span class="faq-icon" aria-hidden="true"></span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Tentu. Kami akan mencarikan solusi dan material yang
+                        sesuai dengan budget Anda. Yang penting
+                        komunikasikan sejak awal agar kami bisa memberikan
+                        opsi terbaik.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item reveal">
+                <button class="faq-question" aria-expanded="false">
+                    Berapa lama pengerjaan interior?
+                    <span class="faq-icon" aria-hidden="true"></span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Durasi tergantung skala proyek. Kitchen set biasanya
+                        2–4 minggu, renovasi kamar 3–6 minggu, sedangkan
+                        renovasi rumah keseluruhan bisa 2–4 bulan. Timeline
+                        pasti akan disepakati sebelum pengerjaan dimulai.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item reveal">
+                <button class="faq-question" aria-expanded="false">
+                    Apakah harus survey lokasi?
+                    <span class="faq-icon" aria-hidden="true"></span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Untuk proyek renovasi dan custom furniture, survey
+                        lokasi sangat disarankan agar pengukuran dan kondisi
+                        ruang bisa dipastikan. Untuk konsultasi desain awal,
+                        bisa dilakukan online terlebih dahulu.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item reveal">
+                <button class="faq-question" aria-expanded="false">
+                    Apakah bisa membuat furniture saja?
+                    <span class="faq-icon" aria-hidden="true"></span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Bisa. Kami menerima pesanan custom furniture seperti
+                        lemari, kitchen set, meja, rak, dan built-in cabinet
+                        tanpa harus mengambil paket desain interior lengkap.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item reveal">
+                <button class="faq-question" aria-expanded="false">
+                    Area mana saja yang dilayani?
+                    <span class="faq-icon" aria-hidden="true"></span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Kami melayani Surabaya, Sidoarjo, Gresik, dan
+                        sekitarnya. Untuk area di luar itu, silakan hubungi
+                        kami terlebih dahulu untuk mengecek ketersediaan.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .faq-list {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .faq-item {
+        border-bottom: 1px solid var(--border);
+    }
+
+    .faq-question {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 24px 0;
+        text-align: left;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--primary);
+        transition: var(--transition);
+    }
+
+    .faq-question:hover {
+        color: var(--accent);
+    }
+
+    .faq-icon {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .faq-icon::before,
+    .faq-icon::after {
+        content: "";
+        position: absolute;
+        background: var(--accent);
+        border-radius: 2px;
+        transition: var(--transition);
+    }
+
+    .faq-icon::before {
+        width: 12px;
+        height: 2px;
+    }
+
+    .faq-icon::after {
+        width: 2px;
+        height: 12px;
+    }
+
+    .faq-item.open .faq-icon::after {
+        transform: rotate(90deg);
+    }
+
+    .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .faq-answer-inner {
+        padding-bottom: 24px;
+        font-size: 15px;
+        color: var(--text-light);
+        line-height: 1.7;
+    }
+</style>

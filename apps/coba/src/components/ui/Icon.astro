@@ -1,0 +1,5 @@
+---
+// Satu-satunya tempat yang tahu ikon berasal dari Font Awesome. Ganti set ikon cukup di sini.
+const { n, s = "solid", class: c = "" } = Astro.props;
+---
+<i class:list={[`fa-${s}`, `fa-${n}`, c]} aria-hidden="true"></i>

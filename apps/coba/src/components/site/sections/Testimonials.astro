@@ -1,0 +1,11 @@
+---
+import SecHead from "./SecHead.astro";
+const { data } = Astro.props;
+---
+<section class="sec alt"><div class="w">
+  <SecHead eyebrow="Testimoni" title={data.title} />
+  <div class="grid3">{data.items.map((q) => (
+    <figure class="card quote rv" style="margin:0"><blockquote>{q.quote}</blockquote>
+      <figcaption class="who">{q.name}{q.role && <small>{q.role}</small>}</figcaption></figure>
+  ))}</div>
+</div></section>

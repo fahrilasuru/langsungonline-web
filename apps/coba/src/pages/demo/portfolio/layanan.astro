@@ -1,0 +1,107 @@
+---
+import Layout from "./_Layout.astro";
+import { BASE, services, packages, process, faqs, waDefault, wa } from "./_data";
+---
+
+<Layout
+    active="layanan"
+    title="Layanan Desain UI/UX & Pengembangan Website | Raka Pratama"
+    description="Layanan desain UI/UX, pengembangan website, audit UX, dan design system dari Raka Pratama di Surabaya. Lihat paket dan estimasi harga."
+>
+    <section class="page-hero">
+        <div class="page-hero-inner">
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href={`${BASE}/`}>Beranda</a> <i class="fa-solid fa-chevron-right" style="font-size:10px"></i> <span>Layanan</span>
+            </nav>
+            <h1>Layanan untuk membuat produk digital Anda berjalan</h1>
+            <p>Pilih satu layanan saja atau gabungkan semuanya. Harga di bawah adalah titik awal, penawaran final disesuaikan dengan kebutuhan Anda.</p>
+        </div>
+    </section>
+
+    <section class="section" style="padding-top:32px;">
+        <div class="section-inner">
+            {services.map((s, i) => (
+                <div class={`split ${i % 2 ? "reverse" : ""}`} id={s.title.toLowerCase().replace(/[^a-z]+/g, "-")}>
+                    <div>
+                        <div class="icon-chip"><i class={`fa-solid ${s.icon}`} aria-hidden="true"></i></div>
+                        <h2>{s.title}</h2>
+                        <p>{s.long}</p>
+                        <ul class="checklist">
+                            {s.points.map((pt) => <li><i class="fa-solid fa-check"></i>{pt}</li>)}
+                        </ul>
+                        <span class="price-tag">{s.price}</span>
+                        <div style="margin-top:22px;">
+                            <a href={wa(`Halo Raka, saya ingin bertanya tentang layanan ${s.title}.`)} class="btn btn-secondary" target="_blank" rel="noopener">Tanya layanan ini</a>
+                        </div>
+                    </div>
+                    <div class="split-img"><img src={s.img} alt={`Ilustrasi layanan ${s.title}`} loading="lazy" /></div>
+                </div>
+            ))}
+        </div>
+    </section>
+
+    <section class="section alt" id="paket" aria-labelledby="paket-title">
+        <div class="section-inner">
+            <div class="section-header center">
+                <div class="section-label"><i class="fa-solid fa-tags"></i> Paket</div>
+                <h2 class="section-title" id="paket-title">Paket yang paling sering dipilih</h2>
+                <p class="section-subtitle">Semua paket sudah termasuk desain, kode, dan serah terima file lengkap.</p>
+            </div>
+            <div class="pricing-grid">
+                {packages.map((p) => (
+                    <div class={`price-card ${p.featured ? "featured" : ""}`}>
+                        {p.featured && <span class="badge">Paling populer</span>}
+                        <h3>{p.name}</h3>
+                        <p class="note">{p.note}</p>
+                        <div class="price">{p.price}</div>
+                        <ul class="checklist">
+                            {p.features.map((f) => <li><i class="fa-solid fa-check"></i>{f}</li>)}
+                        </ul>
+                        <a href={wa(`Halo Raka, saya tertarik dengan paket ${p.name}.`)} class={`btn ${p.featured ? "btn-light" : "btn-primary"}`} target="_blank" rel="noopener">Pilih paket ini</a>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <section class="section" aria-labelledby="proses-title">
+        <div class="section-inner light-steps">
+            <div class="section-header">
+                <div class="section-label"><i class="fa-solid fa-route"></i> Alur Kerja</div>
+                <h2 class="section-title" id="proses-title">Bagaimana proyek berjalan</h2>
+            </div>
+            <div class="process-grid">
+                {process.map((s) => (
+                    <div class="step"><i class={`fa-solid ${s.icon}`}></i><h3>{s.title}</h3><p>{s.text}</p></div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <section class="section alt" id="faq" aria-labelledby="faq-title">
+        <div class="section-inner">
+            <div class="section-header center">
+                <div class="section-label"><i class="fa-solid fa-circle-question"></i> FAQ</div>
+                <h2 class="section-title" id="faq-title">Pertanyaan yang sering diajukan</h2>
+            </div>
+            <div class="faq-list">
+                {faqs.map((f) => (
+                    <details class="faq-item">
+                        <summary>{f.q} <i class="fa-solid fa-plus"></i></summary>
+                        <p>{f.a}</p>
+                    </details>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-wrap">
+        <div class="cta-band">
+            <div>
+                <h2>Belum yakin paket mana yang cocok?</h2>
+                <p>Ceritakan kebutuhan Anda, saya bantu pilihkan yang paling sesuai dengan budget.</p>
+            </div>
+            <a href={waDefault} class="btn btn-light" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Konsultasi Gratis</a>
+        </div>
+    </section>
+</Layout>

@@ -1,0 +1,11 @@
+---
+import Icon from "../ui/Icon.astro";
+import { consult } from "@langsungonline/ui/wa";
+const { business, jobId } = Astro.props;
+---
+<div class="float" id="float"><a class="btn btn-wa" href={consult(business, jobId)} target="_blank" rel="noopener"><Icon n="whatsapp" s="brands" /> Konsultasikan preview ini</a></div>
+<script>
+  const fl = document.getElementById("float")!, web = document.getElementById("website")!, end = document.getElementById("konsultasi")!;
+  const upd = () => fl.classList.toggle("on", web.getBoundingClientRect().bottom < 140 && end.getBoundingClientRect().top > innerHeight * 0.8);
+  addEventListener("scroll", upd, { passive: true }); upd();
+</script>

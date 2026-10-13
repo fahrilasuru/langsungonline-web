@@ -1,0 +1,8 @@
+---
+import { consult } from "@langsungonline/ui/wa";
+const { business, jobId } = Astro.props;
+---
+<header class="hdr"><div class="wrap">
+  <a class="logo" href="/">Langsung<b>.</b>Online</a>
+  <a class="btn btn-p" href={consult(business, jobId)} target="_blank" rel="noopener">Konsultasi Gratis</a>
+</div></header>

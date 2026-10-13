@@ -1,0 +1,133 @@
+---
+export interface Props {
+    badge?: string;
+    title?: string;
+    subtitle?: string;
+}
+
+const {
+    badge,
+    title = "Solusi <span style='background: linear-gradient(to right, #16a34a, #2563eb); -webkit-background-clip: text; background-clip: text; color: transparent;'>Digital</span> untuk Bisnis Anda",
+    subtitle = "Dari website profesional hingga media sosial, semua dalam satu tempat dengan harga terjangkau.",
+} = Astro.props;
+---
+
+<section class="hero">
+    <div class="hero-gradient"></div>
+
+    <div class="container">
+        <div class="hero-content">
+            {badge && <div class="hero-badge">
+                <span class="badge-dot"></span>
+                <span>{badge}</span>
+            </div>}
+
+            <h1 class="hero-title" set:html={title} />
+
+            <p class="hero-description">
+                {subtitle}
+            </p>
+        </div>
+    </div>
+</section>
+
+<style>
+    .hero {
+        position: relative;
+        padding: 8rem 0 5rem;
+        overflow: hidden;
+    }
+
+    .hero-gradient {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, #f0fdf4, #eff6ff);
+    }
+
+    .container {
+        position: relative;
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        z-index: 10;
+    }
+
+    .hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: white;
+        border: 1px solid #dcfce7;
+        border-radius: 9999px;
+        padding: 0.5rem 1.25rem;
+        margin-bottom: 2rem;
+        color: #166534;
+        font-weight: 500;
+        font-size: 0.9rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    }
+
+    .badge-dot {
+        width: 0.4rem;
+        height: 0.4rem;
+        background: #22c55e;
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0%,
+        100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.5;
+        }
+    }
+
+    .hero-title {
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 1.2;
+        color: #111827;
+        margin-bottom: 1.25rem;
+    }
+
+    @media (min-width: 640px) {
+        .hero-title {
+            font-size: 2.25rem;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .hero-title {
+            font-size: 2.5rem;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .hero-title {
+            font-size: 2.75rem;
+        }
+    }
+
+    .hero-description {
+        font-size: 1rem;
+        color: #4b5563;
+        line-height: 1.6;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    @media (min-width: 640px) {
+        .hero-description {
+            font-size: 1.125rem;
+        }
+    }
+</style>

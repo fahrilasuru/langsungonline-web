@@ -1,0 +1,81 @@
+---
+import PresenceSection from "./PresenceSection.astro";
+import MockFrame from "../ui/MockFrame.astro";
+import Avatar from "../ui/Avatar.astro";
+import Icon from "../ui/Icon.astro";
+import Suggested from "../ui/Suggested.astro";
+import PuzzleTile from "./PuzzleTile.astro";
+import { rupiah, wa, mapsUrl, hoursText, hasPlace, place } from "../../format";
+import { exampleDomain } from "../../site";
+const { business: b, presence, slug, theme } = Astro.props;
+const { handle, highlights, posts, grid_image: grid } = presence.data;
+const copy = presence.copy ?? { title: "Lebih meyakinkan saat dilihat", body: "Tampilan yang konsisten membantu calon pelanggan mengenali dan memahami bisnis Anda." };
+const hl = highlights.filter((h) => (h.kind !== "location" || hasPlace(b)) && (h.kind !== "menu" || b.products.length > 0));
+const chat = (t: string) => wa(b.whatsapp, t);
+const tiles = Array.from({ length: 9 }, (_, i) => i);
+const POS = ["25% 25%", "75% 35%", "30% 75%", "70% 70%", "50% 50%"]; // potongan berbeda dari gambar yang sama untuk tiap sorotan
+const frame = `--lg1:${theme.primary};--lg2:${theme.accent ?? theme.primary}`;
+---
+<PresenceSection id="instagram" flip title={copy.title} body={copy.body}>
+  <MockFrame id="igm" mock="instagram" style={frame}>
+    <div class="igbar"><Icon n="arrow-left" /><span>{handle}</span>{presence.data.suggested && <Suggested />}</div>
+    <div class="igtop">{hl.length > 0
+      ? <button class="ring" data-story="0" aria-label="Lihat story"><Avatar logo={b.logo} icon={b.logo_icon} /></button>
+      : <div class="ring ring-off"><Avatar logo={b.logo} icon={b.logo_icon} /></div>}
+      <div class="igstat"><div><b>9</b>postingan</div><div><b>—</b>pengikut</div><div><b>—</b>mengikuti</div></div></div>
+    <div class="igbio"><b>{b.name}</b>{place(b)}{b.bio && <><br />{b.bio}</>}<br /><a href="#website"><Icon n="link" /> {exampleDomain(slug)}</a></div>
+    <div class="igbtn">
+      <button data-act="follow">Ikuti</button>
+      <a href={chat(`Halo ${b.name}, saya lihat profil Instagram-nya dan ingin bertanya.`)} target="_blank" rel="noopener">Kirim Pesan</a>
+      {hasPlace(b) && <a href={mapsUrl(b)} target="_blank" rel="noopener">Lokasi</a>}
+    </div>
+    <div class="hl">{hl.map((h, i) => <button data-story={i} aria-label={`Sorotan ${h.label}`}><span class="hi"><Icon n={h.icon} /></span>{h.label}</button>)}</div>
+    <div class="igtabs" role="tablist">
+      <button data-tab="grid" class="on" aria-label="Postingan"><Icon n="table-cells" /></button>
+      <button data-tab="reels" aria-label="Video"><Icon n="play" /></button>
+      <button data-tab="tag" aria-label="Ditandai"><Icon n="user" s="regular" /></button>
+    </div>
+    <div class="igp" data-pane="grid"><div class="iggrid">{tiles.map((i) => (
+      <button class="ph pzt" data-post={i} aria-label={`Buka postingan ${i + 1}`}><PuzzleTile grid={grid} i={i} icon={b.logo_icon} seed={handle} />{i === 0 && <small><Icon n="thumbtack" /></small>}</button>
+    ))}</div></div>
+    <div class="igp" data-pane="reels" hidden><div class="gemp">Video pendek bisa ditambahkan setelah profil Anda aktif.</div></div>
+    <div class="igp" data-pane="tag" hidden><div class="gemp">Foto pelanggan yang menandai {b.name} akan tampil di sini.</div></div>
+
+    <dialog class="sheet story" data-stories aria-label="Sorotan">
+      <div class="stbars">{hl.map(() => <span></span>)}</div>
+      <div class="sthd"><Avatar logo={b.logo} icon={b.logo_icon} /><b>{handle}</b><button data-close aria-label="Tutup"><Icon n="xmark" /></button></div>
+      {hl.map((h, i) => (
+        <div class="slide ph" hidden>
+          {grid && <img class="im" src={grid.url} alt="" loading="lazy" style={`object-position:${POS[i % POS.length]}`} onerror="this.remove()" />}
+          <div class="stbody">
+            {h.kind === "menu" && <><h3>{h.title ?? "Menu"}</h3>{b.products.map((p) => <div class="sl"><span>{p.name}</span><b>{p.price != null ? rupiah(p.price) : ""}</b></div>)}</>}
+            {h.kind === "location" && <><h3>{h.title ?? "Kunjungi kami"}</h3>{b.address && <p>{b.address}</p>}{b.hours.length > 0 && <p>{hoursText(b.hours)}</p>}<a class="sbtn" href={mapsUrl(b)} target="_blank" rel="noopener">Buka rute</a></>}
+            {h.kind === "contact" && <><h3>{h.title ?? "Ada pertanyaan?"}</h3><p>{h.body ?? "Chat kami di WhatsApp."}</p><a class="sbtn" href={chat(`Halo ${b.name}, saya ingin bertanya.`)} target="_blank" rel="noopener">Chat sekarang</a></>}
+            {h.kind === "text" && <><h3>{h.title ?? h.label}</h3><p>{h.body}</p></>}
+          </div>
+        </div>
+      ))}
+      <button class="stp" data-step="-1" aria-label="Sebelumnya"></button>
+      <button class="stn" data-step="1" aria-label="Berikutnya"></button>
+    </dialog>
+
+    <dialog class="sheet" data-feed aria-label="Postingan">
+      <div class="pfhd"><button data-close aria-label="Kembali"><Icon n="arrow-left" /></button><b>Postingan</b></div>
+      <div class="pfeed">{tiles.map((i) => (
+        <article data-post-id={i}>
+          <div class="pph"><Avatar logo={b.logo} icon={b.logo_icon} /><b>{handle}</b></div>
+          <div class="ppi ph crop"><PuzzleTile grid={grid} i={i} icon={b.logo_icon} seed={handle} /></div>
+          <div class="ppa">
+            <button data-like aria-label="Suka"><Icon n="heart" s="regular" /></button>
+            <a href={chat(`Halo ${b.name}, saya ingin bertanya soal postingan ini.`)} target="_blank" rel="noopener" aria-label="Komentar"><Icon n="comment" s="regular" /></a>
+            <button data-share aria-label="Bagikan"><Icon n="paper-plane" s="regular" /></button>
+            <button class="sv" data-save aria-label="Simpan"><Icon n="bookmark" s="regular" /></button>
+          </div>
+          {posts[i]?.caption && <p class="ppc"><b>{handle}</b> {posts[i].caption}</p>}
+        </article>
+      ))}</div>
+      <div class="toast" role="status"></div>
+    </dialog>
+  </MockFrame>
+</PresenceSection>
+<script>import "../../scripts/instagram";</script>

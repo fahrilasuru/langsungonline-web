@@ -1,0 +1,12 @@
+---
+// Satu gambar, sembilan potongan acak. Gambar yang sama dimuat sekali (di-cache); ketajaman ditingkatkan di browser (sharpen.ts).
+import Icon from "../ui/Icon.astro";
+import { puzzleCrops, cropStyle } from "../../puzzle";
+const { grid, i, icon = "store", seed = "" } = Astro.props;
+const crop = puzzleCrops(seed)[i];
+const url = grid?.url.includes("images.unsplash.com") ? grid.url.replace(/([?&])w=\d+/, "$1w=1400") : grid?.url;
+---
+{grid
+  ? <img class="im pz" src={url} alt="" loading="lazy" decoding="async" style={cropStyle(crop)}
+      data-z={crop.z.toFixed(3)} data-fx={crop.fx.toFixed(3)} data-fy={crop.fy.toFixed(3)} onerror="this.remove()" />
+  : <span class="pzf" style={`--a:${135 + i * 30}deg`}><Icon n={icon} /></span>}

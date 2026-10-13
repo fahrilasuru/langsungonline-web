@@ -1,0 +1,89 @@
+---
+import DemoWrapper from "../_DemoWrapper.astro";
+import "./_shared.css";
+import "./_form.css";
+import "./_panels.css";
+import Header from "./_Header.astro";
+import Intro from "./_Intro.astro";
+import FillView from "./_FillView.astro";
+import BuilderView from "./_BuilderView.astro";
+import ResponsesView from "./_ResponsesView.astro";
+import Dialogs from "./_Dialogs.astro";
+import Footer from "./_Footer.astro";
+---
+
+<DemoWrapper
+    bar={{ label: "Contoh Aplikasi Formulir", cta: "Mau aplikasi seperti ini?", bg: "#14224b", accent: "#8fb0ff" }}
+    title="Aplikasi Formulir Online untuk Bisnis Jasa | Isian"
+    description="Demo aplikasi formulir online untuk bisnis jasa: pertanyaan teks, pilihan ganda, ya atau tidak, checkbox, slider, rating, dan lainnya, lengkap dengan pembuat formulir dan ringkasan respons."
+>
+    <Fragment slot="head">
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Instrument+Sans:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- Pengerasan keamanan yang aman dipasang lewat meta: tanpa <base>, tanpa plugin, tanpa pengiriman form nyata.
+             CSP lengkap (script-src, frame-ancestors) sebaiknya dipasang sebagai header HTTP di hosting. -->
+        <meta http-equiv="Content-Security-Policy" content="base-uri 'none'; object-src 'none'; form-action 'none'" />
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
+    </Fragment>
+    <div class="body">
+        <Header />
+        <Intro />
+        <main class="app" id="app">
+            <FillView />
+            <BuilderView />
+            <ResponsesView />
+        </main>
+        <Footer />
+        <Dialogs />
+    </div>
+</DemoWrapper>
+
+<script>
+    import "./_interactions.js";
+</script>
+
+<!-- Aturan dasar halaman (:root, html, body). is:global supaya selector html.dlg-open ikut berlaku. -->
+<style is:global>
+    :root {
+        --ink: #14224b;
+        --ink-2: #2b3a6e;
+        --pen: #2551d6;
+        --pen-dark: #1b3fb0;
+        --pen-soft: #e8eefc;
+        --paper: #f2f4f9;
+        --line: #dfe4ee;
+        --line-strong: #c3cbdd;
+        --text: #1a2340;
+        --muted: #5b6583;
+        --margin: #c92f4c;
+        --margin-soft: #fdecef;
+        --ok: #11805a;
+        --ok-soft: #e3f5ee;
+        --star: #f2a516;
+        --font-display: "Bricolage Grotesque", "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+        --font: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+
+    html {
+        scroll-padding-top: 140px;
+    }
+
+    html.dlg-open {
+        overflow: hidden;
+    }
+
+    body {
+        margin: 0;
+        font-family: var(--font);
+        color: var(--text);
+        background: var(--paper);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+    }
+</style>

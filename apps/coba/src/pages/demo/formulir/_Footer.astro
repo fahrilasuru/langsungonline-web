@@ -1,0 +1,41 @@
+<!-- ===== FOOTER ===== -->
+<footer class="app-foot">
+    <div class="app-foot-inner">
+        <p>
+            Demo interaktif. Semua data hanya ada di halaman ini dan hilang saat dimuat ulang. Tidak ada yang dikirim ke server.
+        </p>
+        <p>
+            Dibuat oleh
+            <a href="https://langsung.online" target="_blank" rel="noopener noreferrer">Langsung.Online</a>
+        </p>
+    </div>
+</footer>
+
+<style>
+    .app-foot {
+        padding: 40px 24px 56px;
+    }
+    .app-foot-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        gap: 16px 32px;
+        flex-wrap: wrap;
+        font-size: 13px;
+        color: var(--muted);
+    }
+    .app-foot a {
+        color: var(--pen-dark);
+        font-weight: 600;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+    @media (max-width: 600px) {
+        .app-foot {
+            padding: 28px 16px 40px;
+        }
+    }
+</style>

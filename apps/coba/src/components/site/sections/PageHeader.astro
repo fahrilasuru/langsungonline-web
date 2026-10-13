@@ -1,0 +1,7 @@
+---
+const { title, lead, home, name } = Astro.props;
+---
+<section class="ph-hd"><div class="w rv">
+  <nav class="crumb" aria-label="Jejak halaman"><a href={home}>{name}</a><span>/</span><span>{title}</span></nav>
+  <h1>{title}</h1>{lead && <p class="lead">{lead}</p>}
+</div></section>

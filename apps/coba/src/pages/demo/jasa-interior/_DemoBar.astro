@@ -1,0 +1,55 @@
+<!-- ===== DEMO BAR ===== -->
+<div class="demo-bar" role="banner" aria-label="Informasi demo">
+    <span
+        >Contoh Website Bisnis Jasa — dibuat oleh <strong
+            >Langsung.Online</strong
+        ></span
+    >
+    <a href="https://langsung.online" target="_blank" rel="noopener"
+        >Mau bisnis Anda seperti ini? →</a
+    >
+</div>
+
+<style>
+    .demo-bar {
+        background: var(--primary-dark);
+        color: #fff;
+        padding: 10px 20px;
+        text-align: center;
+        font-size: 13px;
+        position: relative;
+        z-index: 1001;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .demo-bar span {
+        opacity: 0.85;
+    }
+
+    .demo-bar a {
+        color: var(--accent);
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        transition: var(--transition);
+        border-bottom: 1px solid transparent;
+    }
+
+    .demo-bar a:hover {
+        color: #fff;
+        border-bottom-color: #fff;
+    }
+
+    @media (max-width: 600px) {
+        .demo-bar {
+            font-size: 11px;
+            padding: 8px 12px;
+            gap: 6px;
+        }
+    }
+</style>

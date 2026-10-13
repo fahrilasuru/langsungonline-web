@@ -1,0 +1,7 @@
+---
+import Why from "../ui/Why.astro";
+const { id, flip = false, title, body } = Astro.props;
+---
+<section id={id} data-presence>
+  <div class:list={["wrap", "split", { flip }]}><slot /><Why h={title} p={body} /></div>
+</section>

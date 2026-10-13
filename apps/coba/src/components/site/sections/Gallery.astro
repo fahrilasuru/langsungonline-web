@@ -1,0 +1,12 @@
+---
+import Img from "../../ui/Img.astro";
+import Icon from "../../ui/Icon.astro";
+import SecHead from "./SecHead.astro";
+const { proof, limit, more } = Astro.props;
+const photos = limit ? proof.photos.slice(0, limit) : proof.photos;
+---
+<section class="sec"><div class="w">
+  <SecHead eyebrow="Galeri" title={proof.title} suggested={proof.suggested} />
+  <div class="mas">{photos.map((p) => <div class="ph rv"><Img img={p} /></div>)}</div>
+  {limit && more && proof.photos.length > limit && <div class="more"><a class="b b-o" href={more}>Lihat galeri <Icon n="arrow-right" /></a></div>}
+</div></section>

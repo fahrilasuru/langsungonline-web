@@ -1,0 +1,4 @@
+---
+const { stats } = Astro.props;
+---
+<section class="stats"><div class="w"><div class="sgrid">{stats.items.map((i) => <div class="rv"><strong>{i.value}</strong><span>{i.label}</span></div>)}</div></div></section>

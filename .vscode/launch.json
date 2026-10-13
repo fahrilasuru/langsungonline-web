@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "command": "pnpm dev:marketing",
+      "name": "Marketing (:4321)",
+      "request": "launch",
+      "type": "node-terminal"
+    },
+    {
+      "command": "pnpm dev:coba",
+      "name": "Coba (:4322)",
+      "request": "launch",
+      "type": "node-terminal"
+    }
+  ]
+}

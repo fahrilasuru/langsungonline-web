@@ -1,0 +1,194 @@
+---
+import TokoLayout from "./_TokoLayout.astro";
+import ProductCard from "./_ProductCard.astro";
+import { products, categories, reviews, IMG, BASE, WA } from "./_products.js";
+const featured = products.filter((p) => ["aceh-gayo-single-origin", "v60-dripper-keramik", "paket-starter-seduh-rumah", "bali-kintamani-natural"].includes(p.slug));
+const feats = [
+  ["fa-fire-flame-curved", "Disangrai setelah dipesan", "Biji disangrai dalam batch kecil, lalu dikirim maksimal 2 hari setelahnya."],
+  ["fa-leaf", "Langsung dari petani", "Kami bermitra dengan koperasi petani di Aceh, Toraja, Bali dan Flores."],
+  ["fa-truck-fast", "Kirim ke seluruh Indonesia", "Same day di Surabaya, 1-3 hari untuk kota lain dengan kemasan aman."],
+  ["fa-sliders", "Digiling sesuai alat Anda", "Pilih tingkat gilingan saat checkout: espresso, V60, atau french press."],
+  ["fa-rotate-left", "Garansi tukar 7 hari", "Tidak cocok dengan rasanya? Kami tukar dengan kopi lain tanpa ribet."],
+  ["fa-headset", "Dibantu seduh di rumah", "Tanya resep dan rasio seduh lewat WhatsApp. Kami balas di jam kerja."],
+];
+const steps = [
+  ["fa-seedling", "Panen petik merah", "Hanya cherry matang yang dipetik tangan."],
+  ["fa-droplet", "Proses pascapanen", "Washed, honey, atau natural sesuai karakter kebun."],
+  ["fa-fire", "Sangrai batch kecil", "Profil sangrai dicatat dan dicicipi sebelum dijual."],
+  ["fa-box-open", "Kemas dan kirim", "Kantong dengan valve satu arah untuk menjaga aroma."],
+  ["fa-mug-hot", "Seduh di rumah", "Nikmati kopi segar dengan panduan seduh dari kami."],
+];
+const plans = [
+  ["Ringan", "Rp89.000", "250 g sebulan", ["1 pack pilihan barista", "Gratis ongkir", "Skip atau berhenti kapan saja"], false],
+  ["Rutin", "Rp165.000", "2 x 250 g sebulan", ["2 origin berbeda", "Gratis ongkir", "Diskon 10% alat seduh", "Kartu catatan rasa"], true],
+  ["Keluarga", "Rp299.000", "1 kg sebulan", ["4 pack 250 g", "Gratis ongkir", "Diskon 15% alat seduh", "Prioritas stok edisi terbatas"], false],
+];
+const faqs = [
+  ["Kapan kopi disangrai?", "Kami menyangrai setiap Selasa dan Jumat. Pesanan yang masuk sebelum jadwal sangrai akan dikirim dari batch terbaru, dan tanggal sangrai tercantum di kemasan."],
+  ["Bagaimana memilih tingkat gilingan?", "Saat checkout Anda bisa memilih biji utuh atau gilingan untuk espresso, V60, moka pot, atau french press. Jika ragu, tulis alat Anda di catatan pesanan."],
+  ["Berapa ongkos kirim dan lama pengiriman?", "Gratis ongkir untuk belanja mulai Rp250.000. Di bawah itu ongkir flat Rp20.000. Surabaya bisa same day, kota lain 1-3 hari kerja."],
+  ["Apakah bisa tukar jika tidak cocok?", "Bisa. Hubungi kami maksimal 7 hari setelah barang diterima. Biji kopi yang sudah dibuka dapat ditukar dengan kopi lain, alat seduh harus dalam kondisi baru."],
+  ["Apa metode pembayaran yang tersedia?", "QRIS, transfer bank, virtual account, dan COD untuk wilayah Surabaya, Sidoarjo dan Gresik."],
+  ["Bagaimana cara berhenti berlangganan?", "Anda bisa jeda atau berhenti kapan saja lewat WhatsApp minimal 2 hari sebelum jadwal sangrai berikutnya."],
+];
+---
+<TokoLayout title="Teduh Coffee | Kopi Specialty Indonesia & Alat Seduh" description="Toko kopi specialty Nusantara: biji kopi single origin disangrai segar, alat seduh, paket hemat dan langganan bulanan. Kirim ke seluruh Indonesia." active="beranda">
+
+<section class="hero" id="beranda">
+  <div class="hero-bg"><img src={IMG.hero} alt="Suasana kedai kopi dengan pencahayaan hangat" loading="eager" /></div>
+  <div class="wrap">
+    <div class="pill"><i class="fa-solid fa-star"></i> 4.9/5 dari 2.000+ pelanggan</div>
+    <h1>Kopi dari kebun Nusantara, disangrai segar tiap minggu.</h1>
+    <p>Single origin dari Gayo, Toraja, Kintamani dan Flores, plus alat seduh pilihan untuk meja kopi di rumah Anda.</p>
+    <div class="hero-cta">
+      <a href={`${BASE}/produk`} class="btn"><i class="fa-solid fa-bag-shopping"></i> Belanja Sekarang</a>
+      <a href="#langganan" class="btn glass">Lihat Langganan</a>
+    </div>
+    <div class="checks"><span><i class="fa-solid fa-check"></i>Tanggal sangrai di tiap kemasan</span><span><i class="fa-solid fa-check"></i>Gratis ongkir min. Rp250.000</span><span><i class="fa-solid fa-check"></i>Garansi tukar 7 hari</span></div>
+  </div>
+</section>
+
+<section class="strip"><div class="wrap">
+  <div><b>12+</b><span>Kebun mitra</span></div><div><b>2.000+</b><span>Pelanggan puas</span></div><div><b>48 jam</b><span>Sangrai ke kirim</span></div><div><b>4.9/5</b><span>Rating toko</span></div>
+</div></section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sh reveal"><h2>Belanja berdasarkan kebutuhan</h2><p>Mulai dari biji kopi hingga alat seduh, semuanya dipilih dan dicoba sendiri oleh tim kami.</p></div>
+    <div class="cats">
+      {categories.map((c) => (
+        <a href={`${BASE}/produk?kat=${c.id}`} class="cat reveal"><img src={c.img} alt={c.label} loading="lazy" onerror="this.style.display='none'" /><i class={`fa-solid ${c.icon}`}></i><div><h3>{c.label}</h3><p>{c.desc}</p></div></a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="sec alt">
+  <div class="wrap">
+    <div class="lead reveal"><div class="sh"><h2>Paling banyak dipesan</h2><p>Pilihan favorit pelanggan kami bulan ini.</p></div><a href={`${BASE}/produk`} class="btn ghost sm">Lihat semua produk <i class="fa-solid fa-arrow-right"></i></a></div>
+    <div class="pgrid">{featured.map((p) => <ProductCard p={p} />)}</div>
+  </div>
+</section>
+
+<section class="sec" style="padding-block:60px">
+  <div class="wrap"><div class="band reveal">
+    <div><h2><i class="fa-solid fa-bolt"></i> Flash Sale Akhir Pekan</h2><p>Diskon hingga 20% untuk produk bertanda Sale. Pakai kode <b>TEDUH10</b> di keranjang untuk potongan 10% tambahan.</p></div>
+    <div class="cd" id="cd" aria-label="Sisa waktu promo"><div><b id="cdH">00</b><span>Jam</span></div><div><b id="cdM">00</b><span>Menit</span></div><div><b id="cdS">00</b><span>Detik</span></div></div>
+  </div></div>
+</section>
+
+<section class="sec alt">
+  <div class="wrap">
+    <div class="sh c reveal"><h2>Kenapa belanja di Teduh</h2><p>Kami ingin kopi di rumah Anda terasa sama enaknya dengan kopi di kedai.</p></div>
+    <div class="feats">{feats.map(([ic, t, d]) => <div class="feat reveal"><i class={`fa-solid ${ic}`}></i><h3>{t}</h3><p>{d}</p></div>)}</div>
+  </div>
+</section>
+
+<section class="sec dark">
+  <div class="wrap">
+    <div class="sh c reveal"><h2>Dari kebun sampai cangkir Anda</h2><p>Lima tahap yang kami jaga supaya rasa tetap konsisten.</p></div>
+    <div class="steps">{steps.map(([ic, t, d]) => <div class="step reveal"><i class={`fa-solid ${ic}`}></i><h3>{t}</h3><p>{d}</p></div>)}</div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap quiz">
+    <div class="reveal">
+      <div class="sh" style="margin-bottom:0"><h2>Bingung pilih kopi?</h2><p>Pilih cara Anda menyeduh, kami rekomendasikan kopi yang paling cocok.</p></div>
+      <div class="opts" id="opts">
+        <button class="opt on" data-k="espresso"><i class="fa-solid fa-gauge-high"></i> Espresso</button>
+        <button class="opt" data-k="v60"><i class="fa-solid fa-filter"></i> V60 / Manual</button>
+        <button class="opt" data-k="susu"><i class="fa-solid fa-glass-water"></i> Kopi susu</button>
+        <button class="opt" data-k="tubruk"><i class="fa-solid fa-mug-saucer"></i> Tubruk</button>
+      </div>
+    </div>
+    <div class="rec reveal" id="rec"></div>
+  </div>
+</section>
+
+<section class="sec alt" id="langganan">
+  <div class="wrap">
+    <div class="sh c reveal"><h2>Langganan kopi bulanan</h2><p>Kopi segar datang sebelum stok Anda habis. Jeda atau berhenti kapan saja.</p></div>
+    <div class="plans">
+      {plans.map(([n, pr, sub, li, hot]) => (
+        <div class={`plan reveal ${hot ? "hot" : ""}`}>
+          {hot && <span class="flag">Paling populer</span>}
+          <h3>{n}</h3><div class="pr">{pr}<small> /bulan</small></div><p style="opacity:.75;font-size:14px">{sub}</p>
+          <ul>{li.map((x) => <li><i class="fa-solid fa-circle-check"></i>{x}</li>)}</ul>
+          <a href={`https://wa.me/${WA}?text=${encodeURIComponent("Halo Teduh, saya tertarik paket langganan " + n)}`} target="_blank" rel="noopener" class={`btn ${hot ? "" : "moss"}`}>Pilih paket {n}</a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap story">
+    <img class="reveal" src={IMG.pour} alt="Menyeduh kopi dengan teknik pour over" loading="lazy" />
+    <div class="reveal">
+      <div class="sh" style="margin-bottom:18px"><h2>Cerita di balik setiap kantong kopi</h2></div>
+      <p>Teduh Coffee dimulai dari meja dapur di Surabaya, dengan satu pertanyaan: kenapa kopi enak di kedai sulit ditiru di rumah?</p>
+      <p>Jawabannya ada pada kesegaran biji dan alat yang tepat. Karena itu kami menyangrai sendiri dan menyeleksi alat seduh yang benar-benar kami pakai.</p>
+      <ul><li><i class="fa-solid fa-circle-check"></i>Harga petani dibayar di atas harga pasar</li><li><i class="fa-solid fa-circle-check"></i>Kemasan kompos dan dapat didaur ulang</li><li><i class="fa-solid fa-circle-check"></i>Tim barista siap membantu lewat WhatsApp</li></ul>
+      <a href={`${BASE}/tentang`} class="btn moss">Kenali kami <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<section class="sec alt">
+  <div class="wrap">
+    <div class="sh c reveal"><h2>Kata pelanggan kami</h2><p>Pengalaman mereka yang sudah menyeduh kopi Teduh di rumah.</p></div>
+    <div class="tgrid">{reviews.map((r) => (
+      <div class="tcard reveal"><div class="st">{"★".repeat(r.stars)}{"☆".repeat(5 - r.stars)}</div><p>"{r.text}"</p><div class="who"><i>{r.name[0]}</i><div><b>{r.name}</b><span>{r.city}</span></div></div></div>
+    ))}</div>
+    <p class="note">*Testimoni di atas merupakan konten demo/fiktif untuk keperluan showcase.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sh c reveal"><h2>Dari meja kopi pelanggan</h2><p>Bagikan seduhanmu dengan tagar <b>#TeduhdiRumah</b>.</p></div>
+    <div class="gal">{[IMG.latte, IMG.v60, IMG.beans, IMG.art, IMG.cafe, IMG.mug].map((s, i) => <a href="https://instagram.com/teduh.coffee" target="_blank" rel="noopener" aria-label={`Foto pelanggan ${i + 1}`}><img src={s} alt="" loading="lazy" onerror="this.style.display='none'" /></a>)}</div>
+  </div>
+</section>
+
+<section class="sec alt" id="faq">
+  <div class="wrap">
+    <div class="sh c reveal"><h2>Pertanyaan yang sering ditanyakan</h2><p>Belum terjawab? Chat kami lewat WhatsApp.</p></div>
+    <div class="faq reveal">{faqs.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap reveal">
+    <h2>Dapatkan 10% untuk pesanan pertama</h2>
+    <p>Gabung newsletter kami untuk info stok baru dan resep seduh. Kode TEDUH10 dikirim ke email Anda.</p>
+    <form class="nl" id="nl"><input type="email" placeholder="Alamat email Anda" aria-label="Email" required /><button class="btn" type="submit">Daftar</button></form>
+  </div>
+</section>
+</TokoLayout>
+
+<script>
+  import { toast } from "./_cart.js";
+  import { products, BASE } from "./_products.js";
+  const R = {
+    espresso: ["aceh-gayo-single-origin", "Body tebal dan manis cokelat, kuat untuk espresso."],
+    v60: ["toraja-sapan-medium", "Aroma herbal dan asam lembut yang menonjol saat diseduh manual."],
+    susu: ["flores-bajawa-honey", "Manis madu dan kacang, tetap terasa di antara susu."],
+    tubruk: ["aceh-gayo-single-origin", "Rempah dan cokelat yang tahan diseduh langsung di gelas."],
+  };
+  const rec = document.getElementById("rec");
+  const show = (k) => {
+    const [slug, why] = R[k], p = products.find((x) => x.slug === slug);
+    rec.innerHTML = `<img src="${p.img}" alt="${p.name}" onerror="this.style.visibility='hidden'"><div><h3>${p.name}</h3><p>${why}</p><a class="btn moss sm" href="${BASE}/produk/${p.slug}">Lihat produk</a></div>`;
+  };
+  document.getElementById("opts").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-k]"); if (!b) return;
+    document.querySelectorAll("#opts .opt").forEach((x) => x.classList.toggle("on", x === b)); show(b.dataset.k);
+  });
+  show("espresso");
+  // countdown
+  const end = Date.now() + (2 * 86400 + 4 * 3600) * 1000, z = (n) => String(n).padStart(2, "0");
+  setInterval(() => { const t = Math.max(0, end - Date.now()) / 1000 | 0; document.getElementById("cdH").textContent = z(t / 3600 | 0); document.getElementById("cdM").textContent = z(t % 3600 / 60 | 0); document.getElementById("cdS").textContent = z(t % 60); }, 1000);
+  document.getElementById("nl").addEventListener("submit", (e) => { e.preventDefault(); toast("Terima kasih! (demo, tidak ada email terkirim)"); e.target.reset(); });
+</script>

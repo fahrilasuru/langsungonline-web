@@ -1,0 +1,28 @@
+@layer preview {
+/* Lembar layar penuh (<dialog>): story, feed, detail produk */
+.sheet{border:0;padding:0;margin:0 auto;width:100%;max-width:420px;height:100%;max-height:100%;background:var(--surface);color:var(--ink)}
+.sheet[open]{display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.sheet::backdrop{background:rgba(0,0,0,.6)}.sheet .toast{bottom:90px}
+.sheet.story{background:#1b1411;color:#fff;padding:0}
+.stbars{position:absolute;top:calc(env(safe-area-inset-top,0px) + 10px);left:12px;right:12px;display:flex;gap:4px;z-index:4}
+.stbars span{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.35);overflow:hidden}.stbars .d{background:#fff}
+.stbars .a::after{content:"";display:block;height:100%;background:#fff;animation:stf 4.5s linear forwards}@keyframes stf{from{width:0}to{width:100%}}
+.sthd{position:absolute;top:calc(env(safe-area-inset-top,0px) + 22px);left:12px;right:8px;display:flex;align-items:center;gap:10px;z-index:4;font-size:14px}
+.sthd .av{width:32px;height:32px;font-size:13px}.sthd button{margin-left:auto;background:none;border:0;color:#fff;font-size:20px;padding:8px 10px}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:96px 24px 40px;gap:10px}
+.slide[hidden]{display:none}.slide.ph{background:#3a2a22}.slide::before{content:"";position:absolute;inset:0;background:rgba(20,10,5,.55)}.slide>*{position:relative}
+.stbody{display:flex;flex-direction:column;gap:10px;pointer-events:none}.stbody h3{font-size:34px}.stbody p{font-size:18px}
+.sl{display:flex;justify-content:space-between;background:rgba(255,255,255,.18);border-radius:12px;padding:12px 14px;font-size:16px}
+.sbtn{pointer-events:auto;align-self:flex-start;background:#fff;color:#2B2320;border-radius:999px;padding:11px 22px;font-weight:700;text-decoration:none;position:relative;z-index:3}
+.stp,.stn{position:absolute;top:80px;bottom:0;z-index:2;border:0;background:none}.stp{left:0;width:30%}.stn{right:0;width:70%}
+
+}
+
+@layer preview {
+/* Story: penuh layar di HP; di layar lebar berupa kartu 9:16 setinggi layar. Latar memakai gradien warna tema, bukan hitam. */
+.sheet.story[open]{width:100%;max-width:none;height:100dvh;max-height:100dvh;margin:0;border-radius:0;background:#000;overflow:hidden}
+@media(min-width:560px){.sheet.story[open]{width:min(100vw,calc(100dvh * 9 / 16));margin:0 auto}}
+.sheet.story::backdrop{background:rgba(0,0,0,.92)}
+.sheet.story .slide.ph{background:linear-gradient(160deg,var(--lg1,#3a2a22),var(--lg2,#3a2a22))}
+.sheet.story .slide::before{background:linear-gradient(to bottom,rgba(0,0,0,.38),rgba(0,0,0,.08) 38%,rgba(0,0,0,.5))}
+}

@@ -1,0 +1,82 @@
+---
+interface FAQItem {
+    question: string;
+    answer: string;
+}
+
+interface Props {
+    faq_id: string;
+    faqs: FAQItem[];
+}
+
+const { faq_id, faqs } = Astro.props;
+---
+
+<section id={faq_id} class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                Pertanyaan yang Sering Diajukan
+            </h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Temukan jawaban untuk pertanyaan umum seputar layanan kami
+            </p>
+        </div>
+
+        <div class="max-w-3xl mx-auto space-y-4" data-aos="fade-up">
+            {
+                faqs.map((item, index) => (
+                    <div
+                        class="faq-item border border-gray-200 rounded-2xl overflow-hidden"
+                        data-index={index}
+                    >
+                        <button
+                            class="faq-question w-full text-left p-6 hover:bg-gray-50 transition flex justify-between items-center"
+                            type="button"
+                        >
+                            <h3 class="font-medium text-gray-900">
+                                {item.question}
+                            </h3>
+                            <i class="fas fa-chevron-down text-gray-400 transition-transform" />
+                        </button>
+
+                        <div class="faq-answer hidden px-6 pb-6">
+                            <p class="text-gray-600">{item.answer}</p>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".faq-question").forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const item = btn.closest(".faq-item");
+                if (!item) return;
+
+                const answer = item.querySelector(".faq-answer");
+                const icon = btn.querySelector("i");
+
+                if (!answer || !icon) return;
+
+                const isOpen = !answer.classList.contains("hidden");
+
+                document.querySelectorAll(".faq-answer").forEach((a) => {
+                    a.classList.add("hidden");
+                    const prevIcon = a.previousElementSibling?.querySelector("i");
+                    if (prevIcon) {
+                        prevIcon.classList.remove("rotate-180");
+                    }
+                });
+
+                if (!isOpen) {
+                    answer.classList.remove("hidden");
+                    icon.classList.add("rotate-180");
+                }
+            });
+        });
+    });
+</script>

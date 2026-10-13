@@ -1,0 +1,17 @@
+---
+import Img from "../../ui/Img.astro";
+import Icon from "../../ui/Icon.astro";
+import Suggested from "../../ui/Suggested.astro";
+const { p, proof, teaser = false, more } = Astro.props;
+const points = teaser ? p.points : [...p.points, ...(proof?.facts ?? [])];
+---
+<section class:list={["sec", { alt: teaser }]}><div class:list={["w", "split-s", { img: !!p.image }]}>
+  {p.image && <div class="rv"><div class="pimg ph"><Img img={p.image} /></div></div>}
+  <div class="rv">
+    <span class="eyebrow">Tentang kami</span>
+    <h2>{p.title}{p.suggested && <Suggested />}</h2>
+    <p class:list={["lead", "body", { clamp: teaser }]}>{p.body}</p>
+    {points.length > 0 && <ul class="pts">{points.map((x) => <li>{x}</li>)}</ul>}
+    {teaser && more && <a class="b b-o" href={more}>Selengkapnya <Icon n="arrow-right" /></a>}
+  </div>
+</div></section>

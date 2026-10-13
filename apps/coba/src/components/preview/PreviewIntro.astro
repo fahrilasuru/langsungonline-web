@@ -1,0 +1,17 @@
+---
+const { business } = Astro.props;
+---
+
+<section class="intro-sec">
+  <div class="wrap intro" id="intro">
+    <h1>Begini kami membayangkan <span class="grad">{business.name}</span> online.</h1>
+    <p class="sub">Kami menyiapkan gambaran awal berdasarkan cerita yang Anda berikan.</p>
+  </div>
+</section>
+
+<style>
+  .intro {
+    padding-inline: clamp(1.25rem, 5vw, 4rem);
+    box-sizing: border-box;
+  }
+</style>

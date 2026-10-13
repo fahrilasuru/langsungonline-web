@@ -1,0 +1,129 @@
+---
+import Layout from "./_Layout.astro";
+import { BASE, profile, experience, skills, values, stats, waDefault } from "./_data";
+---
+
+<Layout
+    active="tentang"
+    title="Tentang Raka Pratama | UI/UX Designer & Front-end Developer"
+    description="Kenali Raka Pratama: pengalaman 7+ tahun sebagai UI/UX designer dan front-end developer di Surabaya, cara kerja, dan nilai yang dipegang."
+>
+    <section class="page-hero">
+        <div class="page-hero-inner">
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href={`${BASE}/`}>Beranda</a> <i class="fa-solid fa-chevron-right" style="font-size:10px"></i> <span>Tentang</span>
+            </nav>
+            <h1>Desainer yang peduli pada detail, developer yang peduli pada hasil</h1>
+            <p>Saya percaya produk digital yang baik terasa sederhana bagi penggunanya, dan itu hampir selalu hasil dari banyak keputusan kecil yang dipikirkan matang.</p>
+        </div>
+    </section>
+
+    <section class="section" style="padding-top:32px;">
+        <div class="section-inner about-grid">
+            <div class="about-photo"><img src={profile.portrait} alt={`Potret ${profile.name}`} loading="eager" /></div>
+            <div>
+                <div class="prose">
+                    <p>
+                        Saya {profile.name}, tinggal di Surabaya. Karier saya dimulai pada 2017 dengan membuat landing page untuk
+                        teman-teman yang baru membuka usaha. Dari situ saya belajar bahwa desain yang cantik belum tentu menghasilkan penjualan.
+                    </p>
+                    <p>
+                        Sejak itu saya mendalami riset pengguna, desain produk, dan pengembangan front-end. Saya pernah bekerja di
+                        studio produk dan memimpin desain untuk belasan aplikasi, sebelum akhirnya memilih bekerja mandiri agar bisa
+                        lebih dekat dengan klien dan hasilnya.
+                    </p>
+                    <p>
+                        Di luar pekerjaan, saya suka bersepeda keliling kota tua Surabaya, mencatat tipografi papan toko lama, dan
+                        mengajar desain di komunitas anak muda setiap bulan.
+                    </p>
+                </div>
+                <div class="stats-inner" style="margin-top:36px;grid-template-columns:1fr 1fr;gap:20px;">
+                    {stats.map((s) => (
+                        <div style="border-top:2px solid var(--ink);padding-top:14px;">
+                            <div style="font-size:30px;font-weight:800;letter-spacing:-0.03em;">{s.n}</div>
+                            <div style="color:var(--ink-2);font-size:14px;">{s.l}</div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section alt" aria-labelledby="pengalaman-title">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-label"><i class="fa-solid fa-timeline"></i> Perjalanan</div>
+                <h2 class="section-title" id="pengalaman-title">Pengalaman kerja</h2>
+            </div>
+            <ol class="timeline">
+                {experience.map((e) => (
+                    <li>
+                        <div class="year">{e.year}</div>
+                        <h3>{e.title}</h3>
+                        <div class="place">{e.place}</div>
+                        <p>{e.text}</p>
+                    </li>
+                ))}
+            </ol>
+        </div>
+    </section>
+
+    <section class="section" aria-labelledby="skill-title">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-label"><i class="fa-solid fa-screwdriver-wrench"></i> Keahlian</div>
+                <h2 class="section-title" id="skill-title">Alat dan keterampilan sehari-hari</h2>
+            </div>
+            <div class="skill-groups">
+                {skills.map((g) => (
+                    <div class="skill-group">
+                        <h3>{g.group}</h3>
+                        <div class="tags">{g.items.map((i) => <span class="tag">{i}</span>)}</div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <section class="section dark" aria-labelledby="nilai-title">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-label"><i class="fa-solid fa-compass"></i> Prinsip Kerja</div>
+                <h2 class="section-title" id="nilai-title">Yang saya pegang di setiap proyek</h2>
+            </div>
+            <div class="value-grid">
+                {values.map((v) => (
+                    <div class="value" style="background:transparent;border-color:rgba(255,255,255,.14);">
+                        <i class={`fa-solid ${v.icon}`}></i>
+                        <h3>{v.title}</h3>
+                        <p style="color:#aab7cd;">{v.text}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-inner">
+            <div class="split reverse">
+                <div>
+                    <div class="section-label"><i class="fa-solid fa-chalkboard-user"></i> Berbagi</div>
+                    <h2>Mengajar dan berbagi di komunitas</h2>
+                    <p>Setiap bulan saya mengisi kelas desain gratis untuk mahasiswa dan pelaku UMKM di Surabaya. Jika komunitas atau kampus Anda membutuhkan pembicara, silakan hubungi saya.</p>
+                    <div style="margin-top:26px;"><a href={waDefault} class="btn btn-primary" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Undang Saya</a></div>
+                </div>
+                <div class="split-img"><img src={profile.team} alt="Peserta workshop desain sedang berdiskusi" loading="lazy" /></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-wrap">
+        <div class="cta-band">
+            <div>
+                <h2>Mari bekerja sama</h2>
+                <p>Saya senang berdiskusi, bahkan jika Anda baru punya ide kasar.</p>
+            </div>
+            <a href={`${BASE}/kontak/`} class="btn btn-light">Hubungi Saya <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </section>
+</Layout>

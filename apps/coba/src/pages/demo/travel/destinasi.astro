@@ -1,0 +1,98 @@
+---
+import TravelLayout from "./_TravelLayout.astro";
+import { BASE, WA_DEFAULT, img, destinasi, paket, wa } from "./_data";
+
+const slugify = (s: string) => s.toLowerCase().replace(/[^a-z]+/g, "-").replace(/^-|-$/g, "");
+const paketUntuk = (nama: string) =>
+    paket.filter((p) => p.tujuan.toLowerCase().includes(nama.toLowerCase().split(" ")[0]) || (nama === "Bromo & Ijen" && p.slug === "bromo-ijen"));
+---
+
+<TravelLayout
+    title="Destinasi Wisata Pilihan & Waktu Terbaik | Langkah Nusa Travel"
+    description="Panduan singkat destinasi populer: Bali, Labuan Bajo, Bromo-Ijen, Raja Ampat, Jepang, dan Turki lengkap dengan waktu terbaik berkunjung."
+    active="destinasi"
+>
+    <section class="tv-pagehero">
+        <img src={img("1476514525535-07fb3b4ae5f1", 1800)} alt="Pegunungan dan danau dengan langit senja" loading="eager" />
+        <div class="tv-wrap">
+            <div class="tv-crumbs"><a href={`${BASE}/`}>Beranda</a> <i class="fa-solid fa-chevron-right"></i> <span>Destinasi</span></div>
+            <h1>Ke mana, dan kapan waktu terbaiknya?</h1>
+            <p>Panduan singkat tujuan yang paling sering kami layani, supaya Anda memilih bulan yang tepat sebelum membeli tiket.</p>
+        </div>
+    </section>
+
+    <nav class="ds-jump" aria-label="Lompat ke destinasi">
+        <div class="tv-wrap">
+            {destinasi.map((d) => <a href={`#${slugify(d.nama)}`}>{d.nama}</a>)}
+        </div>
+    </nav>
+
+    {destinasi.map((d, i) => {
+        const terkait = paketUntuk(d.nama);
+        return (
+            <section class={`tv-section ${i % 2 ? "alt" : ""}`} id={slugify(d.nama)} style="scroll-margin-top:110px;">
+                <div class={`tv-wrap ds-row ${i % 2 ? "rev" : ""}`}>
+                    <div class="ds-photo">
+                        <img src={img(d.foto, 1000)} alt={`Pemandangan ${d.nama}`} loading="lazy" width="1000" height="750" />
+                    </div>
+                    <div class="ds-text">
+                        <h2>{d.nama}</h2>
+                        <p class="ds-desc">{d.deskripsi}</p>
+                        <dl class="ds-facts">
+                            <div><dt><i class="fa-regular fa-sun"></i> Waktu terbaik</dt><dd>{d.waktu}</dd></div>
+                            <div><dt><i class="fa-solid fa-user-group"></i> Cocok untuk</dt><dd>{d.cocok}</dd></div>
+                        </dl>
+                        <h3>Yang wajib dikunjungi</h3>
+                        <ul class="ds-tags">{d.sorotan.map((s) => <li>{s}</li>)}</ul>
+                        <div class="ds-actions">
+                            {terkait[0] && <a href={`${BASE}/paket/#${terkait[0].slug}`} class="btn btn-deep">Lihat paket {d.nama}</a>}
+                            <a href={wa(`Halo Langkah Nusa, saya ingin tahu lebih lanjut tentang liburan ke ${d.nama}. Perkiraan bulan: ___, peserta: ___.`)} class="btn btn-outline" target="_blank" rel="noopener">
+                                <i class="fa-brands fa-whatsapp"></i> Tanya rute ini
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        );
+    })}
+
+    <section class="tv-section">
+        <div class="tv-wrap">
+            <div class="tv-head center">
+                <h2>Tidak yakin harus memilih yang mana?</h2>
+                <p>Beri tahu kami budget, lama cuti, dan siapa saja yang ikut. Kami rekomendasikan 2–3 pilihan yang paling masuk akal.</p>
+                <div style="margin-top:28px;"><a href={WA_DEFAULT} class="btn btn-sun" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Minta rekomendasi destinasi</a></div>
+            </div>
+        </div>
+    </section>
+</TravelLayout>
+
+<style is:global>
+    .ds-jump { background: #fff; border-bottom: 1px solid #d5e4e7; position: sticky; top: 70px; z-index: 5; }
+    .ds-jump .tv-wrap { display: flex; gap: 8px; overflow-x: auto; padding-top: 12px; padding-bottom: 12px; scrollbar-width: none; }
+    .ds-jump a { flex: none; font-size: 14.5px; font-weight: 600; padding: 8px 18px; border-radius: 999px; background: #e9f4f5; color: #0d4657; transition: background .2s, color .2s; }
+    .ds-jump a:hover { background: #0d4657; color: #fff; }
+
+    .ds-row { display: grid; grid-template-columns: 1.05fr 1fr; gap: 64px; align-items: center; }
+    .ds-row.rev .ds-photo { order: 2; }
+    .ds-photo img { width: 100%; border-radius: 24px; aspect-ratio: 4 / 3; object-fit: cover; box-shadow: 0 24px 50px rgba(10,42,54,.18); }
+    .ds-text h2 { font-size: clamp(30px, 4vw, 44px); font-weight: 800; margin-bottom: 16px; }
+    .ds-desc { color: #50686f; font-size: 17px; }
+    .ds-facts { margin: 26px 0; display: grid; gap: 14px; }
+    .ds-facts div { display: grid; grid-template-columns: 150px 1fr; gap: 12px; padding-bottom: 14px; border-bottom: 1px solid #d5e4e7; }
+    .ds-facts dt { font-weight: 700; color: #0a2a36; font-size: 14.5px; }
+    .ds-facts dt i { color: #1b8ea3; margin-right: 8px; }
+    .ds-facts dd { margin: 0; font-size: 14.5px; color: #1d3640; }
+    .ds-text h3 { font-size: 16px; margin-bottom: 12px; }
+    .ds-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .ds-tags li { background: #fff; border: 1px solid #d5e4e7; padding: 7px 14px; border-radius: 999px; font-size: 13.5px; font-weight: 600; }
+    .alt .ds-tags li { background: #fff; }
+    .ds-actions { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+
+    @media (max-width: 980px) {
+        .ds-row { grid-template-columns: 1fr; gap: 32px; }
+        .ds-row.rev .ds-photo { order: 0; }
+        .ds-jump { top: 62px; }
+        .ds-facts div { grid-template-columns: 1fr; gap: 2px; }
+    }
+</style>

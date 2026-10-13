@@ -1,0 +1,37 @@
+---
+export const prerender = true; // tidak bergantung pada request; riwayat diisi di browser
+
+import Base from "@langsungonline/ui/layouts/Base.astro";
+import StoryForm from "@langsungonline/ui/components/StoryForm.astro";
+import PreviewHistory from "../components/PreviewHistory.astro";
+import DemoGrid from "../components/DemoGrid.astro";
+import { COBA_URL } from "@langsungonline/ui/constants";
+---
+
+<Base
+    title="Coba Gratis | Langsung Online"
+    description="Ceritakan bisnis Anda dan lihat gambaran awal kehadiran digitalnya. Gratis, tanpa daftar akun."
+    canonical={`${COBA_URL}/`}
+>
+    <h1 class="sr-only">Coba preview kehadiran digital bisnis Anda</h1>
+
+    <section class="coba-hero px-4 pt-28 pb-10 md:pt-32">
+        <div class="mx-auto max-w-2xl">
+            <StoryForm />
+        </div>
+    </section>
+
+    <div class="py-10">
+        <PreviewHistory />
+    </div>
+
+    <DemoGrid />
+</Base>
+
+<style>
+    .coba-hero {
+        background:
+            radial-gradient(ellipse at top, rgba(5, 150, 105, 0.15) 0%, transparent 50%),
+            radial-gradient(ellipse at bottom right, rgba(37, 99, 235, 0.15) 0%, transparent 50%);
+    }
+</style>

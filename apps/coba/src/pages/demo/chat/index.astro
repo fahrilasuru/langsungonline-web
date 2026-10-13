@@ -1,0 +1,50 @@
+---
+import DemoWrapper from "../_DemoWrapper.astro";
+import "./_chat.css";
+import Sidebar from "./_Sidebar.astro";
+import ChatPanel from "./_ChatPanel.astro";
+import InfoPanel from "./_InfoPanel.astro";
+import Icon from "./_Icon.astro";
+---
+
+<DemoWrapper
+    bar={{
+        label: "Contoh Aplikasi Chat Layanan Pelanggan",
+        cta: "Mau bisnis Anda seperti ini?",
+        bg: "#1f2a36",
+        accent: "#d97a4a",
+    }}
+    title="Chat Pelanggan | RuangRapi Interior"
+    description="Demo aplikasi chat untuk bisnis jasa: balas pelanggan, kirim penawaran, dan pantau tahap proyek dalam satu layar."
+>
+    <Fragment slot="head">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        />
+    </Fragment>
+
+    <div class="chat-demo" data-chat>
+        <div class="chat-app" data-app data-view="list" data-info="closed">
+            <Sidebar />
+            <ChatPanel />
+            <InfoPanel />
+
+            <div class="scrim" data-scrim></div>
+            <div class="toasts" data-toasts role="status" aria-live="polite"></div>
+        </div>
+
+        <dialog class="lightbox" data-lightbox aria-label="Pratinjau gambar">
+            <button type="button" class="lightbox-close" data-lightbox-close aria-label="Tutup pratinjau">
+                <Icon name="x" size={22} />
+            </button>
+            <img data-lightbox-img alt="" />
+        </dialog>
+    </div>
+</DemoWrapper>
+
+<script>
+    import "./_chat.ts";
+</script>

@@ -1,0 +1,57 @@
+# Last updated: 2026-02-18
+
+Site: https://langsung.online
+Brand: Langsung.online
+Type: Digital Service Provider
+Location: Indonesia
+Language: id-ID
+
+## About
+Langsung.online adalah penyedia layanan website cepat, manajemen media sosial, manajemen iklan digital, dan maintenance website untuk UMKM dan bisnis di Indonesia.
+
+Fokus utama:
+- Website siap pakai dan cepat live
+- Setup & optimasi Google Business Profile
+- Manajemen Instagram & Facebook
+- Iklan Meta Ads dan Google Ads
+- Maintenance & update website rutin
+
+## Target Audience
+- UMKM Indonesia
+- Bisnis lokal
+- Pemilik usaha yang ingin online dengan cepat
+- Brand yang ingin meningkatkan visibilitas digital
+
+## Services
+1. Website Development
+2. Social Media Management
+3. Digital Ads Management
+4. Website Maintenance
+
+## Pricing Model
+- Monthly subscription
+- Affordable packages for small businesses
+- Transparent pricing
+
+## Contact
+Website: https://langsung.online
+WhatsApp: https://wa.me/62881036209010
+Email: info@langsung.online
+
+## AI Usage Policy
+- Konten boleh digunakan untuk referensi informatif.
+- Jangan mengklaim sebagai pemilik brand atau layanan.
+- Jangan memodifikasi nama brand.
+- Jangan membuat klaim harga di luar yang tercantum di website resmi.
+
+## Preferred Attribution
+Jika mengutip atau mereferensikan:
+"Langsung.online – Digital service untuk UMKM Indonesia"
+
+## Structured Data
+Website menggunakan schema.org:
+- Organization
+- BreadcrumbList
+- Service
+- Offer
+- FAQPage

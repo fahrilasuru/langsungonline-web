@@ -1,0 +1,46 @@
+---
+import TokoLayout from "./_TokoLayout.astro";
+import { IMG, BASE, WA } from "./_products.js";
+const vals = [["fa-handshake", "Adil untuk petani", "Kami membayar di atas harga pasar dan menulis nama kebun di setiap kemasan."], ["fa-fire", "Segar adalah standar", "Tidak ada stok sangrai lebih dari 3 minggu di rak kami."], ["fa-recycle", "Kemasan bertanggung jawab", "Kantong kraft dapat didaur ulang dan kardus pengiriman bekas pakai."]];
+const tl = [["2018", "Mulai dari dapur", "Roasting pertama dengan mesin 1 kg di Surabaya."], ["2020", "Toko online dibuka", "Pelanggan pertama dari luar Jawa Timur."], ["2023", "Kemitraan 12 kebun", "Kerja sama langsung dengan koperasi di 4 pulau."], ["2026", "2.000+ pelanggan", "Meluncurkan langganan bulanan dan hampers."]];
+---
+<TokoLayout title="Tentang Kami | Teduh Coffee" description="Kenali cerita, nilai dan tim di balik Teduh Coffee, roastery kopi specialty di Surabaya." active="tentang">
+<section class="phero"><div class="wrap"><div class="crumb"><a href={`${BASE}/`}>Beranda</a><i class="fa-solid fa-chevron-right"></i>Tentang</div><h1>Kopi yang jujur, dari kebun sampai cangkir</h1><p>Kami roastery kecil di Surabaya yang percaya bahwa kopi enak berawal dari hubungan baik dengan petani.</p></div></section>
+
+<section class="sec"><div class="wrap story">
+  <img class="reveal" src={IMG.team} alt="Tim Teduh Coffee berdiskusi" loading="lazy" />
+  <div class="reveal"><div class="sh" style="margin-bottom:18px"><h2>Cerita kami</h2></div>
+    <p>Teduh berarti tempat berhenti sejenak. Kami ingin secangkir kopi menjadi jeda yang menyenangkan di tengah hari Anda.</p>
+    <p>Sejak 2018 kami menyangrai kopi dalam batch kecil dan mencicipi setiap batch sebelum dijual. Jika rasanya belum pas, kami ulangi.</p>
+    <a href={`${BASE}/produk`} class="btn moss">Lihat produk kami</a></div>
+</div></section>
+
+<section class="sec alt"><div class="wrap">
+  <div class="sh c reveal"><h2>Yang kami pegang</h2></div>
+  <div class="feats">{vals.map(([i, t, d]) => <div class="feat reveal"><i class={`fa-solid ${i}`}></i><h3>{t}</h3><p>{d}</p></div>)}</div>
+</div></section>
+
+<section class="sec dark"><div class="wrap">
+  <div class="sh c reveal"><h2>Perjalanan Teduh</h2></div>
+  <div class="tl">{tl.map(([y, t, d]) => <div class="reveal"><b>{y}</b><span><h3>{t}</h3><p>{d}</p></span></div>)}</div>
+</div></section>
+
+<section class="sec" id="kontak"><div class="wrap">
+  <div class="sh reveal"><h2>Hubungi kami</h2><p>Tim kami membalas pesan setiap Senin sampai Sabtu, 08.00 - 17.00.</p></div>
+  <div class="ccards">
+    <div class="cc"><i class="fa-brands fa-whatsapp"></i><h3>WhatsApp</h3><p class="mute">Respons tercepat untuk tanya produk dan pesanan.</p><a href={`https://wa.me/${WA}`} target="_blank" rel="noopener" class="ok">Chat sekarang</a></div>
+    <div class="cc"><i class="fa-solid fa-envelope"></i><h3>Email</h3><p class="mute">Untuk kerja sama dan pesanan grosir.</p><a href="mailto:halo@teduhcoffee.id" class="ok">halo@teduhcoffee.id</a></div>
+    <div class="cc"><i class="fa-solid fa-location-dot"></i><h3>Roastery</h3><p class="mute">Surabaya, Jawa Timur. Kunjungan dengan janji temu.</p><a href="https://maps.google.com" target="_blank" rel="noopener" class="ok">Buka peta</a></div>
+  </div>
+  <form class="box form reveal" id="ctForm" style="max-width:760px">
+    <label>Nama<input required placeholder="Nama Anda" /></label><label>Email<input type="email" required placeholder="nama@email.com" /></label>
+    <label class="w">Pesan<textarea rows="4" required placeholder="Tulis pertanyaan Anda"></textarea></label>
+    <div class="w"><button class="btn moss" type="submit"><i class="fa-solid fa-paper-plane"></i> Kirim pesan</button></div>
+  </form>
+</div></section>
+</TokoLayout>
+
+<script>
+  import { toast } from "./_cart.js";
+  document.getElementById("ctForm").addEventListener("submit", (e) => { e.preventDefault(); toast("Pesan terkirim (demo, tidak ada data tersimpan)"); e.target.reset(); });
+</script>

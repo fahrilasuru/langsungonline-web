@@ -1,0 +1,5 @@
+---
+import Suggested from "../../ui/Suggested.astro";
+const { eyebrow, title, lead, suggested = false } = Astro.props;
+---
+<div class="sh rv">{eyebrow && <span class="eyebrow">{eyebrow}</span>}<h2>{title}{suggested && <Suggested />}</h2>{lead && <p class="lead">{lead}</p>}</div>

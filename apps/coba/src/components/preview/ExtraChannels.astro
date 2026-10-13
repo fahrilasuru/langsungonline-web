@@ -1,0 +1,23 @@
+---
+import Icon from "../ui/Icon.astro";
+const { extras = [] } = Astro.props;
+const INFO = {
+  whatsapp_business: { icon: "whatsapp", title: "WhatsApp Business", color: "#16a34a", text: "Profil usaha yang rapi, katalog, dan pesan sambutan agar pelanggan mudah bertanya." },
+  tiktok: { icon: "tiktok", title: "TikTok", color: "#111827", text: "Video pendek untuk menjangkau calon pelanggan baru." },
+  facebook: { icon: "facebook", title: "Facebook", color: "#2563eb", text: "Halaman usaha untuk pelanggan yang aktif di Facebook." },
+  youtube: { icon: "youtube", title: "YouTube", color: "#dc2626", text: "Video profil atau panduan yang mudah dibagikan." },
+};
+---
+<section id="lainnya"><div class="wrap">
+  <h2 class="sec">Yang juga bisa kami siapkan</h2>
+  <p class="sec-sub">Belum ada pratinjaunya, tapi bisa kita bahas saat konsultasi.</p>
+  {extras.length > 0 && (
+    <div class="xgrid">{extras.map((x) => INFO[x.type] && (
+      <article class="xcard" style={`--xc:${INFO[x.type].color}`}>
+        <span class="xi"><Icon n={INFO[x.type].icon} s="brands" /></span>
+        <div><h3>{INFO[x.type].title}</h3><p>{INFO[x.type].text}</p>{x.note && <p class="xn">{x.note}</p>}</div>
+      </article>
+    ))}</div>
+  )}
+  <p class="xmore"><span><Icon n="circle-plus" /> Butuh setup kanal lainnya? Kami juga siap membantu menyiapkannya.</span> <a href="#konsultasi">Ceritakan kebutuhan Anda</a></p>
+</div></section>

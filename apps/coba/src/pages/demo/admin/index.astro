@@ -1,0 +1,64 @@
+---
+import DemoWrapper from "../_DemoWrapper.astro";
+import "./_shared.css";
+import Sidebar from "./_Sidebar.astro";
+import Topbar from "./_Topbar.astro";
+import Dashboard from "./_Dashboard.astro";
+import Products from "./_Products.astro";
+import Orders from "./_Orders.astro";
+import Users from "./_Users.astro";
+import Reports from "./_Reports.astro";
+import Activity from "./_Activity.astro";
+import Settings from "./_Settings.astro";
+import Overlays from "./_Overlays.astro";
+import "./_views.css";
+---
+
+<DemoWrapper
+    bar={{ label: "Contoh Aplikasi Admin UMKM", cta: "Mau aplikasi admin seperti ini?", bg: "#14341b", accent: "#8fd9a0" }}
+    title="Dashboard Admin UMKM Kita | Demo Aplikasi Manajemen Toko"
+    description="Contoh aplikasi admin untuk UMKM: kelola produk, pesanan, pengguna, laporan penjualan, dan log aktivitas dalam satu dashboard."
+>
+    <Fragment slot="head">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    </Fragment>
+
+    <div class="body" data-theme="light" data-density="nyaman">
+        <div class="app">
+            <Sidebar />
+            <div class="scrim" data-action="close-sidebar"></div>
+
+            <main class="main" id="main">
+                <Topbar />
+                <div class="views">
+                    <Dashboard />
+                    <Products />
+                    <Orders />
+                    <Users />
+                    <Reports />
+                    <Activity />
+                    <Settings />
+                </div>
+            </main>
+        </div>
+        <Overlays />
+        <div class="toasts" id="toasts" aria-live="polite"></div>
+    </div>
+</DemoWrapper>
+
+<script>
+    import "./_interactions.js";
+</script>
+
+<!-- Token warna & aturan dasar ada di _shared.css (diawali .body supaya tidak bocor ke layout lain). -->
+<style>
+    html {
+        scroll-behavior: smooth;
+    }
+</style>

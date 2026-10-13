@@ -1,0 +1,69 @@
+<!-- ===== TRUST STRIP ===== -->
+<section class="trust-strip" aria-label="Pencapaian dan kepercayaan">
+    <div class="trust-strip-inner">
+        <div class="trust-item reveal">
+            <div class="number">8+</div>
+            <div class="label">Tahun Pengalaman</div>
+        </div>
+        <div class="trust-item reveal">
+            <div class="number">120+</div>
+            <div class="label">Proyek Selesai</div>
+        </div>
+        <div class="trust-item reveal">
+            <div class="number">4.9/5</div>
+            <div class="label">Kepuasan Klien</div>
+        </div>
+        <div class="trust-item reveal">
+            <div class="number">&#10003;</div>
+            <div class="label">Garansi Pengerjaan</div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .trust-strip {
+        background: var(--primary);
+        padding: 40px 24px;
+    }
+
+    .trust-strip-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+        text-align: center;
+    }
+
+    .trust-item {
+        color: #fff;
+    }
+
+    .trust-item .number {
+        font-size: clamp(28px, 4vw, 40px);
+        font-weight: 800;
+        color: var(--accent);
+        letter-spacing: -1px;
+        line-height: 1.2;
+    }
+
+    .trust-item .label {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.7);
+        font-weight: 500;
+        margin-top: 4px;
+    }
+
+    @media (max-width: 600px) {
+        .trust-strip-inner {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+    }
+
+    @media (max-width: 380px) {
+        .trust-strip-inner {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

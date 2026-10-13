@@ -1,0 +1,52 @@
+<!-- ===== PRODUK ===== -->
+<section class="view" id="view-produk" data-view="produk" hidden>
+    <div class="view-head">
+        <div>
+            <h2 class="view-title">Manajemen produk</h2>
+            <p class="view-sub" id="productSub"></p>
+        </div>
+        <div class="view-actions">
+            <button class="btn btn-ghost" data-action="export-products">
+                <span class="material-icons">download</span><span class="hide-sm">Ekspor CSV</span>
+            </button>
+            <button class="btn btn-primary" data-action="new-product">
+                <span class="material-icons">add</span>Tambah produk
+            </button>
+        </div>
+    </div>
+
+    <div class="chips" id="productChips" role="tablist" aria-label="Filter status stok"></div>
+
+    <div class="toolbar">
+        <div class="input-icon grow">
+            <span class="material-icons">search</span>
+            <input class="input" type="search" placeholder="Cari nama atau SKU produk" data-bind="products.q" aria-label="Cari produk" />
+        </div>
+        <select class="select" data-bind="products.cat" aria-label="Kategori">
+            <option value="all">Semua kategori</option>
+            <option>Makanan</option>
+            <option>Minuman</option>
+            <option>Fashion</option>
+            <option>Kecantikan</option>
+            <option>Kerajinan</option>
+        </select>
+        <select class="select" data-bind="products.sort" aria-label="Urutkan">
+            <option value="terbaru">Terbaru</option>
+            <option value="terlaris">Terlaris</option>
+            <option value="stok-asc">Stok terendah</option>
+            <option value="harga-desc">Harga tertinggi</option>
+            <option value="harga-asc">Harga terendah</option>
+            <option value="nama">Nama A–Z</option>
+        </select>
+        <div class="seg seg-icons" aria-label="Tampilan">
+            <button class="seg-btn active" data-action="set" data-bind="products.layout" data-value="grid" aria-label="Tampilan kartu">
+                <span class="material-icons">grid_view</span>
+            </button>
+            <button class="seg-btn" data-action="set" data-bind="products.layout" data-value="list" aria-label="Tampilan tabel">
+                <span class="material-icons">view_list</span>
+            </button>
+        </div>
+    </div>
+
+    <div id="productList"></div>
+</section>

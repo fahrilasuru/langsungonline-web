@@ -1,0 +1,138 @@
+---
+interface ValueItem {
+    icon: string;
+    title: string;
+    description: string;
+    cardBg: string;
+    iconBg: string;
+    iconColor: string;
+    checkColor: string;
+    features: string[];
+}
+
+const valueItems: ValueItem[] = [
+    {
+        icon: "fas fa-check-double",
+        title: "Kami Cek Dulu",
+        description:
+            "Tidak asal menawarkan semua layanan. Rekomendasi benar-benar mengikuti kondisi bisnis Anda.",
+        cardBg: "bg-green-50/50",
+        iconBg: "from-green-500 to-emerald-500",
+        iconColor: "text-white",
+        checkColor: "text-green-500",
+        features: [
+            "Analisis awal kebutuhan bisnis",
+            "Rekomendasi yang tepat sasaran",
+            "Yang tidak perlu, tidak kami jual",
+        ],
+    },
+    {
+        icon: "fas fa-tools",
+        title: "Kami yang Urus Teknisnya",
+        description:
+            "Domain, website, Google, tracking, dan hal teknis lain tidak perlu Anda pelajari.",
+        cardBg: "bg-blue-50/50",
+        iconBg: "from-blue-500 to-cyan-500",
+        iconColor: "text-white",
+        checkColor: "text-blue-500",
+        features: [
+            "Semua kerumitan teknis dibereskan",
+            "Setup ekosistem digital tuntas",
+            "Bebas pusing atur sistem sendiri",
+        ],
+    },
+    {
+        icon: "fas fa-headset",
+        title: "Tetap Ada yang Bisa Ditanya",
+        description:
+            "Ada perubahan atau masalah setelah jadi? Tinggal hubungi kami kapan saja.",
+        cardBg: "bg-amber-50/50",
+        iconBg: "from-amber-500 to-orange-500",
+        iconColor: "text-white",
+        checkColor: "text-amber-500",
+        features: [
+            "Satu tempat, satu kontak, beres",
+            "Pendampingan berkelanjutan",
+            "Solusi nyata dibanding pakai AI sendiri",
+        ],
+    },
+];
+
+const title = "Kenapa";
+const highlight = "Langsung.Online";
+const subtitle = "Solusi praktis dan tuntas agar Anda bisa fokus sepenuhnya pada pertumbuhan bisnis.";
+---
+
+<section class="bg-white py-16 md:py-20">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12 md:mb-16" data-aos="fade-up">
+            <h2
+                class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 md:mb-4"
+            >
+                {title}
+                <span
+                    class="bg-linear-to-r from-green-600 to-blue-600 bg-clip-text text-transparent"
+                    >{highlight}</span
+                >?
+            </h2>
+            <p
+                class="text-sm md:text-base lg:text-lg text-gray-600 max-w-2xl mx-auto px-4"
+            >
+                {subtitle}
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+            {
+                valueItems.map((item, index) => (
+                    <div
+                        class={`${item.cardBg} backdrop-blur-sm rounded-xl md:rounded-2xl p-6 md:p-8 card-hover border border-gray-100/50`}
+                        data-aos="fade-up"
+                        data-aos-delay={100 + index * 100}
+                    >
+                        <div class="w-14 h-14 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-white/80 backdrop-blur-sm flex items-center justify-center mb-5 md:mb-6 shadow-lg border border-gray-100">
+                            <div
+                                class={`w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-linear-to-br ${item.iconBg} flex items-center justify-center shadow-md`}
+                            >
+                                <i
+                                    class={`${item.icon} ${item.iconColor} text-base md:text-xl`}
+                                />
+                            </div>
+                        </div>
+
+                        <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4">
+                            {item.title}
+                        </h3>
+
+                        <p class="text-sm md:text-base text-gray-600 mb-5 md:mb-6 leading-relaxed">
+                            {item.description}
+                        </p>
+
+                        <ul class="hidden lg:block space-y-2 md:space-y-3">
+                            {item.features.map((feature) => (
+                                <li class="flex items-start">
+                                    <i
+                                        class={`fas fa-check-circle ${item.checkColor} mr-2 md:mr-3 mt-0.5 text-sm md:text-base shrink-0`}
+                                    />
+                                    <span class="text-sm md:text-base text-gray-700">
+                                        {feature}
+                                    </span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>
+
+<style>
+    .card-hover {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-hover:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.08);
+    }
+</style>

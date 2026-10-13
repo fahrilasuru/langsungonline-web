@@ -1,0 +1,147 @@
+---
+// Isi halaman 404 bersama. Tiap app punya pages/404.astro tipis yang merender komponen ini.
+import Base from "../layouts/Base.astro";
+import { WA_NUMBER, MARKETING_URL } from "../constants";
+import { wa } from "../wa";
+
+const whatsappLink = wa(WA_NUMBER, "Halo, saya menemukan halaman error dan butuh bantuan");
+---
+
+<Base
+    title="404 • Halaman Tidak Ditemukan"
+    description="Halaman yang kamu cari tidak ditemukan."
+    noIndex
+>
+    <section class="wrapper">
+        <div class="content">
+            <h1>
+                Waduh, <span class="gradient">Nyasar</span> ya?
+            </h1>
+
+            <p class="subtitle">
+                Halaman yang kamu cari mungkin sudah dipindah, dihapus, atau
+                memang belum pernah ada.
+            </p>
+
+            <div class="actions">
+                <a href={`${MARKETING_URL}/`} class="btn primary">Kembali ke Beranda</a>
+                <a href={whatsappLink} class="btn secondary">Konsultasi</a>
+            </div>
+        </div>
+    </section>
+</Base>
+
+<style>
+    .wrapper {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4rem 1.5rem;
+        background: linear-gradient(135deg, #f0fdf4, #eff6ff);
+        text-align: center;
+    }
+
+    .content {
+        max-width: 640px;
+        width: 100%;
+    }
+
+    .badge {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #2563eb;
+        margin-bottom: 1rem;
+        letter-spacing: 0.05em;
+    }
+
+    h1 {
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: #111827;
+    }
+
+    .gradient {
+        background: linear-gradient(to right, #16a34a, #2563eb);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+        color: #475569;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+
+    .actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 1.5rem;
+    }
+
+    .btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 9999px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.2s ease;
+    }
+
+    .primary {
+        background: #2563eb;
+        color: white;
+    }
+
+    .primary:hover {
+        background: #1d4ed8;
+    }
+
+    .secondary {
+        background: #e5e7eb;
+        color: #111827;
+    }
+
+    .secondary:hover {
+        background: #d1d5db;
+    }
+
+    .wa-link {
+        display: inline-block;
+        font-size: 0.9rem;
+        color: #16a34a;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .wa-link:hover {
+        text-decoration: underline;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .wrapper {
+            background: linear-gradient(135deg, #111827, #1f2937);
+        }
+
+        h1 {
+            color: #f3f4f6;
+        }
+
+        .subtitle {
+            color: #9ca3af;
+        }
+
+        .secondary {
+            background: #374151;
+            color: #f3f4f6;
+        }
+
+        .secondary:hover {
+            background: #4b5563;
+        }
+    }
+</style>

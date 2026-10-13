@@ -1,0 +1,65 @@
+---
+import PresenceSection from "./PresenceSection.astro";
+import MockFrame from "../ui/MockFrame.astro";
+import ProductTile from "./ProductTile.astro";
+import Avatar from "../ui/Avatar.astro";
+import Icon from "../ui/Icon.astro";
+import Img from "../ui/Img.astro";
+import Suggested from "../ui/Suggested.astro";
+import { rupiah, wa } from "../../format";
+import { PLATFORM } from "../../presence";
+const { business: b, presence, theme } = Astro.props;
+const { platform, store_name, product_ids } = presence.data;
+const ps = product_ids.map((id) => b.products.find((p) => p.id === id)).filter(Boolean);
+const cats = [...new Set(ps.map((p) => p.category).filter(Boolean))];
+const copy = presence.copy ?? { title: "Produk lebih mudah dibeli", body: "Pelanggan bisa melihat pilihan produk dan melanjutkan pembelian melalui kanal yang sudah mereka kenal." };
+const chat = (t: string) => wa(b.whatsapp, t);
+---
+<PresenceSection id="marketplace" title={copy.title} body={copy.body}>
+  <MockFrame id="shpm" mock="marketplace" class="shp" style={`--mk:${PLATFORM[platform].color};--lg1:${theme.primary};--lg2:${theme.accent ?? theme.primary}`}>
+    <div class="hd">
+      <div class="srchrow">
+        <label class="srch"><Icon n="magnifying-glass" /><input type="search" placeholder="Cari di Toko" aria-label="Cari di toko" /></label>
+        <span class="cart" data-cart aria-label="Keranjang"><Icon n="cart-shopping" /><b hidden>0</b></span>
+      </div>
+      <div class="st"><Avatar logo={b.logo} icon={b.logo_icon} /><div><b>{store_name}</b>{b.city && <small>{b.city}</small>}</div>
+        <div class="fb"><button data-act="follow">Ikuti</button><a href={chat(`Halo ${b.name}, saya lihat toko Anda dan ingin bertanya.`)} target="_blank" rel="noopener">Chat</a></div></div>
+    </div>
+    <div class="tabs" role="tablist"><button data-tab="toko">Toko</button><button data-tab="produk" class="on">Produk</button>{cats.length > 0 && <button data-tab="kategori">Kategori</button>}</div>
+
+    <div class="spane" data-pane="toko" hidden>
+      <div class="tkb ph"><Img img={ps[0]?.image} /></div>{b.bio && <p class="tkp">{b.bio}</p>}
+      {b.address && <div class="grow"><span class="ic"><Icon n="location-dot" /></span><span>{b.address}</span></div>}
+      <div class="tkt">Produk pilihan</div>
+      <div class="shopg">{ps.slice(0, 2).map((p, i) => <ProductTile p={p} i={i} />)}</div>
+    </div>
+    <div class="spane" data-pane="produk">
+      <div class="sort"><button data-sort="pop" class="on">Populer</button><button data-sort="new">Terbaru</button><button data-sort="price">Harga <Icon n="sort" /></button></div>
+      <div class="catchip" data-chip hidden><span></span><button aria-label="Hapus filter"><Icon n="xmark" /></button></div>
+      <div class="shopg" data-tiles>{ps.map((p, i) => <ProductTile p={p} i={i} />)}</div>
+      <div class="gemp" data-empty hidden>Produk tidak ditemukan.</div>
+    </div>
+    <div class="spane" data-pane="kategori" hidden>{cats.map((c) => <button class="li" data-filter={c}><span>{c} ({ps.filter((p) => p.category === c).length})</span><Icon n="chevron-right" /></button>)}</div>
+
+    {ps.map((p) => (
+      <dialog class="sheet" data-product={p.id} aria-label={p.name}>
+        <div class="pfhd"><button data-close aria-label="Kembali"><Icon n="arrow-left" /></button><b>Detail produk</b><span class="cart" data-cart style="margin-left:auto"><Icon n="cart-shopping" /><b hidden>0</b></span></div>
+        <div class="pfeed">
+          <div class="ppi ph"><Img img={p.image} /></div>
+          <div class="spb">
+            <div class="spp">{p.price != null ? rupiah(p.price) : "Hubungi penjual"}</div>
+            <h3>{p.name}{p.suggested && <Suggested />}</h3>
+            <p>{p.description ?? `${p.category ?? "Produk"} dari ${b.name}${b.city ? `, ${b.city}` : ""}. Tanya stok atau pesanan khusus lewat chat.`}</p>
+            <div class="qty"><span>Jumlah</span><button data-q="-1" aria-label="Kurangi"><Icon n="minus" /></button><b>1</b><button data-q="1" aria-label="Tambah"><Icon n="plus" /></button></div>
+          </div>
+        </div>
+        <div class="spbar">
+          <a href={chat(`Halo ${b.name}, saya tertarik dengan ${p.name}.`)} target="_blank" rel="noopener"><Icon n="whatsapp" s="brands" /> Chat</a>
+          <button data-add>Masukkan keranjang</button><button class="buy" data-buy>Beli sekarang</button>
+        </div>
+        <div class="toast" role="status"></div>
+      </dialog>
+    ))}
+  </MockFrame>
+</PresenceSection>
+<script>import "../../scripts/marketplace";</script>

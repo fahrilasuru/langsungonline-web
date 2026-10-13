@@ -1,0 +1,16 @@
+/* Animasi muncul saat di-scroll (kelas .reveal, kelas .visible ditambahkan oleh _interactions.js).
+ *
+ * WAJIB diimpor TERAKHIR di index.astro: aturan ini sengaja menimpa transition/transform kartu
+ * (.problem-card, .service-card, dll.) dengan spesifisitas sama, dan menang lewat urutan. */
+.body .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition:
+        opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.body .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}

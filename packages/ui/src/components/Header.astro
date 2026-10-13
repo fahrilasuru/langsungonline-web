@@ -1,0 +1,245 @@
+---
+import { LINK_KONSULTASI, MARKETING_URL, COBA_URL } from "../constants";
+
+const navLinks = [
+    { href: `${MARKETING_URL}/`, label: "Beranda", icon: "fa-solid fa-house" },
+    { href: `${MARKETING_URL}/layanan`, label: "Yang Kami Bereskan", icon: "fa-solid fa-circle-check" },
+    { href: `${COBA_URL}/demo`, label: "Hasil/Demo", icon: "fa-solid fa-circle-play" },
+    { href: `${MARKETING_URL}/kontak`, label: "Cek Bisnis Saya", icon: "fa-solid fa-stethoscope" },
+];
+
+const subtitle = "Bisnis jalan. Online beres.";
+---
+
+<header>
+    <nav
+        class="fixed w-full bg-white/90 backdrop-blur-lg shadow-sm z-50 border-b border-gray-200/50"
+    >
+        <div class="mx-auto px-6">
+            <div class="flex justify-between items-center h-20">
+                <a href={`${MARKETING_URL}/`} class="flex items-center space-x-3 group">
+                    <div
+                        class="w-10 h-10 md:w-11 md:h-11 lg:w-12 lg:h-12 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300"
+                    >
+                        <svg
+                            width="26"
+                            height="26"
+                            viewBox="0 0 24 24"
+                            class="drop-shadow-md lg:w-7 lg:h-7"
+                        >
+                            <rect
+                                x="2"
+                                y="2"
+                                width="8"
+                                height="20"
+                                rx="4"
+                                ry="4"
+                                fill="#10b981"
+                                class="transition-all duration-300 group-hover:fill-emerald-500"
+                            ></rect>
+                            <circle
+                                cx="17"
+                                cy="12"
+                                r="4"
+                                fill="#7dd3fc"
+                                class="transition-all duration-300 group-hover:fill-blue-400"
+                            ></circle>
+                        </svg>
+                    </div>
+                    <div>
+                        <span
+                            class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 tracking-tight"
+                        >
+                            langsung<span
+                                class="text-blue-600 group-hover:text-blue-700 transition-colors"
+                                >.online</span
+                            >
+                        </span>
+                        <p
+                            class="hidden md:block text-xs md:text-sm lg:text-base text-gray-500 -mt-1 font-medium"
+                        >
+                            {subtitle}
+                        </p>
+                    </div>
+                </a>
+
+                <div class="hidden lg:flex items-center space-x-1">
+                    {
+                        navLinks.map((link) => (
+                            <a
+                                href={link.href}
+                                class="px-4 py-2 lg:px-4 lg:py-2.5 text-sm lg:text-base text-gray-700 hover:text-blue-600 transition-all duration-300 font-medium rounded-lg hover:bg-blue-50/80 relative group"
+                            >
+                                {link.label}
+                                <span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-blue-600 group-hover:w-1/2 group-hover:left-0 transition-all duration-300" />
+                                <span class="absolute bottom-0 right-1/2 w-0 h-0.5 bg-blue-600 group-hover:w-1/2 group-hover:right-0 transition-all duration-300" />
+                            </a>
+                        ))
+                    }
+
+                    <a
+                        href={LINK_KONSULTASI}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="ml-4 px-5 py-2.5 lg:px-6 lg:py-3 bg-linear-to-r from-blue-600 to-emerald-500 text-white rounded-xl font-medium text-sm lg:text-base shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 inline-flex items-center gap-2"
+                    >
+                        <span class="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse"></span>
+                        <span>Cek Gratis</span>
+                    </a>
+                </div>
+
+                <button
+                    class="lg:hidden flex flex-col items-end space-y-1.5 p-2 focus:outline-none relative z-100 group"
+                    aria-label="Menu"
+                    id="hamburger-btn"
+                >
+                    <span
+                        class="w-7 h-0.5 bg-gray-600 transition-all duration-300 group-hover:bg-blue-600"
+                    ></span>
+                    <span
+                        class="w-5 h-0.5 bg-gray-600 transition-all duration-300 group-hover:bg-blue-600"
+                    ></span>
+                    <span
+                        class="w-3 h-0.5 bg-gray-600 transition-all duration-300 group-hover:bg-blue-600"
+                    ></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div
+        id="mobile-drawer"
+        class="fixed top-0 right-0 h-full w-80 md:w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-out lg:hidden z-100"
+    >
+        <div class="flex flex-col h-full relative">
+            <div class="pt-8 px-6 pb-6 relative">
+                <div class="flex justify-end">
+                    <button
+                        id="close-drawer"
+                        class="w-11 h-11 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-all duration-300 group"
+                        aria-label="Tutup menu"
+                    >
+                        <i
+                            class="fa-solid fa-xmark text-xl text-gray-600 group-hover:rotate-90 transition-transform duration-300"
+                        ></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex-1 px-5 overflow-y-auto pb-36">
+                <div class="space-y-2">
+                    {
+                        navLinks.map((link) => (
+                            <a
+                                href={link.href}
+                                class="flex items-center space-x-4 px-4 py-4 text-gray-700 hover:bg-linear-to-r hover:from-blue-50 hover:to-emerald-50 rounded-xl transition-all duration-300 group"
+                            >
+                                <div class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center group-hover:bg-white group-hover:shadow-md transition-all duration-300">
+                                    <i
+                                        class={`${link.icon} text-lg text-gray-600 group-hover:text-blue-600 transition-colors`}
+                                    />
+                                </div>
+                                <span class="text-base font-medium text-gray-700 group-hover:text-blue-600">
+                                    {link.label}
+                                </span>
+                            </a>
+                        ))
+                    }
+                </div>
+            </div>
+
+            <div
+                class="absolute bottom-0 left-0 right-0 p-5 bg-linear-to-t from-white via-white to-transparent"
+            >
+                <a
+                    href={LINK_KONSULTASI}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="block w-full px-6 py-4 bg-linear-to-r from-blue-600 to-emerald-500 text-white rounded-xl font-medium text-base text-center shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                >
+                    <span class="flex items-center justify-center space-x-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse"></span>
+                        <span>Cek Gratis</span>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div
+        id="drawer-overlay"
+        class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden transition-opacity duration-300 lg:hidden z-90"
+    >
+    </div>
+</header>
+
+<script>
+    (function () {
+        const hamburgerBtn = document.getElementById("hamburger-btn");
+        const mobileDrawer = document.getElementById("mobile-drawer");
+        const closeDrawer = document.getElementById("close-drawer");
+        const overlay = document.getElementById("drawer-overlay");
+
+        if (!hamburgerBtn || !mobileDrawer || !closeDrawer || !overlay) return;
+
+        function openDrawer() {
+            if (!mobileDrawer || !overlay) return;
+
+            mobileDrawer.classList.remove("translate-x-full");
+            overlay.classList.remove("hidden");
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeDrawerFunc() {
+            if (!mobileDrawer || !overlay) return;
+
+            mobileDrawer.classList.add("translate-x-full");
+            overlay.classList.add("hidden");
+            document.body.style.overflow = "";
+        }
+
+        hamburgerBtn.addEventListener("click", openDrawer);
+        closeDrawer.addEventListener("click", closeDrawerFunc);
+        overlay.addEventListener("click", closeDrawerFunc);
+
+        document.addEventListener("keydown", (e) => {
+            if (
+                e.key === "Escape" &&
+                !mobileDrawer.classList.contains("translate-x-full")
+            )
+                closeDrawerFunc();
+        });
+
+        window.addEventListener("resize", () => {
+            if (window.innerWidth >= 1024) closeDrawerFunc();
+        });
+
+        mobileDrawer.addEventListener("click", (e) => e.stopPropagation());
+    })();
+</script>
+
+<style>
+    #mobile-drawer {
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #drawer-overlay {
+        transition: opacity 0.3s ease-in-out;
+    }
+    body:has(#mobile-drawer:not(.translate-x-full)) {
+        overflow: hidden;
+    }
+    #mobile-drawer .flex-1 {
+        scrollbar-width: thin;
+        scrollbar-color: #cbd5e1 #f1f5f9;
+    }
+    #mobile-drawer .flex-1::-webkit-scrollbar {
+        width: 6px;
+    }
+    #mobile-drawer .flex-1::-webkit-scrollbar-track {
+        background: #f1f5f9;
+    }
+    #mobile-drawer .flex-1::-webkit-scrollbar-thumb {
+        background-color: #cbd5e1;
+        border-radius: 20px;
+    }
+</style>

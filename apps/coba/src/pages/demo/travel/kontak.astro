@@ -1,0 +1,162 @@
+---
+import TravelLayout from "./_TravelLayout.astro";
+import { BASE, WA_DEFAULT, PHONE, img, faq, destinasi } from "./_data";
+---
+
+<TravelLayout
+    title="Kontak, Konsultasi & FAQ | Langkah Nusa Travel"
+    description="Hubungi Langkah Nusa Travel lewat WhatsApp, telepon, atau kunjungi kantor kami di Surabaya. Lihat juga jawaban atas pertanyaan yang sering diajukan."
+    active="kontak"
+>
+    <section class="tv-pagehero">
+        <img src={img("1527631746610-bca00a040d60", 1800)} alt="Pemandangan dari jendela pesawat" loading="eager" />
+        <div class="tv-wrap">
+            <div class="tv-crumbs"><a href={`${BASE}/`}>Beranda</a> <i class="fa-solid fa-chevron-right"></i> <span>Kontak & FAQ</span></div>
+            <h1>Ceritakan rencana liburan Anda.</h1>
+            <p>Isi formulir singkat atau chat langsung. Penawaran awal kami kirim maksimal 1 hari kerja.</p>
+        </div>
+    </section>
+
+    <section class="tv-section">
+        <div class="tv-wrap ct-grid">
+            <form class="ct-form" id="ctForm">
+                <h2>Minta penawaran gratis</h2>
+                <p class="ct-note">Pesan akan dikirim lewat WhatsApp, jadi pastikan aplikasi tersedia di perangkat Anda.</p>
+
+                <label>Nama lengkap
+                    <input type="text" id="cNama" required autocomplete="name" placeholder="Contoh: Rina Kusuma" />
+                </label>
+
+                <div class="ct-two">
+                    <label>Tujuan
+                        <select id="cTujuan">
+                            <option value="Belum menentukan">Belum menentukan</option>
+                            {destinasi.map((d) => <option value={d.nama}>{d.nama}</option>)}
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                    </label>
+                    <label>Jenis perjalanan
+                        <select id="cJenis">
+                            <option>Open trip</option>
+                            <option>Private trip</option>
+                            <option>Gathering / kantor</option>
+                            <option>Hanya tiket / hotel / visa</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div class="ct-two">
+                    <label>Perkiraan tanggal
+                        <input type="text" id="cTanggal" placeholder="Contoh: akhir Desember 2026" />
+                    </label>
+                    <label>Jumlah peserta
+                        <input type="number" id="cPeserta" min="1" value="2" inputmode="numeric" />
+                    </label>
+                </div>
+
+                <label>Budget per orang (opsional)
+                    <input type="text" id="cBudget" placeholder="Contoh: Rp5.000.000" />
+                </label>
+
+                <label>Catatan tambahan
+                    <textarea id="cCatatan" rows="4" placeholder="Ada anak kecil, lansia, atau permintaan khusus?"></textarea>
+                </label>
+
+                <button type="submit" class="btn btn-sun">
+                    <i class="fa-brands fa-whatsapp"></i> Kirim lewat WhatsApp
+                </button>
+            </form>
+
+            <aside class="ct-side">
+                <div class="ct-card">
+                    <h3>Hubungi langsung</h3>
+                    <ul>
+                        <li><i class="fa-brands fa-whatsapp"></i><div><strong>WhatsApp</strong><a href={WA_DEFAULT} target="_blank" rel="noopener">+62 812-3456-7890</a></div></li>
+                        <li><i class="fa-solid fa-envelope"></i><div><strong>Email</strong><span>halo@langkahnusa.example</span></div></li>
+                        <li><i class="fa-brands fa-instagram"></i><div><strong>Instagram</strong><span>@langkahnusa.travel</span></div></li>
+                    </ul>
+                </div>
+                <div class="ct-card">
+                    <h3>Kantor</h3>
+                    <p><i class="fa-solid fa-location-dot"></i> Jl. Contoh Raya No. 88, Surabaya, Jawa Timur</p>
+                    <p><i class="fa-regular fa-clock"></i> Senin – Sabtu, 08.00 – 18.00 WIB</p>
+                    <p class="ct-small">Kunjungan sebaiknya dengan janji temu agar tim bisa menyiapkan referensi paket.</p>
+                </div>
+                <div class="ct-map" role="img" aria-label="Area peta kantor (contoh)">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <span>Tempatkan Google Maps embed di sini</span>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <section class="tv-section alt" id="faq" style="scroll-margin-top:80px;">
+        <div class="tv-wrap">
+            <div class="tv-head center">
+                <h2>Pertanyaan yang sering ditanyakan</h2>
+                <p>Belum menemukan jawabannya? Tanyakan langsung lewat WhatsApp.</p>
+            </div>
+            <div class="tv-faq">
+                {faq.map((f) => (
+                    <details>
+                        <summary>{f.q}</summary>
+                        <p>{f.a}</p>
+                    </details>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <script define:vars={{ PHONE }}>
+        document.getElementById("ctForm")?.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const v = (id) => document.getElementById(id).value.trim();
+            const lines = [
+                "Halo Langkah Nusa, saya ingin minta penawaran.",
+                "Nama: " + v("cNama"),
+                "Tujuan: " + v("cTujuan"),
+                "Jenis perjalanan: " + v("cJenis"),
+                "Perkiraan tanggal: " + (v("cTanggal") || "fleksibel"),
+                "Jumlah peserta: " + (v("cPeserta") || "2"),
+            ];
+            if (v("cBudget")) lines.push("Budget per orang: " + v("cBudget"));
+            if (v("cCatatan")) lines.push("Catatan: " + v("cCatatan"));
+            window.open("https://wa.me/" + PHONE + "?text=" + encodeURIComponent(lines.join("\n")), "_blank", "noopener");
+        });
+    </script>
+</TravelLayout>
+
+<style is:global>
+    .ct-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: start; }
+    .ct-form { display: grid; gap: 18px; border: 1px solid #d5e4e7; border-radius: 22px; padding: 36px; }
+    .ct-form h2 { font-size: 28px; font-weight: 800; }
+    .ct-note { color: #50686f; font-size: 14.5px; margin-top: -8px; }
+    .ct-form label { display: grid; gap: 6px; font-size: 14px; font-weight: 700; color: #0a2a36; }
+    .ct-form input, .ct-form select, .ct-form textarea { font: inherit; font-weight: 500; padding: 13px 14px; border: 1.5px solid #d5e4e7; border-radius: 12px; background: #fff; color: #1d3640; width: 100%; }
+    .ct-form textarea { resize: vertical; }
+    .ct-form input:focus, .ct-form select:focus, .ct-form textarea:focus { outline: none; border-color: #1b8ea3; box-shadow: 0 0 0 3px rgba(27,142,163,.2); }
+    .ct-two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .ct-side { display: grid; gap: 20px; }
+    .ct-card { background: #e9f4f5; border-radius: 18px; padding: 26px; display: grid; gap: 12px; }
+    .ct-card h3 { font-size: 19px; }
+    .ct-card ul { display: grid; gap: 16px; }
+    .ct-card li { display: flex; gap: 14px; align-items: center; }
+    .ct-card li > i { width: 42px; height: 42px; flex: none; border-radius: 12px; background: #fff; color: #146f80; display: grid; place-items: center; font-size: 18px; }
+    .ct-card li strong { display: block; font-size: 14px; color: #0a2a36; }
+    .ct-card li span, .ct-card li a { font-size: 14.5px; color: #50686f; }
+    .ct-card li a:hover { color: #146f80; text-decoration: underline; }
+    .ct-card p { font-size: 14.5px; display: flex; gap: 10px; }
+    .ct-card p i { color: #1b8ea3; margin-top: 5px; }
+    .ct-card .ct-small { color: #50686f; font-size: 13.5px; }
+    .ct-map { min-height: 180px; border-radius: 18px; border: 2px dashed #b9d3d8; display: grid; place-content: center; text-align: center; gap: 8px; color: #50686f; font-size: 14px; padding: 20px; }
+    .ct-map i { font-size: 30px; color: #1b8ea3; }
+
+    @media (max-width: 980px) {
+        .ct-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+        .ct-form { padding: 24px 20px; }
+        .ct-two { grid-template-columns: 1fr; }
+    }
+</style>

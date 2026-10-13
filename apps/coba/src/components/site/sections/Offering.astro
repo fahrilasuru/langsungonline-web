@@ -1,0 +1,58 @@
+---
+// Satu bagian dengan empat varian (katalog, paket, layanan, acara). limit: tampilan ringkas di beranda.
+import Img from "../../ui/Img.astro";
+import Icon from "../../ui/Icon.astro";
+import SecHead from "./SecHead.astro";
+import Suggested from "../../ui/Suggested.astro";
+import { rupiah, wa } from "../../../format";
+const { offering: o, business: b, limit, more } = Astro.props;
+const all = o.kind === "catalog" ? o.product_ids.map((id) => b.products.find((p) => p.id === id)).filter(Boolean)
+  : o.kind === "packages" ? o.tiers : o.items;
+const items = limit ? all.slice(0, limit) : all;
+const ask = (t: string) => wa(b.whatsapp, `Halo ${b.name}, saya tertarik dengan ${t}.`);
+const KIND = { catalog: "Pilihan kami", packages: "Paket", services: "Layanan", events: "Kegiatan" };
+const cat = (p) => p.category ?? "Lainnya";
+const cats = o.kind === "catalog" && !limit ? [...new Set(items.map(cat))] : [];
+const groups = cats.length > 1 ? cats.map((c) => [c, items.filter((p) => cat(p) === c)]) : [[null, items]];
+---
+<section class="sec" id="penawaran"><div class="w">
+  <SecHead eyebrow={o.nav_label ?? KIND[o.kind]} title={o.title} lead={o.intro} suggested={o.suggested} />
+
+  {o.kind === "catalog" && groups.map(([g, list]) => (
+    <>
+      {g && <h3 class="grp">{g}</h3>}
+      <div class="grid3">{list.map((p) => (
+        <article class="card pcard rv"><div class="ph"><Img img={p.image} /></div>
+          <h3>{p.name}{p.suggested && <Suggested />}</h3>
+          {p.description && <p class="pd">{p.description}</p>}
+          <div class="prow"><span class="price">{p.price != null ? rupiah(p.price) : "Hubungi kami"}</span>
+            <a class="b b-p b-s" href={ask(p.name)} target="_blank" rel="noopener">Pesan</a></div></article>
+      ))}</div>
+    </>
+  ))}
+
+  {o.kind === "packages" && <div class="grid3">{items.map((x) => (
+    <article class:list={["card", "tier", "rv", { ft: x.featured }]}>
+      {x.featured && <span class="badge">Unggulan</span>}
+      <h3>{x.name}</h3><div class="price">{x.price != null ? rupiah(x.price) : "Hubungi kami"}</div>
+      <ul class="pts">{x.features.map((f) => <li>{f}</li>)}</ul>
+      <a class="b b-o" href={ask(`paket ${x.name}`)} target="_blank" rel="noopener">Tanya paket ini</a>
+    </article>
+  ))}</div>}
+
+  {o.kind === "services" && <div class="grid3">{items.map((x) => (
+    <article class="card rv">{x.icon && <span class="ic"><Icon n={x.icon} /></span>}<h3>{x.name}</h3><p>{x.description}</p>
+      <a class="b b-o b-s" href={ask(x.name)} target="_blank" rel="noopener">Tanya layanan</a></article>
+  ))}</div>}
+
+  {o.kind === "events" && <div class="grid3">{items.map((x) => (
+    <article class="card rv"><h3>{x.name}</h3>
+      {x.date && <span class="evm"><Icon n="calendar-days" /> {x.date}</span>}
+      {x.time && <span class="evm"><Icon n="clock" /> {x.time}</span>}
+      {x.place && <span class="evm"><Icon n="location-dot" /> {x.place}</span>}
+      {x.description && <p>{x.description}</p>}
+      <a class="b b-o b-s" href={ask(`acara ${x.name}`)} target="_blank" rel="noopener">Tanya atau daftar</a></article>
+  ))}</div>}
+
+  {limit && more && all.length > limit && <div class="more"><a class="b b-o" href={more}>Lihat semua <Icon n="arrow-right" /></a></div>}
+</div></section>

@@ -1,0 +1,44 @@
+<!-- ===== TAMPILAN RESPONDEN: ISI FORMULIR ===== -->
+<section id="view-isi" class="view" role="tabpanel" aria-labelledby="tab-isi">
+    <div class="view-inner fill">
+        <div class="fill-main">
+            <div class="paper" id="fillPaper">
+                <header class="paper-head">
+                    <div class="paper-brand">
+                        <span class="logo-icon" aria-hidden="true">R</span>
+                        RuangRapi Interior
+                    </div>
+                    <h1 id="fillTitle" class="paper-title">Konsultasi proyek interior</h1>
+                    <p id="fillDesc" class="paper-desc"></p>
+                </header>
+
+                <nav id="fillStepper" class="stp-wrap" aria-label="Langkah formulir"></nav>
+
+                <form id="fillForm" class="paper-body" novalidate autocomplete="on">
+                    <div id="fillMount"></div>
+                    <div id="fillActions" class="actions"></div>
+                </form>
+                <p id="fillStatus" class="sr-only" role="status" aria-live="polite"></p>
+            </div>
+        </div>
+
+        <aside class="fill-aside" aria-label="Ringkasan isian">
+            <div class="side-card">
+                <h2 class="side-title">Kemajuan isian</h2>
+                <p class="side-big"><span id="sumCount">0 dari 0</span> <small>pertanyaan terjawab</small></p>
+                <div id="sumBarWrap" class="meter" role="progressbar" aria-label="Kemajuan pengisian" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                    <i id="sumBar"></i>
+                </div>
+                <p id="sumReq" class="side-line"></p>
+                <p id="sumTime" class="side-line side-muted"></p>
+                <p id="sumSaved" class="side-line side-muted"></p>
+            </div>
+            <div class="side-card side-note">
+                <h2 class="side-title">Tentang demo ini</h2>
+                <p class="side-text">
+                    Validasi, kolom bersyarat, dan layar sukses bekerja seperti aplikasi sungguhan. Jawaban Anda hanya ada di halaman ini dan tidak dikirim ke server mana pun.
+                </p>
+            </div>
+        </aside>
+    </div>
+</section>

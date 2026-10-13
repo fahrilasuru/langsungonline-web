@@ -1,0 +1,17 @@
+---
+import Img from "../../ui/Img.astro";
+import Icon from "../../ui/Icon.astro";
+const { hero, href, more } = Astro.props;
+---
+<section class="hero"><div class:list={["w", "g", { solo: !hero.image }]}>
+  <div class="rv">
+    {hero.badges && hero.badges.length > 0 && <div class="chips">{hero.badges.map((x) => <span class="chip-s"><Icon n="circle-check" /> {x}</span>)}</div>}
+    <h1>{hero.headline}</h1>
+    <p class="lead">{hero.subheadline}</p>
+    <div class="acts">
+      <a class="b b-p" href={href} target="_blank" rel="noopener"><Icon n="whatsapp" s="brands" /> {hero.cta_label}</a>
+      {hero.secondary_label && more && <a class="b b-o" href={more}>{hero.secondary_label} <Icon n="arrow-right" /></a>}
+    </div>
+  </div>
+  {hero.image && <div class="rv"><div class="himg ph"><Img img={hero.image} eager /></div></div>}
+</div></section>

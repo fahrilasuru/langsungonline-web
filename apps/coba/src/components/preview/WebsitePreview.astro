@@ -1,0 +1,15 @@
+---
+import Icon from "../ui/Icon.astro";
+import { exampleDomain } from "../../site";
+const { business, slug, jobId } = Astro.props;
+const site = `/preview/${jobId}/site`;
+---
+<section id="website" data-presence><div class="wrap">
+  <p class="tag">Website</p>
+  <div class="browser">
+    <div class="bbar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url"><Icon n="lock" /> {exampleDomain(slug)}</span></div>
+    <div class="bview"><iframe src={site} title={`Pratinjau website ${business.name}`} loading="lazy"></iframe></div>
+  </div>
+  <div class="fs"><a href={site} target="_blank" rel="noopener">Buka preview layar penuh <Icon n="arrow-up-right-from-square" /></a></div>
+  <p class="sec-sub" style="margin-top:8px;font-size:13px">Alamat di atas hanya contoh. Nama domain sebenarnya kita tentukan bersama.</p>
+</div></section>

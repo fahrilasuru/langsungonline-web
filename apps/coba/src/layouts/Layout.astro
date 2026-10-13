@@ -1,0 +1,19 @@
+---
+import "@fortawesome/fontawesome-free/css/fontawesome.min.css";
+import "@fortawesome/fontawesome-free/css/solid.min.css";
+import "@fortawesome/fontawesome-free/css/regular.min.css";
+import "@fortawesome/fontawesome-free/css/brands.min.css";
+import "../styles/main.css";
+const { title } = Astro.props;
+---
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="robots" content="noindex" />
+    <title>{title}</title>
+    <slot name="head" />
+  </head>
+  <body class="pv"><slot /></body>
+</html>

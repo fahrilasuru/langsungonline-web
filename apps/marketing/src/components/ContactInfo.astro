@@ -1,0 +1,608 @@
+---
+import { LINK_KONSULTASI } from '@langsungonline/ui/constants';
+
+const mainContacts = [
+    {
+        type: "whatsapp",
+        href: LINK_KONSULTASI,
+        icon: "fab fa-whatsapp",
+        label: "WhatsApp (Paling Cepat)",
+        value: "Kirim Nama Bisnis Anda",
+        iconClass: "whatsapp",
+        target: "_blank",
+    },
+    {
+        type: "email",
+        href: "mailto:info@langsung.online",
+        icon: "fas fa-envelope",
+        label: "Email",
+        value: "info@langsung.online",
+        iconClass: "email",
+        target: null,
+    },
+    {
+        type: "telegram",
+        href: "https://t.me/langsungonline",
+        icon: "fab fa-telegram",
+        label: "Telegram",
+        value: "@langsungonline",
+        iconClass: "telegram",
+        target: "_blank",
+    },
+];
+
+const socialMedia = [
+    {
+        name: "instagram",
+        href: "https://www.instagram.com/langsungonline/",
+        icon: "fab fa-instagram",
+        username: "@langsungonline",
+        action: "Follow",
+    },
+    {
+        name: "tiktok",
+        href: "https://www.tiktok.com/@langsung.online",
+        icon: "fab fa-tiktok",
+        username: "@langsungonline",
+        action: "Follow",
+    },
+    {
+        name: "facebook",
+        href: "https://www.facebook.com/langsungonline",
+        icon: "fab fa-facebook",
+        username: "Langsung Online",
+        action: "Like",
+    },
+    {
+        name: "x",
+        href: "https://x.com/langsung_online",
+        icon: "fab fa-x-twitter",
+        username: "@langsung_online",
+        action: "Follow",
+    },
+    {
+        name: "youtube",
+        href: "https://www.youtube.com/@langsungonline",
+        icon: "fab fa-youtube",
+        username: "Langsung Online",
+        action: "Subscribe",
+    },
+];
+
+const operatingHours = {
+    weekdays: { days: "Senin - Jumat", hours: "08:00 - 17:00" },
+    weekends: { days: "Sabtu - Minggu", hours: "09:00 - 15:00" },
+};
+---
+
+<section class="contact-info-section">
+    <div class="container">
+        <!-- Banner Fokus WhatsApp -->
+        <div class="whatsapp-focus-banner" data-aos="fade-up">
+            <div class="whatsapp-banner-content">
+                <h2>Paling cepat lewat WhatsApp</h2>
+                <p>Kirim nama bisnis Anda dan kami mulai dari sana.</p>
+            </div>
+            <a href={LINK_KONSULTASI} target="_blank" rel="noopener noreferrer" class="whatsapp-cta-btn">
+                <i class="fab fa-whatsapp"></i> Cek via WhatsApp &rarr;
+            </a>
+        </div>
+
+        <div class="main-contact-row" data-aos="fade-up" data-aos-delay="100">
+            {
+                mainContacts.map((contact) => (
+                    <a
+                        href={contact.href}
+                        class={`main-contact-card ${contact.type}-card`}
+                        target={contact.target}
+                        rel={contact.target ? "noopener noreferrer" : undefined}
+                    >
+                        <div class="card-glow" />
+                        <div class={`main-icon ${contact.iconClass}`}>
+                            <i class={contact.icon} />
+                        </div>
+                        <div class="main-content">
+                            <span class="main-label">{contact.label}</span>
+                            <span class="main-value">{contact.value}</span>
+                        </div>
+                        <div class="main-arrow">
+                            <i class="fas fa-chevron-right" />
+                        </div>
+                    </a>
+                ))
+            }
+        </div>
+
+        <div class="social-header" data-aos="fade-up" data-aos-delay="150">
+            <div class="social-header-line"></div>
+            <span class="social-header-text">Media Sosial Kami</span>
+            <div class="social-header-line"></div>
+        </div>
+
+        <div
+            class="social-media-section"
+            data-aos="fade-up"
+            data-aos-delay="200"
+        >
+            <div class="social-grid">
+                {
+                    socialMedia.map((social) => (
+                        <a
+                            href={social.href}
+                            class={`social-card ${social.name}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <div class="social-card-inner">
+                                <i class={social.icon} />
+                                <span>{social.username}</span>
+                            </div>
+                            <div class="social-card-overlay">
+                                <i class={social.icon} />
+                                <span>{social.action}</span>
+                            </div>
+                        </a>
+                    ))
+                }
+            </div>
+        </div>
+
+        <div class="hours-note" data-aos="fade-up" data-aos-delay="250">
+            <div class="note-icon-wrapper">
+                <i class="fas fa-clock"></i>
+                <i class="fas fa-headset"></i>
+            </div>
+            <div class="note-content">
+                <span><strong>{operatingHours.weekdays.days}:</strong> {operatingHours.weekdays.hours}</span>
+                <span class="note-separator">•</span>
+                <span><strong>{operatingHours.weekends.days}:</strong> {operatingHours.weekends.hours}</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .contact-info-section {
+        padding: 3rem 0 4rem;
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Banner Fokus WhatsApp */
+    .whatsapp-focus-banner {
+        background: linear-gradient(135deg, #059669 0%, #2563eb 100%);
+        border-radius: 1.5rem;
+        padding: 2rem;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1.5rem;
+        margin-bottom: 2.5rem;
+        box-shadow: 0 15px 35px -10px rgba(5, 150, 105, 0.3);
+    }
+
+    @media (min-width: 768px) {
+        .whatsapp-focus-banner {
+            flex-direction: row;
+            justify-content: space-between;
+            text-align: left;
+            padding: 2.5rem 3rem;
+        }
+    }
+
+    .badge-fast {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.5rem;
+        backdrop-filter: blur(4px);
+    }
+
+    .whatsapp-banner-content h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+    }
+
+    @media (min-width: 768px) {
+        .whatsapp-banner-content h2 {
+            font-size: 1.85rem;
+        }
+    }
+
+    .whatsapp-banner-content p {
+        font-size: 0.95rem;
+        opacity: 0.9;
+    }
+
+    .whatsapp-cta-btn {
+        background: white;
+        color: #059669;
+        font-weight: 600;
+        padding: 0.875rem 1.75rem;
+        border-radius: 1rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s;
+        box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+        white-space: nowrap;
+    }
+
+    .whatsapp-cta-btn:hover {
+        transform: scale(1.05);
+        background: #f0fdf4;
+        box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.15);
+    }
+
+    .whatsapp-cta-btn i {
+        font-size: 1.25rem;
+        color: #25d366;
+    }
+
+    .main-contact-row {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-bottom: 3.5rem;
+    }
+
+    @media (min-width: 768px) {
+        .main-contact-row {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    .main-contact-card {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.5rem;
+        background: white;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        border-radius: 1.5rem;
+        text-decoration: none;
+        transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+    }
+
+    .card-glow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #16a34a, #3b82f6, #16a34a);
+        background-size: 200% 100%;
+        opacity: 0;
+        transition: opacity 0.3s;
+        animation: glowShift 3s linear infinite;
+    }
+
+    @keyframes glowShift {
+        0% { background-position: 0% 0; }
+        100% { background-position: 200% 0; }
+    }
+
+    .main-contact-card:hover .card-glow {
+        opacity: 1;
+    }
+
+    .main-contact-card:hover {
+        transform: translateY(-6px) scale(1.02);
+        box-shadow: 0 25px 35px -12px rgba(22, 163, 74, 0.2);
+        border-color: rgba(22, 163, 74, 0.2);
+    }
+
+    .main-icon {
+        width: 3.5rem;
+        height: 3.5rem;
+        border-radius: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        flex-shrink: 0;
+        transition: all 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+        position: relative;
+        z-index: 2;
+    }
+
+    .main-contact-card:hover .main-icon {
+        transform: rotate(8deg) scale(1.15);
+    }
+
+    .main-icon.telegram {
+        background: linear-gradient(135deg, #e1f5fe, #b3e5fc);
+        color: #0088cc;
+    }
+
+    .main-icon.whatsapp {
+        background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+        color: #25d366;
+    }
+
+    .main-icon.email {
+        background: linear-gradient(135deg, #e8f0fe, #c7d9fe);
+        color: #2563eb;
+    }
+
+    .main-content {
+        flex: 1;
+        min-width: 0;
+        z-index: 2;
+    }
+
+    .main-label {
+        font-size: 0.8rem;
+        color: #6b7280;
+        margin-bottom: 0.2rem;
+        display: block;
+        transition: all 0.3s;
+    }
+
+    .main-contact-card:hover .main-label {
+        color: #16a34a;
+    }
+
+    .main-value {
+        display: block;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #111827;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: all 0.3s;
+    }
+
+    .main-contact-card:hover .main-value {
+        color: #16a34a;
+    }
+
+    .main-arrow {
+        color: #9ca3af;
+        font-size: 0.9rem;
+        transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+        z-index: 2;
+        width: 1.5rem;
+        height: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+    }
+
+    .main-contact-card:hover .main-arrow {
+        transform: translateX(8px);
+        color: #16a34a;
+        background: rgba(22, 163, 74, 0.1);
+    }
+
+    .social-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .social-header-line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            #16a34a,
+            #2563eb,
+            #16a34a,
+            transparent
+        );
+    }
+
+    .social-header-text {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #111827;
+        white-space: nowrap;
+        letter-spacing: 0.5px;
+    }
+
+    .social-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-bottom: 3rem;
+    }
+
+    @media (min-width: 640px) {
+        .social-grid {
+            grid-template-columns: repeat(5, 1fr);
+        }
+    }
+
+    .social-card {
+        position: relative;
+        height: 100px;
+        background: white;
+        border-radius: 1rem;
+        text-decoration: none;
+        overflow: hidden;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+    }
+
+    .social-card-inner {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 1rem;
+        transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+        z-index: 2;
+    }
+
+    .social-card-inner i {
+        font-size: 1.8rem;
+    }
+
+    .social-card-inner span {
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: #111827;
+        text-align: center;
+    }
+
+    .social-card-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        background: inherit;
+        color: white;
+        opacity: 0;
+        transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+        z-index: 3;
+    }
+
+    .social-card-overlay i {
+        font-size: 2rem;
+        transform: translateY(25px);
+        transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+    }
+
+    .social-card-overlay span {
+        font-size: 0.85rem;
+        font-weight: 600;
+        transform: translateY(25px);
+        transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2) 0.05s;
+    }
+
+    .social-card:hover .social-card-inner {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+
+    .social-card:hover .social-card-overlay {
+        opacity: 1;
+    }
+
+    .social-card:hover .social-card-overlay i,
+    .social-card:hover .social-card-overlay span {
+        transform: translateY(0);
+    }
+
+    .social-card:hover {
+        transform: translateY(-6px) scale(1.03);
+        box-shadow: 0 25px 30px -12px rgba(0, 0, 0, 0.2);
+    }
+
+    .social-card.instagram .social-card-overlay {
+        background: linear-gradient(45deg, #f09433, #d62976, #962fbf, #4f5bd5);
+    }
+
+    .social-card.facebook .social-card-overlay {
+        background: #1877f2;
+    }
+
+    .social-card.tiktok .social-card-overlay {
+        background: #000000;
+    }
+
+    .social-card.x .social-card-overlay {
+        background: #000000;
+    }
+
+    .social-card.youtube .social-card-overlay {
+        background: #ff0000;
+    }
+
+    .hours-note {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+        padding: 1.25rem 2rem;
+        background: linear-gradient(135deg, #f0fdf4, #dcfce7, #bbf7d0);
+        border: 1px solid rgba(22, 163, 74, 0.2);
+        border-radius: 3rem;
+        max-width: 650px;
+        margin: 0 auto;
+        box-shadow: 0 8px 25px -5px rgba(22, 163, 74, 0.2);
+    }
+
+    .note-icon-wrapper {
+        display: flex;
+        gap: 0.75rem;
+    }
+
+    .note-icon-wrapper i {
+        font-size: 1.25rem;
+        color: #16a34a;
+    }
+
+    .note-content {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 0.9rem;
+        color: #166534;
+        background: rgba(255, 255, 255, 0.6);
+        padding: 0.4rem 1rem;
+        border-radius: 2rem;
+    }
+
+    .note-content strong {
+        color: #166534;
+    }
+
+    .note-separator {
+        color: #16a34a;
+        font-weight: bold;
+    }
+
+    @media (max-width: 640px) {
+        .hours-note {
+            flex-direction: column;
+            gap: 0.75rem;
+            text-align: center;
+            border-radius: 1.5rem;
+            padding: 1.25rem;
+        }
+
+        .note-content {
+            flex-direction: column;
+            gap: 0.25rem;
+            width: 100%;
+        }
+
+        .note-separator {
+            display: none;
+        }
+    }
+</style>

@@ -1,0 +1,9 @@
+---
+// Bingkai layar HP yang dipakai semua mockup kanal.
+const { id, mock, class: c = "", style } = Astro.props;
+---
+<div class:list={["mock", c]} id={id} data-mock={mock} style={style}>
+  <slot />
+  <div class="cap">Konsep tampilan · bisa dicoba</div>
+  <div class="toast" role="status"></div>
+</div>

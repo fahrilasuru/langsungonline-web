@@ -1,0 +1,36 @@
+<!-- ===== PENGGUNA ===== -->
+<section class="view" id="view-pengguna" data-view="pengguna" hidden>
+    <div class="view-head">
+        <div>
+            <h2 class="view-title">Manajemen pengguna</h2>
+            <p class="view-sub" id="userSub"></p>
+        </div>
+        <div class="view-actions">
+            <button class="btn btn-primary" data-action="new-user">
+                <span class="material-icons">person_add</span>Tambah pengguna
+            </button>
+        </div>
+    </div>
+
+    <div class="toolbar">
+        <div class="input-icon grow">
+            <span class="material-icons">search</span>
+            <input class="input" type="search" placeholder="Cari nama atau email" data-bind="users.q" aria-label="Cari pengguna" />
+        </div>
+        <select class="select" data-bind="users.role" aria-label="Role">
+            <option value="all">Semua role</option>
+            <option>Super Admin</option>
+            <option>Admin</option>
+            <option>Staff Gudang</option>
+            <option>Kasir</option>
+            <option>Marketing</option>
+        </select>
+        <select class="select" data-bind="users.status" aria-label="Status">
+            <option value="all">Semua status</option>
+            <option value="aktif">Aktif</option>
+            <option value="nonaktif">Nonaktif</option>
+        </select>
+    </div>
+
+    <div class="panel panel-flush" id="userTable"></div>
+</section>

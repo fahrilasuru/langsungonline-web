@@ -1,0 +1,8 @@
+---
+import SecHead from "./SecHead.astro";
+const { data } = Astro.props;
+---
+<section class="sec alt"><div class="w">
+  <SecHead eyebrow="Langkah" title={data.title} suggested={data.suggested} />
+  <ol class="steps">{data.steps.map((s) => <li class="step rv"><h3>{s.title}</h3><p>{s.text}</p></li>)}</ol>
+</div></section>

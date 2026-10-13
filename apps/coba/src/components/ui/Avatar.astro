@@ -1,0 +1,7 @@
+---
+// Logo sementara: ikon Font Awesome berlatar gradien warna tema (variabel --lg1/--lg2 dari bingkai mockup).
+import Img from "./Img.astro";
+import Icon from "./Icon.astro";
+const { logo, icon } = Astro.props;
+---
+<span class="av ph">{logo ? <Img img={logo} /> : <Icon n={icon ?? "store"} />}</span>

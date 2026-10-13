@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://langsung.online/sitemap-index.xml

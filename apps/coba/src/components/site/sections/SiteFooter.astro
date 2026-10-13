@@ -1,0 +1,18 @@
+---
+import Icon from "../../ui/Icon.astro";
+import { hoursText } from "../../../format";
+const { business: b, links, mode } = Astro.props;
+---
+<footer class="ftw"><div class="w">
+  <div class="fgrid">
+    <div><a class="brand" href={links[0].href}><span class="mark"><Icon n={b.logo_icon ?? "store"} /></span><span>{b.name}</span></a>
+      {b.bio && <p class="fbio">{b.bio}</p>}</div>
+    <div><h4>Jelajahi</h4><ul>{links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul></div>
+    <div><h4>Kontak</h4><ul>
+      {b.address && <li><Icon n="location-dot" /> {b.address}</li>}
+      {b.hours.length > 0 && <li><Icon n="clock" /> {hoursText(b.hours)}</li>}
+      {b.phone && <li><Icon n="phone" /> {b.phone}</li>}
+    </ul></div>
+  </div>
+  <div class="fbar"><span>© {b.name}</span><span>{mode === "preview" ? "Pratinjau dari Langsung Online" : "Dibuat bersama Langsung Online"}</span></div>
+</div></footer>

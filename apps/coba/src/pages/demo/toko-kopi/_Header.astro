@@ -1,0 +1,26 @@
+---
+import { BASE } from "./_products.js";
+const { active = "" } = Astro.props;
+const nav = [
+  ["beranda", "Beranda", `${BASE}/`],
+  ["produk", "Produk", `${BASE}/produk`],
+  ["langganan", "Langganan", `${BASE}/#langganan`],
+  ["tentang", "Tentang", `${BASE}/tentang`],
+  ["faq", "FAQ", `${BASE}/#faq`],
+];
+---
+<header class="hd" id="hd">
+  <div class="wrap hd-in">
+    <a href={`${BASE}/`} class="brand" aria-label="Teduh Coffee - Beranda"><span class="logo"><i class="fa-solid fa-mug-hot"></i></span>Teduh Coffee</a>
+    <nav class="nav" aria-label="Navigasi utama">
+      {nav.map(([id, label, href]) => <a href={href} class={active === id ? "on" : ""}>{label}</a>)}
+    </nav>
+    <div class="hd-act">
+      <button class="ib" id="cartBtn" aria-label="Buka keranjang"><i class="fa-solid fa-bag-shopping"></i><span class="bdg" id="cartCount" hidden>0</span></button>
+      <button class="ib menu-btn" id="menuBtn" aria-label="Buka menu" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+  <nav class="mnav" id="mnav" aria-label="Navigasi mobile">
+    {nav.map(([, label, href]) => <a href={href}>{label}</a>)}
+  </nav>
+</header>

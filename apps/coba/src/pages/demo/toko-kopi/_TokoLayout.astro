@@ -1,0 +1,72 @@
+---
+import DemoWrapper from "../_DemoWrapper.astro";
+import Header from "./_Header.astro";
+import Footer from "./_Footer.astro";
+import { products, BASE, WA } from "./_products.js";
+import "./_toko-kopi.css";
+const { title, description, active = "" } = Astro.props;
+const meta = Object.fromEntries(products.map((p) => [p.slug, { name: p.name, price: p.price, img: p.img, url: `${BASE}/produk/${p.slug}`, variants: p.variants }]));
+---
+<DemoWrapper title={title} description={description} bar={{ label: "Contoh Website Toko Online", cta: "Mau toko Anda seperti ini?", bg: "#0c1612", accent: "#f0b429" }}>
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="application/ld+json" set:html={JSON.stringify({ "@context": "https://schema.org", "@type": "Store", name: "Teduh Coffee", description, address: { "@type": "PostalAddress", addressLocality: "Surabaya", addressCountry: "ID" }, telephone: `+${WA}` })} />
+  </Fragment>
+  <div class="toko" data-base={BASE}>
+    <Header active={active} />
+    <slot />
+    <Footer />
+    <a class="wa" href={`https://wa.me/${WA}?text=Halo%20Teduh%20Coffee%2C%20saya%20ingin%20bertanya%20tentang%20produk.`} target="_blank" rel="noopener" aria-label="Chat WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+    <div class="ov" id="ov"></div>
+    <aside class="drw" id="drw" aria-label="Keranjang belanja"></aside>
+    <div class="toast" id="toast" role="status"></div>
+    <script id="toko-data" type="application/json" is:inline set:html={JSON.stringify(meta)} />
+  </div>
+</DemoWrapper>
+
+<script>
+  import { Cart, fmt, toast, wish } from "./_cart.js";
+  const $ = (s) => document.querySelector(s);
+  const base = $(".toko").dataset.base;
+  const drw = $("#drw"), ov = $("#ov");
+
+  const badge = () => { const n = Cart.totals().count, b = $("#cartCount"); b.hidden = !n; b.textContent = n; };
+  const drawer = () => {
+    const T = Cart.totals();
+    drw.innerHTML = `<div class="drw-h"><h2>Keranjang (${T.count})</h2><button class="ib" data-close aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="drw-b">${T.L.length ? `<div class="ship" style="margin-top:16px">${T.left ? `Belanja <b>${fmt(T.left)}</b> lagi untuk gratis ongkir` : `<i class="fa-solid fa-circle-check ok"></i> Anda dapat gratis ongkir`}<div class="trk"><i style="width:${Math.min(100, ((T.sub - T.disc) / 2500))}%"></i></div></div>` +
+      T.L.map((l) => `<div class="di"><img src="${l.img}" alt="" onerror="this.style.visibility='hidden'"><div><b>${l.name}</b><span class="mute">${l.label}</span><div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px"><div class="qty" style="transform:scale(.85);transform-origin:left"><button data-dec="${l.slug}|${l.v}" aria-label="Kurangi"><i class="fa-solid fa-minus"></i></button><span>${l.qty}</span><button data-inc="${l.slug}|${l.v}" aria-label="Tambah"><i class="fa-solid fa-plus"></i></button></div><b>${fmt(l.total)}</b></div></div></div>`).join("")
+      : `<div class="cart-empty"><i class="fa-solid fa-bag-shopping"></i><p><b>Keranjang masih kosong</b></p><p class="mute">Pilih kopi favorit Anda dari katalog.</p></div>`}</div>
+    <div class="drw-f"><div class="sum"><div class="t"><span>Subtotal</span><span>${fmt(T.sub)}</span></div></div><a class="btn moss full ${T.L.length ? "" : "mute"}" href="${base}/checkout" ${T.L.length ? "" : "disabled"}>Checkout</a><a class="btn ghost full" href="${base}/keranjang">Lihat keranjang</a></div>`;
+  };
+  const open = () => { drawer(); drw.classList.add("on"); ov.classList.add("on"); };
+  const close = () => { drw.classList.remove("on"); ov.classList.remove("on"); };
+  $("#cartBtn").onclick = open; ov.onclick = close;
+  document.addEventListener("keydown", (e) => e.key === "Escape" && close());
+  document.addEventListener("cart:change", () => { badge(); if (drw.classList.contains("on")) drawer(); });
+  badge();
+
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest("[data-add]");
+    if (a) { Cart.add(a.dataset.add, +(a.dataset.v || 0), +(a.dataset.qty || 1)); toast("Masuk keranjang"); open(); return; }
+    const w = e.target.closest("[data-wish]");
+    if (w) { const on = wish.toggle(w.dataset.wish); w.classList.toggle("on", on); w.querySelector("i").className = on ? "fa-solid fa-heart" : "fa-regular fa-heart"; toast(on ? "Ditambahkan ke wishlist" : "Dihapus dari wishlist"); return; }
+    const c = e.target.closest("[data-close]"); if (c) close();
+    const inc = e.target.closest("[data-inc]"), dec = e.target.closest("[data-dec]");
+    const t = inc || dec;
+    if (t) { const [s, v] = (inc ? t.dataset.inc : t.dataset.dec).split("|"); const cur = Cart.totals().L.find((l) => l.slug === s && l.v === +v); Cart.setQty(s, +v, cur.qty + (inc ? 1 : -1)); }
+  });
+  // tandai wishlist
+  const saved = wish.get();
+  document.querySelectorAll("[data-wish]").forEach((b) => { if (saved.includes(b.dataset.wish)) { b.classList.add("on"); b.querySelector("i").className = "fa-solid fa-heart"; } });
+  // header, menu mobile, reveal
+  const hd = $("#hd"); addEventListener("scroll", () => hd.classList.toggle("sc", scrollY > 20), { passive: true });
+  const mb = $("#menuBtn"), mn = $("#mnav");
+  mb.onclick = () => { const o = mn.classList.toggle("open"); mb.setAttribute("aria-expanded", o); };
+  mn.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => mn.classList.remove("open")));
+  const io = new IntersectionObserver((es) => es.forEach((x) => { if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } }), { threshold: 0.1 });
+  document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+</script>

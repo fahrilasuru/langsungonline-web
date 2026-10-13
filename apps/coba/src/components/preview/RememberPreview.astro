@@ -1,0 +1,10 @@
+---
+// Mencatat id preview ke riwayat di perangkat pengunjung setiap kali halaman preview dibuka.
+const { id, status, name, category } = Astro.props;
+---
+<div id="remember" hidden data-id={id} data-status={status} data-name={name} data-category={category}></div>
+<script>
+  import { upsert } from "@langsungonline/ui/scripts/history";
+  const el = document.getElementById("remember");
+  if (el) upsert({ id: el.dataset.id!, status: el.dataset.status, name: el.dataset.name, category: el.dataset.category });
+</script>

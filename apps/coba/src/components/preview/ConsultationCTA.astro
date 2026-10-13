@@ -1,0 +1,12 @@
+---
+import Icon from "../ui/Icon.astro";
+import { consult } from "@langsungonline/ui/wa";
+const { business, jobId } = Astro.props;
+---
+<div class="wrap" id="konsultasi"><div class="consult">
+  <h2>Suka dengan arahnya?</h2>
+  <p>Preview ini baru titik awal. Kami bisa membantu menyesuaikannya dengan kebutuhan Anda dan menyiapkan semuanya sampai siap digunakan.</p>
+  <p style="margin:22px auto"><a class="btn btn-wa" href={consult(business, jobId)} target="_blank" rel="noopener"><Icon n="whatsapp" s="brands" /> Konsultasi Gratis via WhatsApp</a></p>
+  <p>Tidak harus tahu istilah teknis. Ceritakan saja yang Anda butuhkan.</p>
+  <p class="ref">Ref. preview: {jobId} · tanpa perlu daftar akun</p>
+</div></div>

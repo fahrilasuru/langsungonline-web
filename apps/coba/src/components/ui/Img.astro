@@ -1,0 +1,5 @@
+---
+// Gambar dengan fallback: bila URL gagal dimuat, elemen dilepas dan latar wadah (.ph) yang tampil.
+const { img, class: c = "", eager = false } = Astro.props;
+---
+{img && <img class:list={["im", c]} src={img.url} alt={img.alt} loading={eager ? "eager" : "lazy"} decoding="async" onerror="this.remove()" />}

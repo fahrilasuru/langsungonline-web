@@ -1,0 +1,112 @@
+---
+import { LINK_KONSULTASI } from '@langsungonline/ui/constants';
+
+interface ProblemItem {
+    quote: string;
+    solution: string;
+    actionText: string;
+    icon: string;
+    accentColor: string;
+}
+
+const problems: ProblemItem[] = [
+    {
+        quote: "Cuma punya Instagram.",
+        solution: "Waktunya upgrade ke aset milik sendiri yang lebih dipercaya klien.",
+        actionText: "Bikin Website & Profil Resmi",
+        icon: "fab fa-instagram",
+        accentColor: "from-pink-500 to-purple-500",
+    },
+    {
+        quote: "Sudah online, tapi susah ditemukan.",
+        solution: "Optimalkan Google Maps, kata kunci, dan jalur calon pembeli.",
+        actionText: "Perbaiki SEO & Google Bisnis",
+        icon: "fas fa-search-location",
+        accentColor: "from-blue-500 to-cyan-500",
+    },
+    {
+        quote: "Semuanya ada, tapi berantakan.",
+        solution: "Satukan sosmed, marketplace, dan website ke dalam satu jalur rapi.",
+        actionText: "Rapikan Ekosistem Digital",
+        icon: "fas fa-network-wired",
+        accentColor: "from-amber-500 to-orange-500",
+    },
+    {
+        quote: "Saya nggak tahu apa yang kurang.",
+        solution: "Biar kami audit kondisinya dan temukan celah peningkatannya.",
+        actionText: "Minta Audit & Cek Kondisi",
+        icon: "fas fa-question-circle",
+        accentColor: "from-green-500 to-emerald-500",
+    },
+];
+---
+
+<section class="py-16 md:py-24 bg-gray-50/50">
+    <div class="container mx-auto px-4">
+        <!-- Header Section -->
+        <div class="text-center max-w-3xl mx-auto mb-12 md:mb-16" data-aos="fade-up">
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+                Bisnisnya sudah jalan. <br />
+                <span class="bg-linear-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+                    Online-nya sudah beres?
+                </span>
+            </h2>
+            <p class="text-base md:text-lg text-gray-600">
+                Coba lihat kondisi bisnis Anda saat ini. Apakah Anda merasakan salah satu situasi di bawah ini?
+            </p>
+        </div>
+
+        <!-- Problem Cards Grid -->
+        <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto mb-16">
+            {
+                problems.map((item, index) => (
+                    <div
+                        class="bg-white rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 flex flex-col justify-between"
+                        data-aos="fade-up"
+                        data-aos-delay={100 + index * 100}
+                    >
+                        <div>
+                            <!-- Quote / Pain Point -->
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class={`w-12 h-12 rounded-xl bg-linear-to-br ${item.accentColor} text-white flex items-center justify-center shrink-0 shadow-sm`}>
+                                    <i class={`${item.icon} text-lg`}></i>
+                                </div>
+                                <h3 class="text-lg md:text-xl font-bold text-gray-900 leading-snug pt-2">
+                                    "{item.quote}"
+                                </h3>
+                            </div>
+                        </div>
+
+                        <!-- Solution & Actionable Step -->
+                        <div class="pl-16 border-l-2 border-green-500/30 ml-6 mt-2 flex flex-col gap-3">
+                            <p class="text-sm md:text-base font-medium text-gray-700">
+                                {item.solution}
+                            </p>
+                            <div class="inline-flex items-center text-xs md:text-sm font-semibold text-green-700 bg-green-50 px-3 py-1.5 rounded-lg w-fit">
+                                <i class="fas fa-arrow-right mr-1.5 text-xs"></i> {item.actionText}
+                            </div>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+
+        <!-- Call to Action Footer Section -->
+        <div class="text-center" data-aos="fade-up">
+            <p class="text-lg font-semibold text-gray-800 mb-4">
+                Ada yang terasa familiar?
+            </p>
+            <a
+                href={LINK_KONSULTASI}
+                class="inline-flex items-center justify-center text-base font-semibold text-green-600 hover:text-green-700 transition-colors group"
+            >
+                Cek kondisi bisnis saya 
+                <span class="ml-2 transform group-hover:translate-x-1 transition-transform">→</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Styling tambahan jika diperlukan */
+</style>

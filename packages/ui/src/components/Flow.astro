@@ -1,0 +1,195 @@
+---
+interface StepItem {
+    number: number;
+    title: string;
+    description: string;
+    icon: string;
+    color: string;
+    borderColor: string;
+    bgColor: string;
+    textColor: string;
+    lightBg: string;
+}
+
+const steps: StepItem[] = [
+    {
+        number: 1,
+        title: "Ceritakan bisnis Anda",
+        description: "Tulis sebisanya. Tidak perlu brief atau istilah teknis.",
+        icon: "fa-comment-dots",
+        color: "blue",
+        borderColor: "border-blue-100",
+        bgColor: "bg-blue-500",
+        textColor: "text-blue-600",
+        lightBg: "bg-blue-50",
+    },
+    {
+        number: 2,
+        title: "Lihat gambaran / kondisi",
+        description: "Buat Preview untuk kemungkinan, atau Cek Bisnis untuk melihat yang perlu dibereskan.",
+        icon: "fa-compass",
+        color: "cyan",
+        borderColor: "border-cyan-100",
+        bgColor: "bg-cyan-500",
+        textColor: "text-cyan-600",
+        lightBg: "bg-cyan-50",
+    },
+    {
+        number: 3,
+        title: "Tentukan yang perlu",
+        description: "Kalau ingin lanjut, tim kami bantu memvalidasi hasil dan menentukan prioritas.",
+        icon: "fa-user-check",
+        color: "amber",
+        borderColor: "border-amber-100",
+        bgColor: "bg-amber-500",
+        textColor: "text-amber-600",
+        lightBg: "bg-amber-50",
+    },
+    {
+        number: 4,
+        title: "Kami bereskan",
+        description: "Website, Google, social, marketplace, WhatsApp, atau kombinasi yang diperlukan.",
+        icon: "fa-check-circle",
+        color: "teal",
+        borderColor: "border-teal-100",
+        bgColor: "bg-teal-500",
+        textColor: "text-teal-600",
+        lightBg: "bg-teal-50",
+    },
+    {
+        number: 5,
+        title: "Tetap ada yang mengurus",
+        description: "Kalau dibutuhkan, kami bantu menjaga dan mengembangkannya setelah live.",
+        icon: "fa-shield-alt",
+        color: "green",
+        borderColor: "border-green-100",
+        bgColor: "bg-green-500",
+        textColor: "text-green-600",
+        lightBg: "bg-green-50",
+    },
+];
+
+const headerData = {
+    title: "Sesederhana ini.",
+    subtitle:
+        "AI memberi kecepatan, manusia memberi judgment, Langsung.Online memberi execution.",
+};
+---
+
+<section class="py-12 md:py-20 gradient-bg">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-10 md:mb-16" data-aos="fade-up">
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 text-gray-900">
+                {headerData.title}
+            </h2>
+            <p
+                class="text-sm md:text-base text-gray-600 max-w-4xl mx-auto px-4 leading-relaxed font-medium"
+            >
+                {headerData.subtitle}
+            </p>
+        </div>
+
+        <div class="max-w-7xl mx-auto">
+            <!-- Mobile Timeline Layout -->
+            <div class="block lg:hidden">
+                {
+                    steps.map((step, index) => (
+                        <div
+                            class="relative"
+                            data-aos="fade-up"
+                            data-aos-delay={100 + index * 100}
+                        >
+                            {index < 4 && (
+                                <div
+                                    class="absolute left-5 top-12 w-0.5 h-24 bg-linear-to-b from-gray-200 to-gray-300"
+                                />
+                            )}
+
+                            <div class="flex gap-3 items-start">
+                                <div
+                                    class={`relative z-10 w-10 h-10 ${step.bgColor} text-white rounded-full flex items-center justify-center font-bold text-base shadow-xl shrink-0 ring-4 ring-white/90`}
+                                >
+                                    {step.number}
+                                </div>
+
+                                <div class="flex-1 pb-8">
+                                    <div class="bg-white rounded-xl p-4 shadow-md border border-gray-100">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <div
+                                                class={`w-8 h-8 rounded-lg ${step.lightBg} flex items-center justify-center`}
+                                            >
+                                                <i
+                                                    class={`fas ${step.icon} text-sm ${step.textColor}`}
+                                                />
+                                            </div>
+                                            <h3 class="font-bold text-sm text-gray-900">
+                                                {step.title}
+                                            </h3>
+                                        </div>
+                                        <p class="text-xs text-gray-600 leading-relaxed">
+                                            {step.description}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+
+            <!-- Desktop 5-Columns Grid Layout -->
+            <div class="hidden lg:grid lg:grid-cols-5 gap-4 xl:gap-6">
+                {
+                    steps.map((step, index) => (
+                        <div
+                            class="text-center relative flex flex-col items-center bg-white rounded-2xl p-5 shadow-sm border border-gray-100/80 hover:shadow-md transition-all"
+                            data-aos="fade-up"
+                            data-aos-delay={100 + index * 100}
+                        >
+                            <div class="relative z-20 mb-3">
+                                <div
+                                    class={`relative w-9 h-9 mx-auto ${step.bgColor} text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md ring-4 ring-white`}
+                                >
+                                    {step.number}
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <div
+                                    class={`w-14 h-14 mx-auto rounded-xl ${step.lightBg} flex items-center justify-center`}
+                                >
+                                    <i
+                                        class={`fas ${step.icon} text-xl ${step.textColor}`}
+                                    />
+                                </div>
+                            </div>
+
+                            <h3 class="font-bold text-sm mb-2 text-gray-900 leading-snug">
+                                {step.title}
+                            </h3>
+                            <p class="text-xs text-gray-600 leading-relaxed">
+                                {step.description}
+                            </p>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .gradient-bg {
+        background:
+            radial-gradient(
+                ellipse at top left,
+                rgba(37, 99, 235, 0.05) 0%,
+                transparent 50%
+            ),
+            radial-gradient(
+                ellipse at bottom right,
+                rgba(5, 150, 105, 0.05) 0%,
+                transparent 50%
+            );
+    }
+</style>

@@ -1,0 +1,15 @@
+---
+import Layout from "../../../../layouts/Layout.astro";
+import SiteRenderer from "../../../../components/site/SiteRenderer.astro";
+import { getPreview } from "../../../../api";
+import { pagesOf } from "../../../../site";
+export const prerender = false;
+
+const data = await getPreview(Astro.params.job_id!).catch(() => null);
+if (data?.status !== "ready") return new Response("Preview belum tersedia", { status: 404 });
+const page = Astro.params.page ?? "";
+if (!pagesOf(data.site).some((p) => p.path === page)) return new Response("Halaman tidak ditemukan", { status: 404 });
+---
+<Layout title={`${data.business.name}`}>
+  <SiteRenderer business={data.business} site={data.site} mode="preview" base={`/preview/${data.job_id}/site`} page={page} />
+</Layout>

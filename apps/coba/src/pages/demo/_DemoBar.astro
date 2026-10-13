@@ -1,0 +1,62 @@
+---
+// Bar "Contoh website ... dibuat oleh Langsung.Online" di puncak halaman demo.
+// Dirender oleh _DemoWrapper.astro bila prop `bar` diberikan; warna dan pesan konsultasi berbeda antar demo.
+
+// GANTI dengan nomor WhatsApp Langsung.Online: format internasional, hanya angka (contoh: 6281234567890).
+import { WA_NUMBER } from "@langsungonline/ui/constants";
+
+export interface Props {
+    label: string; // mis. "Contoh Website Toko Online"
+    cta: string; // mis. "Mau toko Anda seperti ini?"
+    bg: string;
+    accent: string;
+    message?: string; // pesan awal WhatsApp khusus demo ini; kalau kosong dibuat otomatis dari `label`
+}
+const { label, cta, bg, accent, message } = Astro.props;
+
+const text = message ?? `Halo Langsung.Online, saya baru melihat "${label}" dan tertarik membuat yang serupa. Bisa konsultasi?`;
+const href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+---
+
+<div
+    class="demo-bar"
+    role="banner"
+    aria-label="Informasi demo"
+    style={`--bar-bg:${bg};--bar-accent:${accent}`}
+>
+    <span>{label} — dibuat oleh <strong>Langsung.Online</strong></span>
+    <a href={href} target="_blank" rel="noopener">{cta} →</a>
+</div>
+
+<style>
+    .demo-bar {
+        background: var(--bar-bg);
+        color: #fff;
+        font-size: 13px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px 16px;
+        flex-wrap: wrap;
+        padding: 8px 16px;
+        text-align: center;
+        font-family: inherit;
+        line-height: 1.5;
+    }
+    .demo-bar span {
+        opacity: 0.85;
+    }
+    .demo-bar a {
+        color: var(--bar-accent);
+        font-weight: 600;
+        text-decoration: none;
+    }
+    .demo-bar a:hover {
+        color: #fff;
+    }
+    .demo-bar a:focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: 3px;
+        border-radius: 4px;
+    }
+</style>

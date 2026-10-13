@@ -1,0 +1,182 @@
+---
+import Layout from "./_Layout.astro";
+import ProjectCard from "./_ProjectCard.astro";
+import { BASE, profile, stats, services, projects, process, testimonials, waDefault } from "./_data";
+---
+
+<Layout
+    active="home"
+    title="Raka Pratama | UI/UX Designer & Front-end Developer Surabaya"
+    description="Portofolio Raka Pratama, UI/UX designer dan front-end developer di Surabaya. Merancang website dan aplikasi yang jelas, cepat, dan mudah dipakai."
+>
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="beranda">
+        <div class="hero-inner">
+            <div>
+                <div class="hero-badge">
+                    <span class="dot" aria-hidden="true"></span>
+                    Menerima proyek baru mulai November 2026
+                </div>
+                <h1>
+                    Saya merancang <span class="hl">produk digital</span> yang mudah dipakai dan enak dilihat.
+                </h1>
+                <p class="hero-lead">
+                    Halo, saya {profile.name}, {profile.role} di Surabaya. Saya membantu bisnis dan tim mengubah ide
+                    menjadi website serta aplikasi yang jelas, cepat, dan benar-benar dipakai penggunanya.
+                </p>
+                <div class="hero-ctas">
+                    <a href={waDefault} class="btn btn-primary" target="_blank" rel="noopener">
+                        <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Ceritakan Proyek Anda
+                    </a>
+                    <a href={`${BASE}/proyek/`} class="btn btn-secondary">Lihat Proyek Saya</a>
+                </div>
+                <div class="hero-trust">
+                    <span><i class="fa-solid fa-circle-check"></i>Diskusi awal gratis</span>
+                    <span><i class="fa-solid fa-circle-check"></i>Estimasi tertulis</span>
+                    <span><i class="fa-solid fa-circle-check"></i>Garansi perbaikan</span>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-photo">
+                    <img src={profile.portrait} alt={`Potret ${profile.name}, UI/UX designer dan front-end developer`} loading="eager" />
+                </div>
+                <div class="float-card fc-1">
+                    <div class="fc-icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <div><strong>Surabaya</strong><span>Melayani klien seluruh Indonesia</span></div>
+                </div>
+                <div class="float-card fc-2">
+                    <div class="fc-icon"><i class="fa-solid fa-star"></i></div>
+                    <div><strong>4.9/5</strong><span>dari 35+ klien</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== STATS ===== -->
+    <section class="stats" aria-label="Pencapaian">
+        <div class="stats-inner">
+            {stats.map((s) => (
+                <div class="stat"><span class="n">{s.n}</span><span class="l">{s.l}</span></div>
+            ))}
+        </div>
+    </section>
+
+    <!-- ===== FEATURED PROJECTS ===== -->
+    <section class="section" aria-labelledby="proyek-title">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-label"><i class="fa-solid fa-layer-group"></i> Proyek Pilihan</div>
+                <h2 class="section-title" id="proyek-title">Hasil kerja yang berdampak pada bisnis klien</h2>
+                <p class="section-subtitle">Tiga proyek terbaru, lengkap dengan masalah yang dihadapi, solusi yang dibuat, dan angka hasilnya.</p>
+            </div>
+            <div class="project-grid">
+                {projects.slice(0, 3).map((p) => <ProjectCard project={p} />)}
+            </div>
+            <div style="text-align:center;margin-top:44px;">
+                <a href={`${BASE}/proyek/`} class="btn btn-secondary">Lihat Semua Proyek <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SERVICES ===== -->
+    <section class="section alt" aria-labelledby="layanan-title">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-label"><i class="fa-solid fa-briefcase"></i> Layanan</div>
+                <h2 class="section-title" id="layanan-title">Apa yang bisa saya kerjakan untuk Anda</h2>
+                <p class="section-subtitle">Dari merancang alur pengguna hingga menulis kode, semuanya ditangani satu orang sehingga komunikasi lebih singkat.</p>
+            </div>
+            <div class="service-grid">
+                {services.map((s) => (
+                    <article class="service-card">
+                        <div class="service-icon"><i class={`fa-solid ${s.icon}`} aria-hidden="true"></i></div>
+                        <h3>{s.title}</h3>
+                        <p>{s.short}</p>
+                        <a href={`${BASE}/layanan/`} class="service-link">Lihat detail <i class="fa-solid fa-arrow-right"></i></a>
+                    </article>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PROCESS ===== -->
+    <section class="section dark" aria-labelledby="proses-title">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-label"><i class="fa-solid fa-route"></i> Cara Kerja</div>
+                <h2 class="section-title" id="proses-title">Empat langkah dari ide sampai peluncuran</h2>
+                <p class="section-subtitle">Prosesnya jelas sejak awal, jadi Anda selalu tahu apa yang sedang dikerjakan dan apa yang dibutuhkan dari Anda.</p>
+            </div>
+            <div class="process-grid">
+                {process.map((s) => (
+                    <div class="step">
+                        <i class={`fa-solid ${s.icon}`} aria-hidden="true"></i>
+                        <h3>{s.title}</h3>
+                        <p>{s.text}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ABOUT TEASER ===== -->
+    <section class="section" aria-labelledby="tentang-title">
+        <div class="section-inner">
+            <div class="split">
+                <div class="split-img"><img src={profile.workspace} alt="Meja kerja dengan laptop dan buku sketsa" loading="lazy" /></div>
+                <div>
+                    <div class="section-label"><i class="fa-solid fa-user"></i> Tentang Saya</div>
+                    <h2 id="tentang-title">Desainer yang juga menulis kodenya</h2>
+                    <p>
+                        Selama lebih dari 7 tahun, saya bekerja di antara desain dan pengembangan. Itu sebabnya rancangan
+                        yang saya buat realistis untuk dibangun, dan kode yang saya tulis setia pada desainnya.
+                    </p>
+                    <ul class="checklist">
+                        <li><i class="fa-solid fa-check"></i> Satu orang untuk desain dan kode, tanpa miskomunikasi antar tim</li>
+                        <li><i class="fa-solid fa-check"></i> Website cepat, ramah SEO, dan mudah Anda kelola</li>
+                        <li><i class="fa-solid fa-check"></i> Laporan progres setiap minggu lewat WhatsApp</li>
+                    </ul>
+                    <div style="margin-top:28px;">
+                        <a href={`${BASE}/tentang/`} class="btn btn-secondary">Kenal Lebih Dekat <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS ===== -->
+    <section class="section alt" aria-labelledby="testi-title">
+        <div class="section-inner">
+            <div class="section-header center">
+                <div class="section-label"><i class="fa-solid fa-comment-dots"></i> Kata Klien</div>
+                <h2 class="section-title" id="testi-title">Cerita dari orang-orang yang pernah bekerja bersama saya</h2>
+            </div>
+            <div class="testi-grid">
+                {testimonials.map((t) => (
+                    <figure class="testi" style="margin:0;">
+                        <div class="stars" aria-label="Bintang 5 dari 5"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <blockquote style="margin:0;"><p>{t.text}</p></blockquote>
+                        <figcaption class="person">
+                            <div class="avatar">{t.name.split(" ").map((w) => w[0]).slice(0, 2).join("")}</div>
+                            <div><strong>{t.name}</strong><span>{t.role}</span></div>
+                        </figcaption>
+                    </figure>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="cta-wrap">
+        <div class="cta-band">
+            <div>
+                <h2>Punya ide atau masalah yang ingin dipecahkan?</h2>
+                <p>Ceritakan singkat saja. Saya balas dalam 1 hari kerja dengan saran awal dan estimasi kasar, tanpa kewajiban apa pun.</p>
+            </div>
+            <a href={waDefault} class="btn btn-light" target="_blank" rel="noopener">
+                <i class="fa-brands fa-whatsapp"></i> Mulai Diskusi
+            </a>
+        </div>
+    </section>
+</Layout>

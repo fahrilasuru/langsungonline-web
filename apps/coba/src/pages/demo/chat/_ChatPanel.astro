@@ -1,0 +1,92 @@
+---
+import Icon from "./_Icon.astro";
+---
+
+<!-- ===== AREA PERCAKAPAN ===== -->
+<main class="chat-main" data-main>
+    <header class="chat-head">
+        <button
+            type="button"
+            class="icon-btn back-btn"
+            data-back
+            aria-label="Kembali ke daftar percakapan"
+        >
+            <Icon name="chevron-left" size={22} />
+        </button>
+
+        <div class="who">
+            <div class="avatar" data-head-avatar></div>
+            <div class="who-text">
+                <h2 data-head-name></h2>
+                <p class="status" data-head-status></p>
+            </div>
+        </div>
+
+        <button
+            type="button"
+            class="icon-btn"
+            data-info-toggle
+            aria-pressed="false"
+            aria-label="Detail proyek"
+        >
+            <Icon name="info" size={20} />
+        </button>
+    </header>
+
+    <div class="messages-wrap">
+        <div
+            class="messages"
+            data-messages
+            role="log"
+            aria-live="polite"
+            aria-label="Pesan"
+            tabindex="0"
+        >
+        </div>
+        <button type="button" class="to-bottom" data-to-bottom hidden aria-label="Ke pesan terbaru">
+            <Icon name="arrow-down" size={16} />
+            <span data-new-count></span>
+        </button>
+    </div>
+
+    <div class="quick" data-quick aria-label="Balasan cepat"></div>
+
+    <footer class="composer">
+        <div class="pending" data-pending hidden aria-label="Lampiran yang akan dikirim"></div>
+
+        <div class="field">
+            <button type="button" class="icon-btn attach" data-attach aria-label="Lampirkan berkas">
+                <Icon name="paperclip" size={20} />
+            </button>
+            <input
+                type="file"
+                data-file
+                hidden
+                multiple
+                accept=".png,.jpg,.jpeg,.webp,.gif,.pdf,.doc,.docx"
+                tabindex="-1"
+            />
+
+            <div class="input-wrap">
+                <textarea
+                    data-input
+                    rows="1"
+                    maxlength="1000"
+                    placeholder="Tulis pesan"
+                    aria-label="Tulis pesan"
+                    enterkeyhint="send"
+                    autocomplete="off"
+                ></textarea>
+            </div>
+
+            <button type="button" class="send" data-send disabled aria-label="Kirim pesan">
+                <Icon name="send" size={20} />
+            </button>
+        </div>
+
+        <p class="hint">
+            Gambar, PDF, atau Word, maksimal 5 MB.
+            <span class="hint-keys">Enter untuk kirim, Shift+Enter untuk baris baru.</span>
+        </p>
+    </footer>
+</main>

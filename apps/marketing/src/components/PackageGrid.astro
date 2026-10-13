@@ -1,0 +1,146 @@
+---
+// components/PackageGrid.astro
+export interface Props {
+    showHeader?: boolean;
+    limit?: number;
+    columns?: 2 | 3 | 4;
+    showFooterCta?: boolean;
+    headerBadge?: string;
+    headerTitle?: string;
+    headerHighlight?: string;
+    headerSubtitle?: string;
+    packages: Array<{
+        name: string;
+        price: string;
+        priceNote: string;
+        description: string;
+        icon: string;
+        badge: string;
+        badgeColor: string;
+        features: string[];
+        ctaText: string;
+        ctaLink: string;
+    }>;
+    footerCtaText?: string;
+    footerCtaLink?: string;
+}
+
+const {
+    showHeader = true,
+    limit,
+    columns = 3,
+    showFooterCta = true,
+    headerBadge = "Layanan",
+    headerTitle = "Pilih Paket",
+    headerHighlight = "Sesuai Kebutuhan",
+    headerSubtitle = "Tersedia berbagai pilihan paket untuk bisnis Anda",
+    packages = [],
+    footerCtaText = "Lihat Semua Layanan",
+    footerCtaLink = "/layanan",
+} = Astro.props;
+
+const displayedPackages = limit ? packages.slice(0, limit) : packages;
+
+const gridClasses = {
+    2: "grid-cols-1 md:grid-cols-2",
+    3: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
+    4: "grid-cols-1 md:grid-cols-2 lg:grid-cols-4",
+};
+---
+
+<section class="py-12 md:py-16 bg-white">
+    <div class="container mx-auto px-4 md:px-8">
+        {
+            showHeader && (
+                <div class="text-center max-w-3xl mx-auto mb-8 md:mb-12">
+                    <div class="inline-flex items-center px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-linear-to-r from-purple-50 to-pink-50 border border-purple-100 text-purple-800 font-medium text-xs md:text-sm mb-3 md:mb-4">
+                        <span class="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-purple-500 mr-1.5 md:mr-2" />
+                        {headerBadge}
+                    </div>
+                    <h2 class="text-xl md:text-2xl lg:text-4xl font-bold text-gray-900 mb-2 md:mb-4">
+                        {headerTitle}{" "}
+                        <span class="bg-linear-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                            {headerHighlight}
+                        </span>
+                    </h2>
+                    <p class="text-sm md:text-base text-gray-600 max-w-2xl mx-auto">
+                        {headerSubtitle}
+                    </p>
+                </div>
+            )
+        }
+
+        <div
+            class={`grid ${gridClasses[columns]} gap-4 md:gap-8 items-stretch`}
+        >
+            {
+                displayedPackages.map((pkg) => (
+                    <div class="bg-white rounded-xl border border-gray-200 shadow-md p-5 md:p-6 flex flex-col h-full hover:shadow-lg transition-shadow">
+                        <div class="flex justify-between items-start mb-3">
+                            <span
+                                class={`px-2 py-0.5 ${pkg.badgeColor} text-xs font-semibold rounded-full`}
+                            >
+                                {pkg.badge}
+                            </span>
+                            <span class="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
+                                {pkg.priceNote}
+                            </span>
+                        </div>
+
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-linear-to-br from-purple-50 to-pink-50 flex items-center justify-center">
+                                <i
+                                    class={`fas ${pkg.icon} text-lg md:text-xl text-purple-600`}
+                                />
+                            </div>
+                            <div>
+                                <h3 class="text-lg md:text-xl font-bold text-gray-900">
+                                    {pkg.name}
+                                </h3>
+                                <div class="flex items-baseline gap-1">
+                                    <span class="text-xl md:text-2xl font-extrabold text-gray-900">
+                                        {pkg.price}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="text-xs md:text-sm text-gray-600 mb-4">
+                            {pkg.description}
+                        </p>
+
+                        <ul class="space-y-2 mb-6 flex-1">
+                            {pkg.features.map((feature) => (
+                                <li class="flex items-start text-xs md:text-sm">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-0.5 text-xs shrink-0" />
+                                    <span class="text-gray-700">{feature}</span>
+                                </li>
+                            ))}
+                        </ul>
+
+                        <a
+                            href={pkg.ctaLink}
+                            class="block w-full py-3 px-3 md:px-4 rounded-lg text-xs md:text-sm font-semibold text-center transition-all mt-auto bg-gray-100 text-gray-800 hover:bg-gray-200"
+                        >
+                            {pkg.ctaText}
+                        </a>
+                    </div>
+                ))
+            }
+        </div>
+
+        {
+            showFooterCta && (
+                <div class="text-center mt-10 md:mt-12">
+                    <a
+                        href={footerCtaLink}
+                        class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gray-100 text-gray-800 font-semibold rounded-xl hover:bg-gray-200 transition-all group"
+                    >
+                        <span>{footerCtaText}</span>
+                        <i class="fas fa-arrow-right text-sm group-hover:translate-x-1 transition-transform" />
+                    </a>
+                </div>
+            )
+        }
+    </div>
+</section>

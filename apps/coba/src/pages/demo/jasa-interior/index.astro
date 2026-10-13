@@ -1,0 +1,178 @@
+---
+import DemoWrapper from "../_DemoWrapper.astro";
+import "./_shared.css";
+import Header from "./_Header.astro";
+import Hero from "./_Hero.astro";
+import TrustStrip from "./_TrustStrip.astro";
+import Problem from "./_Problem.astro";
+import Services from "./_Services.astro";
+import Portfolio from "./_Portfolio.astro";
+import BeforeAfter from "./_BeforeAfter.astro";
+import Process from "./_Process.astro";
+import Pricing from "./_Pricing.astro";
+import Testimonials from "./_Testimonials.astro";
+import About from "./_About.astro";
+import Area from "./_Area.astro";
+import Faq from "./_Faq.astro";
+import FinalCta from "./_FinalCta.astro";
+import Footer from "./_Footer.astro";
+import "./_reveal.css";
+---
+
+<DemoWrapper
+    bar={{ label: "Contoh Website Bisnis Jasa", cta: "Mau bisnis Anda seperti ini?", bg: "#1f2a36", accent: "#d97a4a" }}
+    title="Jasa Interior & Renovasi Surabaya | RuangRapi Interior"
+    description="Jasa desain interior, renovasi, kitchen set dan custom furniture di Surabaya, Sidoarjo dan Gresik. Konsultasikan kebutuhan ruang Anda dengan RuangRapi Interior."
+>
+    <Fragment slot="head">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    />
+
+    <!-- LocalBusiness Schema -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "HomeAndConstructionBusiness",
+            "name": "RuangRapi Interior",
+            "description": "Jasa desain interior, renovasi, kitchen set dan custom furniture di Surabaya, Sidoarjo dan Gresik.",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Surabaya",
+                "addressRegion": "Jawa Timur",
+                "addressCountry": "ID"
+            },
+            "areaServed": ["Surabaya", "Sidoarjo", "Gresik"],
+            "telephone": "+6281234567890",
+            "priceRange": "Rp150.000/m² - Rp2.500.000/meter",
+            "openingHours": "Mo-Sa 08:00-17:00",
+            "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.9",
+                "reviewCount": "120"
+            }
+        }
+    </script>
+    </Fragment>
+<div class="body">
+    <Header />
+    <Hero />
+    <TrustStrip />
+    <Problem />
+    <Services />
+    <Portfolio />
+    <BeforeAfter />
+    <Process />
+    <Pricing />
+    <Testimonials />
+    <About />
+    <Area />
+    <Faq />
+    <FinalCta />
+    <Footer />
+</div>
+</DemoWrapper>
+
+<script>
+    import "./_interactions.js";
+</script>
+
+<!-- Aturan dasar halaman (:root, html, body) tetap di sini agar cakupannya sama seperti sebelum dipecah. -->
+<style>
+    :root {
+        --primary: #2d3e50;
+        --primary-dark: #1f2a36;
+        --accent: #d97a4a;
+        --accent-hover: #c06a3e;
+        --cream: #faf7f2;
+        --warm-white: #fefcf9;
+        --text: #2d3e50;
+        --text-light: #6b7a8a;
+        --border: #e8e2d9;
+        --shadow-sm: 0 1px 3px rgba(45, 62, 80, 0.06);
+        --shadow-md: 0 4px 20px rgba(45, 62, 80, 0.08);
+        --shadow-lg: 0 12px 40px rgba(45, 62, 80, 0.12);
+        --radius: 12px;
+        --radius-lg: 20px;
+        --radius-full: 100px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 100px;
+    }
+
+    body {
+        font-family:
+            "Plus Jakarta Sans",
+            -apple-system,
+            BlinkMacSystemFont,
+            sans-serif;
+        color: var(--text);
+        background: var(--warm-white);
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+    }
+
+    .process-connector {
+        display: none;
+    }
+
+    .floating-wa {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 900;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #25d366;
+        color: #fff;
+        padding: 14px 22px;
+        border-radius: var(--radius-full);
+        font-size: 14px;
+        font-weight: 700;
+        box-shadow: 0 6px 24px rgba(37, 211, 102, 0.4);
+        transition: var(--transition);
+        animation: floatIn 0.5s ease-out;
+    }
+
+    @keyframes floatIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .floating-wa:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 10px 32px rgba(37, 211, 102, 0.5);
+        background: #20bd5a;
+    }
+
+    .floating-wa svg {
+        width: 22px;
+        height: 22px;
+        fill: #fff;
+    }
+
+    @media (max-width: 600px) {
+        .floating-wa {
+            bottom: 16px;
+            right: 16px;
+            left: 16px;
+            justify-content: center;
+            padding: 16px;
+        }
+    }
+</style>

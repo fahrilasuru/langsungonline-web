@@ -1,0 +1,138 @@
+<!-- ===== ABOUT ===== -->
+<section
+    class="section about-section"
+    id="tentang"
+    aria-labelledby="about-title"
+>
+    <div class="section-inner">
+        <div class="about-grid">
+            <div class="about-text reveal">
+                <div class="section-label" style="color: var(--accent);">
+                    Tentang Kami
+                </div>
+                <h2 class="section-title" id="about-title">
+                    Ruang yang Bagus Harus Enak Dilihat dan Enak Dipakai
+                </h2>
+                <p>
+                    RuangRapi Interior lahir dari keyakinan sederhana: ruang
+                    yang baik bukan hanya soal estetika, tetapi bagaimana
+                    ruang itu terasa nyaman dan berfungsi untuk penghuninya.
+                </p>
+                <p>
+                    Kami tidak memaksakan tren. Kami mendengarkan kebutuhan
+                    Anda, memahami budget, dan mencari solusi yang
+                    realistis.
+                </p>
+
+                <ul class="about-values">
+                    <li>
+                        <svg viewBox="0 0 24 24"
+                            ><path
+                                d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
+                            ></path></svg
+                        >
+                        Desain sesuai kebutuhan penghuni, bukan sekadar tren
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24"
+                            ><path
+                                d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
+                            ></path></svg
+                        >
+                        Budget realistis dengan pilihan material yang transparan
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24"
+                            ><path
+                                d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
+                            ></path></svg
+                        >
+                        Komunikasi jelas dari konsultasi hingga serah terima
+                    </li>
+                    <li>
+                        <svg viewBox="0 0 24 24"
+                            ><path
+                                d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
+                            ></path></svg
+                        >
+                        Pengerjaan rapi dengan tim yang berpengalaman
+                    </li>
+                </ul>
+            </div>
+
+            <div class="about-img reveal">
+                <img
+                    src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80&auto=format&fit=crop"
+                    alt="Tim RuangRapi Interior sedang berdiskusi dengan klien"
+                    loading="lazy"
+                />
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .about-section {
+        background: var(--primary);
+        color: #fff;
+    }
+
+    .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+    }
+
+    .about-section .section-title {
+        color: #fff;
+    }
+
+    .about-text p {
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.8;
+        margin-bottom: 20px;
+    }
+
+    .about-values {
+        list-style: none;
+        margin-top: 24px;
+    }
+
+    .about-values li {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 12px;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    .about-values li svg {
+        width: 18px;
+        height: 18px;
+        fill: var(--accent);
+        flex-shrink: 0;
+        margin-top: 3px;
+    }
+
+    .about-img {
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .about-img img {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+    }
+
+    @media (max-width: 900px) {
+        .about-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+    }
+</style>

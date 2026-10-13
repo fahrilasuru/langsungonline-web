@@ -1,0 +1,222 @@
+<!-- ===== SIDEBAR ===== -->
+<aside class="sidebar" id="sidebar" aria-label="Navigasi utama">
+    <div class="brand">
+        <span class="brand-mark"><span class="material-icons">storefront</span></span>
+        <div class="brand-text">
+            <strong>UMKM Kita</strong>
+            <small data-text="storeName">UMKM Kita Shop</small>
+        </div>
+        <button class="btn-icon sidebar-close" data-action="close-sidebar" aria-label="Tutup menu">
+            <span class="material-icons">close</span>
+        </button>
+    </div>
+
+    <nav class="nav" aria-label="Menu">
+        <p class="nav-group">Operasional</p>
+        <button class="nav-item active" data-action="nav" data-view="dashboard">
+            <span class="material-icons">dashboard</span><span>Dashboard</span>
+        </button>
+        <button class="nav-item" data-action="nav" data-view="pesanan">
+            <span class="material-icons">shopping_cart</span><span>Pesanan</span>
+            <span class="nav-badge" data-badge="orders" hidden></span>
+        </button>
+        <button class="nav-item" data-action="nav" data-view="produk">
+            <span class="material-icons">inventory_2</span><span>Produk</span>
+            <span class="nav-badge warn" data-badge="stock" hidden></span>
+        </button>
+
+        <p class="nav-group">Bisnis</p>
+        <button class="nav-item" data-action="nav" data-view="laporan">
+            <span class="material-icons">insert_chart</span><span>Laporan</span>
+        </button>
+        <button class="nav-item" data-action="nav" data-view="pengguna">
+            <span class="material-icons">people</span><span>Pengguna</span>
+        </button>
+
+        <p class="nav-group">Sistem</p>
+        <button class="nav-item" data-action="nav" data-view="aktivitas">
+            <span class="material-icons">history</span><span>Log aktivitas</span>
+        </button>
+        <button class="nav-item" data-action="nav" data-view="pengaturan">
+            <span class="material-icons">settings</span><span>Pengaturan</span>
+        </button>
+    </nav>
+
+    <div class="sidebar-foot">
+        <button class="nav-item" data-action="open-profile">
+            <span class="material-icons">account_circle</span><span>Profil saya</span>
+        </button>
+        <button class="nav-item" data-action="logout">
+            <span class="material-icons">logout</span><span>Keluar</span>
+        </button>
+    </div>
+</aside>
+
+<style>
+    .sidebar {
+        width: var(--sidebar-w);
+        flex-shrink: 0;
+        background: var(--side-bg);
+        color: var(--side-ink);
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        align-self: flex-start;
+        display: flex;
+        flex-direction: column;
+        z-index: 1100;
+        overflow-y: auto;
+        transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 22px 20px 18px;
+    }
+
+    .brand-mark {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        background: var(--side-accent);
+        color: var(--side-bg);
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+    }
+
+    .brand-text {
+        min-width: 0;
+        flex: 1;
+        line-height: 1.25;
+    }
+
+    .brand-text strong {
+        display: block;
+        font-size: 17px;
+        font-weight: 800;
+        letter-spacing: -0.3px;
+        color: #fff;
+    }
+
+    .brand-text small {
+        display: block;
+        font-size: 12px;
+        color: var(--side-muted);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .sidebar-close {
+        display: none;
+        color: var(--side-muted);
+    }
+
+    .nav {
+        flex: 1;
+        padding: 4px 12px;
+    }
+
+    .nav-group {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--side-muted);
+        padding: 18px 12px 6px;
+    }
+
+    .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        padding: 11px 12px;
+        margin-bottom: 2px;
+        border-radius: 10px;
+        color: var(--side-ink);
+        font-size: 14px;
+        font-weight: 500;
+        text-align: left;
+        transition: background 0.15s, color 0.15s;
+        position: relative;
+    }
+
+    .nav-item .material-icons {
+        color: var(--side-muted);
+        transition: color 0.15s;
+    }
+
+    .nav-item:hover {
+        background: rgba(255, 255, 255, 0.07);
+    }
+
+    .nav-item.active {
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+        font-weight: 700;
+    }
+
+    .nav-item.active::before {
+        content: "";
+        position: absolute;
+        left: -12px;
+        top: 10px;
+        bottom: 10px;
+        width: 4px;
+        border-radius: 0 4px 4px 0;
+        background: var(--side-accent);
+    }
+
+    .nav-item.active .material-icons {
+        color: var(--side-accent);
+    }
+
+    .nav-badge {
+        margin-left: auto;
+        min-width: 22px;
+        height: 22px;
+        padding: 0 7px;
+        border-radius: 11px;
+        background: var(--side-accent);
+        color: var(--side-bg);
+        font-size: 12px;
+        font-weight: 700;
+        display: inline-grid;
+        place-items: center;
+    }
+
+    .nav-badge[hidden] {
+        display: none;
+    }
+
+    .nav-badge.warn {
+        background: #f2b84b;
+    }
+
+    .sidebar-foot {
+        padding: 12px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    @media (max-width: 900px) {
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: min(300px, 86vw);
+            transform: translateX(-100%);
+            box-shadow: none;
+        }
+
+        .sidebar.open {
+            transform: none;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.35);
+        }
+
+        .sidebar-close {
+            display: inline-grid;
+        }
+    }
+</style>

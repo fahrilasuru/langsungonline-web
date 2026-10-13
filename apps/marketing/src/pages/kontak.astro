@@ -1,0 +1,83 @@
+---
+import Base from "@langsungonline/ui/layouts/Base.astro";
+import FAQ from "@langsungonline/ui/components/FAQ.astro";
+import ContactInfo from "../components/ContactInfo.astro";
+import Form from "../components/Form.astro";
+import PageHero from "@langsungonline/ui/components/PageHero.astro";
+
+const breadcrumbContact = [
+    { name: "Beranda", url: "https://langsung.online/" },
+    { name: "Kontak", url: "https://langsung.online/kontak/" },
+];
+
+const faq_id = "faq";
+const faqsContact = [
+    {
+        question: "Berapa lama biasanya dibalas?",
+        answer: "Biasanya kami balas dalam beberapa jam di jam kerja. Kalau di luar jam kerja, akan dibalas di hari berikutnya.",
+    },
+    {
+        question: "Apakah konsultasi benar-benar gratis?",
+        answer: "Ya, gratis tanpa kewajiban ambil paket.",
+    },
+    {
+        question: "Apakah data bisnis saya aman?",
+        answer: "Aman. Data klien tidak akan dibagikan tanpa izin.",
+    },
+    {
+        question: "Kalau masih bingung pilih paket bagaimana?",
+        answer: "Tenang, kami bantu arahkan sesuai kebutuhan dan budget bisnis Anda.",
+    },
+];
+
+const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `https://langsung.online/#${faq_id}`,
+    mainEntity: faqsContact.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+            "@type": "Answer",
+            text: item.answer,
+        },
+    })),
+};
+---
+
+<Base
+    title="Kontak | Langsung.Online"
+    description="Hubungi kami melalui WhatsApp atau media lainnya."
+    canonical="https://langsung.online/kontak/"
+>
+    <Fragment slot="schema">
+        <script
+            is:inline
+            type="application/ld+json"
+            set:html={JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                itemListElement: breadcrumbContact.map((item, index) => ({
+                    "@type": "ListItem",
+                    position: index + 1,
+                    name: item.name,
+                    ...(item.url && { item: item.url }),
+                })),
+            })}
+        />
+        <script
+            is:inline
+            type="application/ld+json"
+            set:html={JSON.stringify(faqSchema)}
+        />
+    </Fragment>
+
+    <PageHero
+        title='Cek <span style="background: linear-gradient(to right, #16a34a, #2563eb); -webkit-background-clip: text; background-clip: text; color: transparent;">Bisnis Anda</span>'
+        subtitle="Tidak perlu tahu paket atau istilah teknis. Ceritakan sedikit tentang bisnis Anda dan kami bantu lihat apa yang perlu dibereskan."
+    />
+
+    <ContactInfo />
+    <Form />
+    <FAQ faq_id={faq_id} faqs={faqsContact} />
+</Base>

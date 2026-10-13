@@ -1,0 +1,19 @@
+---
+import { BASE, fmt } from "./_products.js";
+const { p } = Astro.props;
+const url = `${BASE}/produk/${p.slug}`;
+---
+<article class="pcard" data-cat={p.cat} data-name={p.name.toLowerCase()} data-price={p.price} data-rating={p.rating} data-sold={p.sold} data-slug={p.slug}>
+  <a href={url} class="pimg" style={`background:${p.bg}`} aria-label={p.name}>
+    <img src={p.img} alt={`${p.name}`} loading="lazy" onerror="this.style.display='none'" />
+    {p.badge && <span class={`tag ${p.badge === "Baru" ? "new" : ""}`}>{p.badge}</span>}
+  </a>
+  <button class="heart" data-wish={p.slug} aria-label="Simpan ke wishlist"><i class="fa-regular fa-heart"></i></button>
+  <div class="pbody">
+    <h3><a href={url}>{p.name}</a></h3>
+    <div class="pmeta"><i class="fa-solid fa-star"></i> {p.rating} · {p.sold.toLocaleString("id-ID")} terjual</div>
+    <div class="pmeta sd">{p.short}</div>
+    <div class="price">{fmt(p.price)}{p.old && <s>{fmt(p.old)}</s>}</div>
+    <button class="btn moss sm" data-add={p.slug}><i class="fa-solid fa-cart-plus"></i> Tambah<span class="xs-hide">&nbsp;ke keranjang</span></button>
+  </div>
+</article>

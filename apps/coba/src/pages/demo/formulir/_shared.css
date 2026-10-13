@@ -1,0 +1,440 @@
+/* Gaya bersama halaman Aplikasi Formulir: reset, tombol, input, tata letak tampilan.
+ *
+ * Semua aturan diawali `.body` (pembungkus di index.astro) supaya tidak bocor ke bar demo atau layout.
+ * Elemen yang dibuat lewat JavaScript tidak mendapat atribut cakupan Astro, karena itu gaya untuk
+ * elemen dinamis ada di berkas CSS biasa seperti ini, bukan di <style> komponen. */
+.body,
+.body * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.body {
+    font-family: var(--font);
+    font-size: 16px;
+    color: var(--text);
+}
+
+.body [hidden] {
+    display: none !important;
+}
+
+.body svg {
+    display: block;
+    flex: none;
+}
+
+.body a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.body button {
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    border: 0;
+    background: none;
+}
+
+.body input,
+.body select,
+.body textarea {
+    font: inherit;
+    color: inherit;
+}
+
+.body fieldset {
+    border: 0;
+    min-inline-size: 0;
+}
+
+.body legend {
+    display: block;
+    width: 100%;
+}
+
+.body ul,
+.body ol {
+    list-style: none;
+}
+
+.body :focus-visible {
+    outline: 3px solid rgba(37, 81, 214, 0.45);
+    outline-offset: 2px;
+}
+
+.body .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ---------- Logo ---------- */
+.body .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--ink);
+}
+
+.body .logo-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    background: var(--pen);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    flex: none;
+}
+
+/* ---------- Tombol ---------- */
+.body .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 12px 22px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.body .btn-primary {
+    background: var(--pen);
+    color: #fff;
+    box-shadow: 0 2px 0 var(--pen-dark), 0 6px 16px rgba(37, 81, 214, 0.25);
+}
+
+.body .btn-primary:hover:not(:disabled) {
+    background: var(--pen-dark);
+}
+
+.body .btn-primary:active:not(:disabled) {
+    transform: translateY(1px);
+    box-shadow: 0 1px 0 var(--pen-dark);
+}
+
+.body .btn-ghost {
+    background: #fff;
+    border: 1.5px solid var(--line-strong);
+    color: var(--ink);
+}
+
+.body .btn-ghost:hover:not(:disabled) {
+    border-color: var(--pen);
+    color: var(--pen-dark);
+}
+
+.body .btn-sm {
+    min-height: 40px;
+    padding: 8px 14px;
+    font-size: 14px;
+}
+
+.body .btn-block {
+    width: 100%;
+}
+
+.body .btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.body .spin {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2.5px solid rgba(255, 255, 255, 0.4);
+    border-top-color: #fff;
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.body .icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    color: var(--muted);
+    flex: none;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.body .icon-btn:hover:not(:disabled) {
+    background: var(--paper);
+    color: var(--ink);
+}
+
+.body .icon-btn.danger:hover:not(:disabled) {
+    background: var(--margin-soft);
+    color: var(--margin);
+}
+
+.body .icon-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.body .link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 36px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--pen-dark);
+}
+
+.body .link-btn:hover:not(:disabled) {
+    background: var(--pen-soft);
+}
+
+.body .link-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* ---------- Input ---------- */
+.body .inp {
+    width: 100%;
+    min-height: 48px;
+    padding: 11px 14px;
+    background: #fff;
+    border: 1.5px solid var(--line-strong);
+    border-radius: 10px;
+    font-size: 16px;
+    line-height: 1.4;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.body .inp::placeholder {
+    color: #8a93ad;
+}
+
+.body .inp:hover {
+    border-color: #a7b2cd;
+}
+
+.body .inp:focus {
+    outline: none;
+    border-color: var(--pen);
+    box-shadow: 0 0 0 4px rgba(37, 81, 214, 0.18);
+}
+
+.body .inp[aria-invalid="true"],
+.body .q.has-error .inp {
+    border-color: var(--margin);
+}
+
+.body .inp[readonly] {
+    background: var(--paper);
+}
+
+.body .inp-sm {
+    min-height: 42px;
+    padding: 8px 12px;
+    font-size: 14.5px;
+}
+
+.body .ta {
+    min-height: 112px;
+    resize: vertical;
+}
+
+.body .ta-wrap {
+    position: relative;
+}
+
+.body .ta-count {
+    display: block;
+    text-align: right;
+    margin-top: 4px;
+    font-size: 12.5px;
+    color: var(--muted);
+}
+
+.body .sel-wrap {
+    position: relative;
+}
+
+.body .sel {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 42px;
+    cursor: pointer;
+}
+
+.body .sel-caret {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    pointer-events: none;
+}
+
+.body .inp-group {
+    display: flex;
+}
+
+.body .inp-group .inp {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.body .inp-addon {
+    display: grid;
+    place-items: center;
+    padding: 0 16px;
+    border: 1.5px solid var(--line-strong);
+    border-left: 0;
+    border-radius: 0 10px 10px 0;
+    background: var(--paper);
+    color: var(--muted);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.body .fld {
+    display: grid;
+    gap: 6px;
+}
+
+.body .fld-label {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink);
+}
+
+.body .fld-hint {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    font-size: 12.5px;
+    color: var(--muted);
+}
+
+.body .fld-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+}
+
+.body .empty {
+    padding: 28px 16px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 14.5px;
+}
+
+/* ---------- Tata letak tampilan ---------- */
+.body .app {
+    min-height: 60vh;
+}
+
+.body .view {
+    padding: 28px 24px 0;
+}
+
+.body .view-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.body .view-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.body .view-title {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.6px;
+    line-height: 1.2;
+}
+
+.body .view-sub {
+    margin-top: 2px;
+    font-size: 14.5px;
+    color: var(--muted);
+}
+
+.body .view-btns {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.body .side-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.body .side-title {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 760px) {
+    .body .view {
+        padding: 20px 16px 0;
+    }
+    .body .view-title {
+        font-size: 24px;
+    }
+    .body .view-btns {
+        width: 100%;
+    }
+    .body .view-btns .btn {
+        flex: 1;
+    }
+    .body .inp-sm {
+        font-size: 16px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .body *,
+    .body *::before,
+    .body *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

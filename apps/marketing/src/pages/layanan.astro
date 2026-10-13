@@ -1,0 +1,680 @@
+---
+export const prerender = true;
+
+import Base from "@langsungonline/ui/layouts/Base.astro";
+import Flow from "@langsungonline/ui/components/Flow.astro";
+import CTA from "@langsungonline/ui/components/CTA.astro";
+import FAQ from "@langsungonline/ui/components/FAQ.astro";
+import Service from "../components/Service.astro";
+import Pillar from "../components/Pillar.astro";
+import { SERVICE_WEBSITE } from "@langsungonline/ui/constants";
+
+const breadcrumbServices = [
+	{ name: "Beranda", url: "https://langsung.online/" },
+	{ name: "Layanan", url: "https://langsung.online/layanan/" },
+];
+
+const faq_id = "faq";
+const faqsServices = [
+	{
+		question: "Berapa lama biasanya website selesai?",
+		answer: "Biasanya 3–7 hari kerja setelah semua data lengkap seperti logo, foto, dan deskripsi usaha sudah dikirim.",
+	},
+	{
+		question: "Kalau sudah punya website atau akun, bisa dibantu juga?",
+		answer: "Bisa. Kami bisa bantu perbaikan, optimasi, atau pengelolaan tanpa harus mulai dari nol.",
+	},
+	{
+		question: "Apakah bisa request desain sesuai keinginan?",
+		answer: "Tentu. Kami akan sesuaikan dengan karakter bisnis Anda selama masih dalam ruang lingkup paket yang dipilih.",
+	},
+	{
+		question: "Biaya iklan itu sudah termasuk di paket?",
+		answer: "Belum. Budget iklan dibayarkan langsung ke platform, sedangkan biaya jasa adalah untuk pengelolaan dan optimasinya.",
+	},
+	{
+		question: "Kalau hasilnya belum maksimal bagaimana?",
+		answer: "Kami selalu evaluasi dan optimasi. Tujuannya supaya performa terus membaik setiap bulan.",
+	},
+];
+
+const faqSchema = {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	"@id": `https://langsung.online/#${faq_id}`,
+	mainEntity: faqsServices.map((item) => ({
+		"@type": "Question",
+		name: item.question,
+		acceptedAnswer: {
+			"@type": "Answer",
+			text: item.answer,
+		},
+	})),
+};
+
+const manajemenAkunPackages = [
+	{
+		name: "Start Presence",
+		price: "Rp 249K",
+		priceNote: "sekali bayar",
+		description: "Bukan sekadar setup. Ini fondasi.",
+		icon: "fa-rocket",
+		badge: "Pemula",
+		badgeColor: "bg-emerald-100 text-emerald-700",
+		features: [
+			"Setup & verifikasi: GBP, IG, FB, WA Business",
+			"Optimasi nama bisnis & kategori",
+			"Bio dengan formula konversi",
+			"Setup tombol WA & CTA",
+			"Template auto-reply WhatsApp",
+			"Checklist 10 langkah siap jualan",
+		],
+		popular: false,
+		ctaText: "Pilih Paket",
+		ctaLink: "/konsultasi?paket=manajemen-akun-fondasi",
+	},
+	{
+		name: "Brand Boost",
+		price: "Rp 399K",
+		priceNote: "sekali bayar",
+		description: "Ini bukan ganti foto profil. Ini positioning.",
+		icon: "fa-palette",
+		badge: "Populer",
+		badgeColor: "bg-blue-100 text-blue-700",
+		features: [
+			"Audit profil & rekomendasi",
+			"Perbaikan bio + value proposition",
+			"Optimasi link (Linktree/custom)",
+			"Desain foto profil & highlight cover",
+			"9 ide konten pertama siap pakai",
+			"Rekomendasi tone & positioning brand",
+		],
+		popular: true,
+		ctaText: "Pilih Paket",
+		ctaLink: "/konsultasi?paket=manajemen-akun-branding",
+	},
+	{
+		name: "Growth Control",
+		price: "Rp 649K",
+		priceNote: "bulan",
+		description: "Ini bukan cuma posting. Ini pendampingan.",
+		icon: "fa-chart-line",
+		badge: "Pro",
+		badgeColor: "bg-purple-100 text-purple-700",
+		features: [
+			"2 platform (IG + FB)",
+			"12 konten feed/bulan",
+			"8 story/bulan",
+			"Copywriting persuasif",
+			"Daily monitoring DM & komentar",
+			"Optimasi hashtag & caption",
+			"Laporan performa + 1 sesi evaluasi",
+		],
+		popular: false,
+		ctaText: "Pilih Paket",
+		ctaLink: "/konsultasi?paket=manajemen-akun-growth",
+	},
+];
+
+const pembuatanKontenPackages = [
+	{
+		name: "Consistent Starter",
+		price: "Rp 599K",
+		priceNote: "bulan",
+		description: "Cocok untuk UMKM yang baru mulai serius.",
+		icon: "fa-pen-fancy",
+		badge: "Pemula",
+		badgeColor: "bg-emerald-100 text-emerald-700",
+		features: [
+			"8 konten feed",
+			"8 story",
+			"Desain visual basic",
+			"Copywriting persuasif",
+			"1x revisi per konten",
+			"Laporan insight sederhana",
+		],
+		popular: false,
+		ctaText: "Pilih Paket",
+		ctaLink: "/konsultasi?paket=konten-starter",
+	},
+	{
+		name: "Engagement Builder",
+		price: "Rp 1.199K",
+		priceNote: "bulan",
+		description: "Untuk UMKM yang ingin mulai naik.",
+		icon: "fa-chart-simple",
+		badge: "Terlaris",
+		badgeColor: "bg-blue-100 text-blue-700",
+		features: [
+			"15 feed",
+			"15 story",
+			"2 reels sederhana",
+			"Copywriting SEO dasar",
+			"Riset hashtag",
+			"2x revisi",
+			"Laporan + insight + rekomendasi",
+			"1 sesi evaluasi online",
+		],
+		popular: true,
+		ctaText: "Pilih Paket",
+		ctaLink: "/konsultasi?paket=konten-growth",
+	},
+	{
+		name: "Market Dominator",
+		price: "Rp 1.999K",
+		priceNote: "bulan",
+		description: "Untuk bisnis yang sudah jalan & ingin ekspansi.",
+		icon: "fa-crown",
+		badge: "Pro",
+		badgeColor: "bg-purple-100 text-purple-700",
+		features: [
+			"20–25 feed",
+			"20 story",
+			"4 reels",
+			"Mini campaign bulanan",
+			"Konten promo terjadwal",
+			"Content planner 30 hari",
+			"Monitoring DM & komentar",
+			"Laporan detail + strategi",
+		],
+		popular: false,
+		ctaText: "Pilih Paket",
+		ctaLink: "/konsultasi?paket=konten-scale",
+	},
+];
+
+const manajemenAdsPackages = [
+	{
+		name: "Ads Foundation",
+		price: "Rp 399K",
+		priceNote: "sekali bayar",
+		description: "Sekali bayar, siap running dengan tracking benar.",
+		icon: "fa-gear",
+		badge: "Setup",
+		badgeColor: "bg-emerald-100 text-emerald-700",
+		features: [
+			"Setup akun iklan FB/IG",
+			"Setup Google Ads",
+			"Instalasi Pixel / Tag tracking",
+			"Setup event WA / form",
+			"Struktur campaign awal siap jalan",
+		],
+		popular: false,
+		ctaText: "Pilih Paket",
+		ctaLink: "/konsultasi?paket=ads-setup",
+	},
+	{
+		name: "Lead Accelerator",
+		price: "Rp 699K",
+		priceNote: "bulan",
+		description: "Untuk UMKM yang ingin chat masuk stabil.",
+		icon: "fa-message",
+		badge: "Populer",
+		badgeColor: "bg-blue-100 text-blue-700",
+		features: [
+			"2 campaign aktif",
+			"Targeting audience terarah",
+			"1–2 variasi creative",
+			"Monitoring harian",
+			"Optimasi performa",
+			"Laporan hasil + rekomendasi",
+		],
+		popular: true,
+		ctaText: "Pilih Paket",
+		ctaLink: "/konsultasi?paket=ads-leads",
+	},
+	{
+		name: "Revenue Scaler",
+		price: "Rp 1.499K",
+		priceNote: "bulan",
+		description: "Untuk bisnis yang sudah punya data & ingin scale.",
+		icon: "fa-chart-pie",
+		badge: "Scale",
+		badgeColor: "bg-purple-100 text-purple-700",
+		features: [
+			"3–4 campaign (leads + retargeting)",
+			"Creative ads (gambar/video sederhana)",
+			"A/B testing",
+			"Retargeting pixel audience",
+			"Optimasi ROAS",
+			"Report performa detail",
+			"Strategy meeting bulanan",
+		],
+		popular: false,
+		ctaText: "Pilih Paket",
+		ctaLink: "/konsultasi?paket=ads-scale",
+	},
+];
+
+const maintenancePackages = [
+	{
+		name: "Secure Basic",
+		price: "Rp 199K",
+		priceNote: "bulan",
+		description: "Cocok untuk website company profile sederhana.",
+		icon: "fa-shield",
+		badge: "Basic",
+		badgeColor: "bg-emerald-100 text-emerald-700",
+		features: [
+			"Update teks/gambar ringan (maks 3/bulan)",
+			"Backup mingguan (cloud storage)",
+			"Monitoring uptime dasar",
+			"Cek link error",
+			"Update plugin/theme minor",
+			"Laporan kondisi website bulanan",
+		],
+		popular: false,
+		ctaText: "Pilih Paket",
+		ctaLink: "/konsultasi?paket=maintenance-basic",
+	},
+	{
+		name: "Stable Growth",
+		price: "Rp 349K",
+		priceNote: "bulan",
+		description: "Untuk bisnis yang mulai aktif promosi.",
+		icon: "fa-clock",
+		badge: "Terlaris",
+		badgeColor: "bg-blue-100 text-blue-700",
+		features: [
+			"Update hingga 5 halaman/bulan",
+			"Backup harian",
+			"Security patch & malware scan",
+			"Optimasi kecepatan dasar",
+			"Perbaikan error ringan",
+			"Monitoring performa",
+			"Laporan + rekomendasi perbaikan",
+		],
+		popular: true,
+		ctaText: "Pilih Paket",
+		ctaLink: "/konsultasi?paket=maintenance-regular",
+	},
+	{
+		name: "Business Guardian",
+		price: "Rp 699K",
+		priceNote: "bulan",
+		description: "Untuk website yang jadi mesin marketing.",
+		icon: "fa-crown",
+		badge: "Premium",
+		badgeColor: "bg-purple-100 text-purple-700",
+		features: [
+			"Update konten unlimited (wajar)",
+			"2 artikel SEO/bulan",
+			"Backup harian + restore cepat",
+			"Monitoring 24/7",
+			"Optimasi kecepatan lanjutan",
+			"Security hardening",
+			"Audit performa bulanan",
+			"Konsultasi pengembangan 1x/bulan",
+		],
+		popular: false,
+		ctaText: "Pilih Paket",
+		ctaLink: "/konsultasi?paket=maintenance-premium",
+	},
+];
+---
+
+<Base
+	title="Layanan | Langsung.Online"
+	description="Menyediakan jasa pembuatan situs dari yang gratis sampai berbayar, serta jasa tambahan lainnya."
+	canonical="https://langsung.online/layanan/"
+>
+	<Fragment slot="schema">
+		<script
+			is:inline
+			type="application/ld+json"
+			set:html={JSON.stringify({
+				"@context": "https://schema.org",
+				"@type": "BreadcrumbList",
+				itemListElement: breadcrumbServices.map((item, index) => ({
+					"@type": "ListItem",
+					position: index + 1,
+					name: item.name,
+					...(item.url && { item: item.url }),
+				})),
+			})}
+		/>
+		<script
+			is:inline
+			type="application/ld+json"
+			set:html={JSON.stringify(SERVICE_WEBSITE)}
+		/>
+		<script
+			is:inline
+			type="application/ld+json"
+			set:html={JSON.stringify({
+				"@context": "https://schema.org",
+				"@type": "Service",
+				"@id": "https://langsung.online/layanan/#manajemen-akun",
+				name: "Layanan Manajemen Akun Digital",
+				description:
+					"Setup dan pengelolaan akun media sosial dan bisnis digital untuk UMKM.",
+				provider: {
+					"@type": "Organization",
+					"@id": "https://langsung.online/#organization",
+				},
+				areaServed: "ID",
+				hasOfferCatalog: {
+					"@type": "OfferCatalog",
+					name: "Paket Manajemen Akun",
+					itemListElement: [
+						{
+							"@type": "Product",
+							name: "Start Presence",
+							description:
+								"Setup & verifikasi GBP, IG, FB, WA Business, optimasi nama bisnis & kategori, bio dengan formula konversi, setup tombol WA & CTA, template auto-reply WhatsApp, checklist 10 langkah siap jualan.",
+							offers: {
+								"@type": "Offer",
+								price: "249000",
+								priceCurrency: "IDR",
+								priceValidUntil: "2026-12-31",
+								availability: "https://schema.org/InStock",
+							},
+						},
+						{
+							"@type": "Product",
+							name: "Brand Boost",
+							description:
+								"Audit profil & rekomendasi, perbaikan bio + value proposition, optimasi link (Linktree/custom), desain foto profil & highlight cover, 9 ide konten pertama siap pakai, rekomendasi tone & positioning brand.",
+							offers: {
+								"@type": "Offer",
+								price: "399000",
+								priceCurrency: "IDR",
+								priceValidUntil: "2026-12-31",
+								availability: "https://schema.org/InStock",
+							},
+						},
+						{
+							"@type": "Product",
+							name: "Growth Control",
+							description:
+								"2 platform (IG + FB), 12 konten feed/bulan, 8 story/bulan, copywriting persuasif, daily monitoring DM & komentar, optimasi hashtag & caption, laporan performa + 1 sesi evaluasi.",
+							offers: {
+								"@type": "Offer",
+								priceSpecification: {
+									"@type": "UnitPriceSpecification",
+									price: "649000",
+									priceCurrency: "IDR",
+									billingDuration: "P1M",
+									validThrough: "2026-12-31",
+								},
+							},
+						},
+					],
+				},
+			})}
+		/>
+		<script
+			is:inline
+			type="application/ld+json"
+			set:html={JSON.stringify({
+				"@context": "https://schema.org",
+				"@type": "Service",
+				"@id": "https://langsung.online/layanan/#konten",
+				name: "Layanan Pembuatan Konten Digital",
+				description:
+					"Jasa pembuatan konten untuk media sosial dengan strategi engagement.",
+				provider: {
+					"@type": "Organization",
+					"@id": "https://langsung.online/#organization",
+				},
+				areaServed: "ID",
+				hasOfferCatalog: {
+					"@type": "OfferCatalog",
+					name: "Paket Konten",
+					itemListElement: [
+						{
+							"@type": "Product",
+							name: "Consistent Starter",
+							description:
+								"8 konten feed, 8 story, desain visual basic, copywriting persuasif, 1x revisi per konten, laporan insight sederhana.",
+							offers: {
+								"@type": "Offer",
+								priceSpecification: {
+									"@type": "UnitPriceSpecification",
+									price: "599000",
+									priceCurrency: "IDR",
+									billingDuration: "P1M",
+									validThrough: "2026-12-31",
+								},
+							},
+						},
+						{
+							"@type": "Product",
+							name: "Engagement Builder",
+							description:
+								"15 feed, 15 story, 2 reels sederhana, copywriting SEO dasar, riset hashtag, 2x revisi, laporan + insight + rekomendasi, 1 sesi evaluasi online.",
+							offers: {
+								"@type": "Offer",
+								priceSpecification: {
+									"@type": "UnitPriceSpecification",
+									price: "1199000",
+									priceCurrency: "IDR",
+									billingDuration: "P1M",
+									validThrough: "2026-12-31",
+								},
+							},
+						},
+						{
+							"@type": "Product",
+							name: "Market Dominator",
+							description:
+								"20–25 feed, 20 story, 4 reels, mini campaign bulanan, konten promo terjadwal, content planner 30 hari, monitoring DM & komentar, laporan detail + strategi.",
+							offers: {
+								"@type": "Offer",
+								priceSpecification: {
+									"@type": "UnitPriceSpecification",
+									price: "1999000",
+									priceCurrency: "IDR",
+									billingDuration: "P1M",
+									validThrough: "2026-12-31",
+								},
+							},
+						},
+					],
+				},
+			})}
+		/>
+		<script
+			is:inline
+			type="application/ld+json"
+			set:html={JSON.stringify({
+				"@context": "https://schema.org",
+				"@type": "Service",
+				"@id": "https://langsung.online/layanan/#iklan",
+				name: "Layanan Manajemen Iklan Digital",
+				description:
+					"Setup dan pengelolaan iklan digital untuk hasil maksimal dan leads berkualitas.",
+				provider: {
+					"@type": "Organization",
+					"@id": "https://langsung.online/#organization",
+				},
+				areaServed: "ID",
+				hasOfferCatalog: {
+					"@type": "OfferCatalog",
+					name: "Paket Iklan",
+					itemListElement: [
+						{
+							"@type": "Product",
+							name: "Ads Foundation",
+							description:
+								"Setup akun iklan FB/IG, setup Google Ads, instalasi Pixel / Tag tracking, setup event WA / form, struktur campaign awal siap jalan.",
+							offers: {
+								"@type": "Offer",
+								price: "399000",
+								priceCurrency: "IDR",
+								priceValidUntil: "2026-12-31",
+								availability: "https://schema.org/InStock",
+							},
+						},
+						{
+							"@type": "Product",
+							name: "Lead Accelerator",
+							description:
+								"2 campaign aktif, targeting audience terarah, 1–2 variasi creative, monitoring harian, optimasi performa, laporan hasil + rekomendasi.",
+							offers: {
+								"@type": "Offer",
+								priceSpecification: {
+									"@type": "UnitPriceSpecification",
+									price: "699000",
+									priceCurrency: "IDR",
+									billingDuration: "P1M",
+									validThrough: "2026-12-31",
+								},
+							},
+						},
+						{
+							"@type": "Product",
+							name: "Revenue Scaler",
+							description:
+								"3–4 campaign (leads + retargeting), creative ads (gambar/video sederhana), A/B testing, retargeting pixel audience, optimasi ROAS, report performa detail, strategy meeting bulanan.",
+							offers: {
+								"@type": "Offer",
+								priceSpecification: {
+									"@type": "UnitPriceSpecification",
+									price: "1499000",
+									priceCurrency: "IDR",
+									billingDuration: "P1M",
+									validThrough: "2026-12-31",
+								},
+							},
+						},
+					],
+				},
+			})}
+		/>
+		<script
+			is:inline
+			type="application/ld+json"
+			set:html={JSON.stringify({
+				"@context": "https://schema.org",
+				"@type": "Service",
+				"@id": "https://langsung.online/layanan/#maintenance",
+				name: "Layanan Maintenance Website",
+				description:
+					"Perawatan rutin untuk keamanan dan performa website Anda.",
+				provider: {
+					"@type": "Organization",
+					"@id": "https://langsung.online/#organization",
+				},
+				areaServed: "ID",
+				hasOfferCatalog: {
+					"@type": "OfferCatalog",
+					name: "Paket Maintenance",
+					itemListElement: [
+						{
+							"@type": "Product",
+							name: "Secure Basic",
+							description:
+								"Update teks/gambar ringan (maks 3/bulan), backup mingguan (cloud storage), monitoring uptime dasar, cek link error, update plugin/theme minor, laporan kondisi website bulanan.",
+							offers: {
+								"@type": "Offer",
+								priceSpecification: {
+									"@type": "UnitPriceSpecification",
+									price: "199000",
+									priceCurrency: "IDR",
+									billingDuration: "P1M",
+									validThrough: "2026-12-31",
+								},
+							},
+						},
+						{
+							"@type": "Product",
+							name: "Stable Growth",
+							description:
+								"Update hingga 5 halaman/bulan, backup harian, security patch & malware scan, optimasi kecepatan dasar, perbaikan error ringan, monitoring performa, laporan + rekomendasi perbaikan.",
+							offers: {
+								"@type": "Offer",
+								priceSpecification: {
+									"@type": "UnitPriceSpecification",
+									price: "349000",
+									priceCurrency: "IDR",
+									billingDuration: "P1M",
+									validThrough: "2026-12-31",
+								},
+							},
+						},
+						{
+							"@type": "Product",
+							name: "Business Guardian",
+							description:
+								"Update konten unlimited (wajar), 2 artikel SEO/bulan, backup harian + restore cepat, monitoring 24/7, optimasi kecepatan lanjutan, security hardening, audit performa bulanan, konsultasi pengembangan 1x/bulan.",
+							offers: {
+								"@type": "Offer",
+								priceSpecification: {
+									"@type": "UnitPriceSpecification",
+									price: "699000",
+									priceCurrency: "IDR",
+									billingDuration: "P1M",
+									validThrough: "2026-12-31",
+								},
+							},
+						},
+					],
+				},
+			})}
+		/>
+		<script
+			is:inline
+			type="application/ld+json"
+			set:html={JSON.stringify(faqSchema)}
+		/>
+	</Fragment>
+	
+	<!-- <PageHero
+		badge="Siap Jualan"
+		title='Apa yang Bisa <span style="background: linear-gradient(to right, #16a34a, #2563eb); -webkit-background-clip: text; background-clip: text; color: transparent;">Kami Bereskan</span>'
+		subtitle="Setiap bisnis berbeda. Anda tidak perlu memilih belasan paket—kami cek kondisinya dan merekomendasikan yang memang diperlukan."
+	/> -->
+
+	<Pillar />
+	<Service />
+
+	<!-- <PackageGrid
+		headerBadge="Manajemen Akun"
+		headerTitle="Kelola Akun Digital"
+		headerHighlight="Profesional"
+		headerSubtitle="Dari setup hingga pertumbuhan, pilih sesuai tahap bisnis Anda"
+		packages={manajemenAkunPackages}
+		columns={3}
+		showFooterCta={false}
+	/>
+
+	<PackageGrid
+		headerBadge="Pembuatan Konten"
+		headerTitle="Konten Konsisten"
+		headerHighlight="Berkualitas"
+		headerSubtitle="Strategi konten untuk meningkatkan engagement dan penjualan"
+		packages={pembuatanKontenPackages}
+		columns={3}
+		showFooterCta={false}
+	/>
+
+	<PackageGrid
+		headerBadge="Manajemen Iklan"
+		headerTitle="Iklan Efektif"
+		headerHighlight="Hasil Maksimal"
+		headerSubtitle="Kelola iklan dengan tracking tepat untuk leads berkualitas"
+		packages={manajemenAdsPackages}
+		columns={3}
+		showFooterCta={false}
+	/>
+
+	<PackageGrid
+		headerBadge="Maintenance Website"
+		headerTitle="Website Tetap"
+		headerHighlight="Aman & Optimal"
+		headerSubtitle="Perawatan rutin untuk keamanan dan performa website Anda"
+		packages={maintenancePackages}
+		columns={3}
+		showFooterCta={true}
+		footerCtaText="Lihat Semua Layanan"
+		footerCtaLink="/layanan"
+		showFooterCta={false}
+	/> -->
+
+	<Flow />
+
+	<CTA variant="layanan" />
+
+	<FAQ faq_id={faq_id} faqs={faqsServices} />
+</Base>

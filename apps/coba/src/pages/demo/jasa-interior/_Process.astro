@@ -1,0 +1,141 @@
+<!-- ===== PROCESS ===== -->
+<section class="section" aria-labelledby="process-title">
+    <div class="section-inner">
+        <div class="section-header center reveal">
+            <div class="section-label">Cara Kerja</div>
+            <h2 class="section-title" id="process-title">
+                Dari Ide Sampai Jadi, Prosesnya Jelas
+            </h2>
+            <p class="section-subtitle">
+                Kami buat prosesnya sederhana dan tidak mengintimidasi,
+                terutama jika ini proyek interior pertama Anda.
+            </p>
+        </div>
+
+        <div class="process-steps">
+            <div class="process-step reveal">
+                <div class="process-num">1</div>
+                <div>
+                    <h3>Ceritakan kebutuhan</h3>
+                    <p>
+                        Hubungi kami melalui WhatsApp dan ceritakan ruang
+                        yang ingin dikerjakan.
+                    </p>
+                </div>
+            </div>
+            <div class="process-step reveal">
+                <div class="process-num">2</div>
+                <div>
+                    <h3>Konsultasi & survey</h3>
+                    <p>
+                        Kami memahami kebutuhan, kondisi lokasi dan kisaran
+                        budget.
+                    </p>
+                </div>
+            </div>
+            <div class="process-step reveal">
+                <div class="process-num">3</div>
+                <div>
+                    <h3>Konsep & penawaran</h3>
+                    <p>
+                        Kami menyiapkan solusi, scope pekerjaan dan estimasi
+                        biaya.
+                    </p>
+                </div>
+            </div>
+            <div class="process-step reveal">
+                <div class="process-num">4</div>
+                <div>
+                    <h3>Pengerjaan</h3>
+                    <p>
+                        Tim mengerjakan proyek sesuai scope dan timeline
+                        yang disepakati.
+                    </p>
+                </div>
+            </div>
+            <div class="process-step reveal">
+                <div class="process-num">5</div>
+                <div>
+                    <h3>Serah terima</h3>
+                    <p>
+                        Pekerjaan diperiksa bersama sebelum proyek
+                        dinyatakan selesai.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .process-steps {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 24px;
+        position: relative;
+    }
+
+    .process-step {
+        text-align: center;
+        position: relative;
+        padding: 0 12px;
+    }
+
+    .process-num {
+        width: 56px;
+        height: 56px;
+        background: var(--accent);
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        font-weight: 800;
+        margin: 0 auto 20px;
+        position: relative;
+        z-index: 2;
+        box-shadow: 0 4px 16px rgba(217, 122, 74, 0.3);
+    }
+
+    .process-step h3 {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 8px;
+    }
+
+    .process-step p {
+        font-size: 14px;
+        color: var(--text-light);
+        line-height: 1.6;
+    }
+
+    @media (max-width: 900px) {
+        .process-steps {
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        }
+    }
+
+    @media (max-width: 600px) {
+        .process-steps {
+            grid-template-columns: 1fr;
+            gap: 32px;
+        }
+
+        .process-step {
+            display: flex;
+            gap: 16px;
+            text-align: left;
+            align-items: flex-start;
+        }
+
+        .process-num {
+            margin: 0;
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            font-size: 18px;
+        }
+    }
+</style>

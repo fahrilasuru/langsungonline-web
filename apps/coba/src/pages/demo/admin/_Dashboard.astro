@@ -1,0 +1,55 @@
+<!-- ===== DASHBOARD ===== -->
+<section class="view active" id="view-dashboard" data-view="dashboard">
+    <div class="stat-grid" id="statGrid" aria-live="polite"></div>
+
+    <div class="panel">
+        <div class="panel-head">
+            <div>
+                <h2 class="panel-title">Penjualan</h2>
+                <p class="panel-sub" id="salesSub">Total pendapatan per hari</p>
+            </div>
+            <div class="seg" role="tablist" aria-label="Periode penjualan">
+                <button class="seg-btn active" data-action="set" data-bind="period" data-value="7">7 hari</button>
+                <button class="seg-btn" data-action="set" data-bind="period" data-value="30">30 hari</button>
+                <button class="seg-btn" data-action="set" data-bind="period" data-value="6m">6 bulan</button>
+            </div>
+        </div>
+        <div class="chart-box"><canvas id="salesChart" aria-label="Grafik penjualan" role="img"></canvas></div>
+    </div>
+
+    <div class="grid-2">
+        <div class="panel">
+            <div class="panel-head">
+                <h2 class="panel-title">Pesanan terbaru</h2>
+                <button class="link-btn" data-action="nav" data-view="pesanan">Lihat semua</button>
+            </div>
+            <div id="dashOrders"></div>
+        </div>
+        <div class="panel">
+            <div class="panel-head">
+                <h2 class="panel-title">Stok perlu perhatian</h2>
+                <button class="link-btn" data-action="goto-low-stock">Lihat semua</button>
+            </div>
+            <div id="dashLow"></div>
+        </div>
+    </div>
+
+    <div class="grid-2">
+        <div class="panel">
+            <div class="panel-head">
+                <h2 class="panel-title">Tim aktif</h2>
+                <button class="btn btn-soft btn-sm" data-action="new-user">
+                    <span class="material-icons">person_add</span>Tambah
+                </button>
+            </div>
+            <div id="dashUsers"></div>
+        </div>
+        <div class="panel">
+            <div class="panel-head">
+                <h2 class="panel-title">Aktivitas terbaru</h2>
+                <button class="link-btn" data-action="nav" data-view="aktivitas">Lihat semua</button>
+            </div>
+            <div id="dashActivity"></div>
+        </div>
+    </div>
+</section>

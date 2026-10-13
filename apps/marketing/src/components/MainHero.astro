@@ -1,0 +1,302 @@
+---
+import StoryForm from '@langsungonline/ui/components/StoryForm.astro';
+
+const circularIcons = [
+    { size: "size-xlarge", angle: "0deg", delay: "0s", radius: "200px", icon: "fas fa-globe", color: "text-green-600", textSize: "text-2xl md:text-3xl" },
+    { size: "size-large", angle: "45deg", delay: "0.1s", radius: "180px", icon: "fas fa-map-marker-alt", color: "text-blue-600", textSize: "text-xl md:text-2xl" },
+    { size: "size-xlarge", angle: "90deg", delay: "0.2s", radius: "180px", icon: "fas fa-envelope", color: "text-amber-600", textSize: "text-2xl md:text-3xl" },
+    { size: "size-large", angle: "135deg", delay: "0.3s", radius: "180px", icon: "fab fa-whatsapp", color: "text-green-500", textSize: "text-xl md:text-2xl" },
+    { size: "size-xlarge", angle: "180deg", delay: "0.4s", radius: "190px", icon: "fab fa-instagram", color: "text-pink-600", textSize: "text-2xl md:text-3xl" },
+    { size: "size-large", angle: "225deg", delay: "0.5s", radius: "180px", icon: "fas fa-store", color: "text-purple-600", textSize: "text-xl md:text-2xl" },
+    { size: "size-xlarge", angle: "270deg", delay: "0.6s", radius: "200px", icon: "fas fa-chart-bar", color: "text-cyan-600", textSize: "text-2xl md:text-3xl" },
+    { size: "size-large", angle: "315deg", delay: "0.7s", radius: "180px", icon: "fab fa-facebook", color: "text-blue-600", textSize: "text-xl md:text-2xl" },
+    { size: "size-large", angle: "30deg", delay: "0.15s", radius: "280px", icon: "fas fa-display", color: "text-pink-600", textSize: "text-xl md:text-2xl" },
+    { size: "size-large", angle: "150deg", delay: "0.45s", radius: "270px", icon: "fas fa-qrcode", color: "text-purple-600", textSize: "text-xl md:text-2xl" },
+    { size: "size-large", angle: "210deg", delay: "0.55s", radius: "270px", icon: "fas fa-wallet", color: "text-cyan-600", textSize: "text-xl md:text-2xl" },
+    { size: "size-large", angle: "330deg", delay: "0.95s", radius: "280px", icon: "fas fa-laptop-code", color: "text-pink-600", textSize: "text-xl md:text-2xl" },
+    { size: "size-2xlarge", angle: "0deg", delay: "0s", radius: "45px", icon: "fas fa-rocket", color: "text-red-600", textSize: "text-5xl" },
+];
+---
+
+<section id="home" class="gradient-bg hero-gradient overflow-hidden pt-24 md:pt-16">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col items-center lg:flex-row">
+            <div class="w-full lg:w-1/2" data-aos="fade-up" data-aos-delay="100">
+                <h1 class="mb-6 font-bold leading-tight text-gray-900">
+                    Dari Nol, <br />
+                    <span class="bg-linear-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+                        Langsung Online
+                    </span>.
+                </h1>
+
+                <p class="mb-4 text-xl font-medium text-gray-800">
+                    Urusan online bisnis Anda, kami yang bereskan.
+                </p>
+
+                <p class="mb-8 max-w-xl text-lg text-gray-600">
+                    Kami cek apa yang sudah ada, apa yang masih kurang, lalu bantu membereskannya agar bisnis Anda
+                    <span class="font-semibold text-green-700">lebih mudah ditemukan, dipercaya, dan dihubungi pelanggan</span>.
+                </p>
+
+                <div class="max-w-xl">
+                    <StoryForm />
+                </div>
+            </div>
+
+            <!-- Ilustrasi Hero asli tetap dipertahankan -->
+            <div
+                class="relative hidden w-1/2 lg:block"
+                data-aos="fade-up"
+                data-aos-delay="300"
+            >
+                <div class="relative min-h-[31.25rem] h-full w-full">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="circular-icons absolute inset-0">
+                            {
+                                circularIcons.map((icon) => (
+                                    <div
+                                        class={`circular-icon ${icon.size}`}
+                                        style={`--angle: ${icon.angle}; --delay: ${icon.delay}; --radius: ${icon.radius};`}
+                                    >
+                                        <div class="icon-wrapper border-2 border-white bg-white shadow-2xl">
+                                            <i class={`${icon.icon} ${icon.color} ${icon.textSize}`} />
+                                        </div>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .hero-gradient {
+        background:
+            radial-gradient(
+                ellipse at top,
+                rgba(5, 150, 105, 0.15) 0%,
+                transparent 50%
+            ),
+            radial-gradient(
+                ellipse at bottom right,
+                rgba(37, 99, 235, 0.15) 0%,
+                transparent 50%
+            );
+    }
+
+    .circular-icons {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    .circular-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: circularFloat 6s ease-in-out var(--delay) infinite;
+        transform-origin: center;
+        pointer-events: none;
+        z-index: 10;
+    }
+
+    .circular-icon.size-2xlarge {
+        width: 7rem;
+        height: 7rem;
+        margin: -3.25rem;
+    }
+
+    .circular-icon.size-xlarge {
+        width: 5.5rem;
+        height: 5.5rem;
+        margin: -2.75rem;
+    }
+
+    .circular-icon.size-large {
+        width: 4.5rem;
+        height: 4.5rem;
+        margin: -2.25rem;
+    }
+
+    .icon-wrapper {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px -12px rgba(0, 0, 0, 0.25);
+        border: 2px solid rgba(255, 255, 255, 0.95);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        padding: 1rem;
+        backdrop-filter: blur(10px);
+    }
+
+    .size-xlarge .icon-wrapper {
+        border-radius: 22px;
+        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.3);
+    }
+
+    .icon-wrapper:hover {
+        transform: scale(1.12);
+    }
+
+    @media (max-width: 1024px) {
+        .circular-icon.size-xlarge {
+            width: 5rem;
+            height: 5rem;
+            margin: -2.5rem;
+            --radius: 170px !important;
+        }
+
+        .circular-icon.size-large {
+            width: 4rem;
+            height: 4rem;
+            margin: -2rem;
+            --radius: 150px !important;
+        }
+
+        .icon-wrapper {
+            padding: 0.875rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .circular-icon.size-xlarge {
+            width: 4.5rem;
+            height: 4.5rem;
+            margin: -2.25rem;
+            --radius: 150px !important;
+        }
+
+        .circular-icon.size-large {
+            width: 3.75rem;
+            height: 3.75rem;
+            margin: -1.875rem;
+            --radius: 130px !important;
+        }
+
+        .icon-wrapper {
+            padding: 0.75rem;
+            border-radius: 18px;
+        }
+
+        .icon-wrapper i {
+            font-size: 1.75rem !important;
+        }
+
+        .size-large .icon-wrapper i {
+            font-size: 1.5rem !important;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .circular-icon.size-xlarge {
+            width: 4rem;
+            height: 4rem;
+            margin: -2rem;
+            --radius: 130px !important;
+        }
+
+        .circular-icon.size-large {
+            width: 3.5rem;
+            height: 3.5rem;
+            margin: -1.75rem;
+            --radius: 110px !important;
+        }
+
+        .icon-wrapper i {
+            font-size: 1.5rem !important;
+        }
+
+        .size-large .icon-wrapper i {
+            font-size: 1.25rem !important;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .circular-icon.size-xlarge {
+            width: 3.75rem;
+            height: 3.75rem;
+            margin: -1.875rem;
+            --radius: 110px !important;
+        }
+
+        .circular-icon.size-large {
+            width: 3.25rem;
+            height: 3.25rem;
+            margin: -1.625rem;
+            --radius: 90px !important;
+        }
+
+        .icon-wrapper {
+            padding: 0.625rem;
+            border-radius: 16px;
+        }
+    }
+
+    @media (max-width: 380px) {
+        .circular-icon {
+            --radius: 85px !important;
+        }
+
+        .circular-icon.size-xlarge {
+            width: 3.25rem;
+            height: 3.25rem;
+            margin: -1.625rem;
+        }
+
+        .circular-icon.size-large {
+            width: 2.75rem;
+            height: 2.75rem;
+            margin: -1.375rem;
+        }
+    }
+
+    @keyframes circularFloat {
+        0%,
+        100% {
+            transform:
+                rotate(var(--angle))
+                translate(calc(var(--radius, 180px) - 50%))
+                rotate(calc(-1 * var(--angle)))
+                translateY(0)
+                scale(1);
+        }
+
+        33% {
+            transform:
+                rotate(var(--angle))
+                translate(calc(var(--radius, 180px) - 50%))
+                rotate(calc(-1 * var(--angle)))
+                translateY(-20px)
+                scale(1.08);
+        }
+
+        66% {
+            transform:
+                rotate(var(--angle))
+                translate(calc(var(--radius, 180px) - 50%))
+                rotate(calc(-1 * var(--angle)))
+                translateY(8px)
+                scale(0.95);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .circular-icon {
+            animation: none;
+        }
+
+        .icon-wrapper {
+            transition: none;
+        }
+    }
+</style>

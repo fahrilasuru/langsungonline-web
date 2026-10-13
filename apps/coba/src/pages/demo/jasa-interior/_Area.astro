@@ -1,0 +1,161 @@
+<!-- ===== AREA ===== -->
+<section class="section" aria-labelledby="area-title">
+    <div class="section-inner">
+        <div class="area-grid">
+            <div class="reveal">
+                <div class="section-label">Area Layanan</div>
+                <h2 class="section-title" id="area-title">
+                    Melayani Surabaya dan Sekitarnya
+                </h2>
+                <p class="section-subtitle">
+                    Kami berbasis di Surabaya dan melayani proyek di
+                    beberapa wilayah sekitarnya.
+                </p>
+
+                <div class="area-list">
+                    <div class="area-item">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"
+                            ><path
+                                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                            ></path></svg
+                        >
+                        Surabaya
+                    </div>
+                    <div class="area-item">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"
+                            ><path
+                                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                            ></path></svg
+                        >
+                        Sidoarjo
+                    </div>
+                    <div class="area-item">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"
+                            ><path
+                                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                            ></path></svg
+                        >
+                        Gresik
+                    </div>
+                </div>
+
+                <p class="area-note">
+                    Di luar area tersebut? Hubungi kami untuk mengecek
+                    ketersediaan proyek.
+                </p>
+            </div>
+
+            <div class="area-map reveal">
+                <img
+                    src="https://images.unsplash.com/photo-1555899434-94d1368aa7af?w=800&q=80&auto=format&fit=crop"
+                    alt="Peta area layanan Surabaya, Sidoarjo, dan Gresik"
+                    loading="lazy"
+                />
+                <div class="area-map-overlay">
+                    <div class="area-map-pin" aria-hidden="true"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .area-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+        align-items: center;
+    }
+
+    .area-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 32px;
+    }
+
+    .area-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--primary);
+    }
+
+    .area-item svg {
+        width: 20px;
+        height: 20px;
+        fill: var(--accent);
+    }
+
+    .area-note {
+        margin-top: 24px;
+        font-size: 14px;
+        color: var(--text-light);
+        line-height: 1.6;
+    }
+
+    .area-map {
+        background: var(--cream);
+        border-radius: var(--radius-lg);
+        height: 360px;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--border);
+    }
+
+    .area-map img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.7;
+    }
+
+    .area-map-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(250, 247, 242, 0.3);
+    }
+
+    .area-map-pin {
+        width: 48px;
+        height: 48px;
+        background: var(--accent);
+        border-radius: 50% 50% 50% 0;
+        transform: rotate(-45deg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 16px rgba(217, 122, 74, 0.4);
+        animation: bounce 2s infinite;
+    }
+
+    .area-map-pin::after {
+        content: "";
+        width: 16px;
+        height: 16px;
+        background: #fff;
+        border-radius: 50%;
+    }
+
+    @keyframes bounce {
+        0%,
+        100% {
+            transform: rotate(-45deg) translateY(0);
+        }
+        50% {
+            transform: rotate(-45deg) translateY(-8px);
+        }
+    }
+
+    @media (max-width: 900px) {
+        .area-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+    }
+</style>

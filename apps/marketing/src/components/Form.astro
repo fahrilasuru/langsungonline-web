@@ -1,0 +1,700 @@
+
+<section class="contact-form-section">
+    <div class="container">
+        <div class="form-wrapper" data-aos="fade-up">
+            <div class="form-header">
+                <h2>
+                    Atau Cek <span class="gradient-text">Bisnis Anda</span> di Sini
+                </h2>
+                <p>
+                    Isi data singkat di bawah ini dan kami akan melakukan audit awal untuk membantu membereskan kehadiran digital Anda.
+                </p>
+            </div>
+
+            <form class="contact-form" id="contactForm" novalidate>
+                <!-- Honeypot anti-bot: jangan diisi -->
+                <div class="hp-field" aria-hidden="true">
+                    <label for="website">Jangan isi kolom ini</label>
+                    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+                </div>
+                <div class="form-grid">
+                    <!-- Nama Bisnis -->
+                    <div class="form-group">
+                        <label for="businessName">
+                            Nama Bisnis <span class="required">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="businessName"
+                            name="businessName"
+                            placeholder="Contoh: Kopi Senja Nusantara"
+                            required
+                        />
+                        <span class="error-message" id="businessNameError"></span>
+                    </div>
+
+                    <!-- Bidang Usaha -->
+                    <div class="form-group">
+                        <label for="businessField">
+                            Bidang Usaha <span class="required">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="businessField"
+                            name="businessField"
+                            placeholder="Contoh: Kuliner / Servis AC / Laundry"
+                            required
+                        />
+                        <span class="error-message" id="businessFieldError"></span>
+                    </div>
+
+                    <!-- Kota -->
+                    <div class="form-group">
+                        <label for="city">
+                            Kota <span class="required">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="city"
+                            name="city"
+                            placeholder="Contoh: Surabaya"
+                            required
+                        />
+                        <span class="error-message" id="cityError"></span>
+                    </div>
+
+                    <!-- Website / Instagram (opsional) -->
+                    <div class="form-group">
+                        <label for="socialRef">
+                            Website / Instagram <span class="optional">(opsional)</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="socialRef"
+                            name="socialRef"
+                            placeholder="Contoh: @kopisenja atau kopisenja.com"
+                        />
+                        <span class="error-message" id="socialRefError"></span>
+                    </div>
+
+                    <!-- Apa yang paling ingin dibereskan? (Radio Options) -->
+                    <div class="form-group full-width">
+                        <label class="group-label">
+                            Apa yang paling ingin dibereskan? <span class="required">*</span>
+                        </label>
+                        
+                        <div class="radio-options-grid">
+                            <label class="radio-card">
+                                <input type="radio" name="goal" value="Belum punya presence online" required />
+                                <span class="radio-custom"></span>
+                                <span class="radio-text">Belum punya presence online</span>
+                            </label>
+
+                            <label class="radio-card">
+                                <input type="radio" name="goal" value="Sulit ditemukan" />
+                                <span class="radio-custom"></span>
+                                <span class="radio-text">Sulit ditemukan</span>
+                            </label>
+
+                            <label class="radio-card">
+                                <input type="radio" name="goal" value="Ingin terlihat lebih profesional" />
+                                <span class="radio-custom"></span>
+                                <span class="radio-text">Ingin terlihat lebih profesional</span>
+                            </label>
+
+                            <label class="radio-card">
+                                <input type="radio" name="goal" value="Ingin mendapat lebih banyak inquiry" />
+                                <span class="radio-custom"></span>
+                                <span class="radio-text">Ingin mendapat lebih banyak inquiry</span>
+                            </label>
+
+                            <label class="radio-card">
+                                <input type="radio" name="goal" value="Yang sudah ada berantakan" />
+                                <span class="radio-custom"></span>
+                                <span class="radio-text">Yang sudah ada berantakan</span>
+                            </label>
+
+                            <label class="radio-card">
+                                <input type="radio" name="goal" value="Saya tidak tahu — tolong cek" />
+                                <span class="radio-custom"></span>
+                                <span class="radio-text font-semibold">Saya tidak tahu — tolong cek</span>
+                            </label>
+                        </div>
+                        <span class="error-message" id="goalError"></span>
+                    </div>
+
+                    <!-- Nomor WhatsApp -->
+                    <div class="form-group full-width">
+                        <label for="whatsapp">
+                            Nomor WhatsApp <span class="required">*</span>
+                        </label>
+                        <input
+                            type="tel"
+                            id="whatsapp"
+                            name="whatsapp"
+                            placeholder="Contoh: 081234567890"
+                            required
+                        />
+                        <span class="error-message" id="whatsappError"></span>
+                    </div>
+
+                    <!-- Tombol Aksi -->
+                    <div class="form-group full-width">
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <i class="fas fa-stethoscope"></i>
+                            <span>Cek Bisnis Saya</span>
+                            <div class="spinner" id="submitSpinner"></div>
+                        </button>
+                        <p class="form-note">
+                            <i class="fas fa-shield-alt"></i>
+                            Data Anda aman dan tidak akan disebarkan
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+</section>
+
+<script>
+    import { WA_NUMBER } from "@langsungonline/ui/constants";
+    import { wa } from "@langsungonline/ui/wa";
+
+    const API_URL = (
+        (import.meta.env.PUBLIC_API_URL as string | undefined) ?? ""
+    ).replace(/\/$/, "");
+    const submitEndpoint = `${API_URL}/contact`;
+
+    const form = document.querySelector<HTMLFormElement>("#contactForm");
+    const submitBtn =
+        document.querySelector<HTMLButtonElement>("#submitBtn");
+
+    if (form && submitBtn) {
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const businessName =
+                document.querySelector<HTMLInputElement>("#businessName");
+
+            const businessField =
+                document.querySelector<HTMLInputElement>("#businessField");
+
+            const city =
+                document.querySelector<HTMLInputElement>("#city");
+
+            const socialRef =
+                document.querySelector<HTMLInputElement>("#socialRef");
+
+            const whatsapp =
+                document.querySelector<HTMLInputElement>("#whatsapp");
+
+            const selectedGoal =
+                document.querySelector<HTMLInputElement>(
+                    'input[name="goal"]:checked'
+                );
+
+
+            if (
+                !businessName ||
+                !businessField ||
+                !city ||
+                !socialRef ||
+                !whatsapp
+            ) {
+                return;
+            }
+
+            document
+                .querySelectorAll<HTMLElement>(".error-message")
+                .forEach((element) => {
+                    element.textContent = "";
+                });
+
+            let isValid = true;
+
+            if (!businessName.value.trim()) {
+                setError(
+                    "businessNameError",
+                    "Nama bisnis harus diisi"
+                );
+
+                isValid = false;
+            }
+
+            if (!businessField.value.trim()) {
+                setError(
+                    "businessFieldError",
+                    "Bidang usaha harus diisi"
+                );
+
+                isValid = false;
+            }
+
+            if (!city.value.trim()) {
+                setError(
+                    "cityError",
+                    "Kota harus diisi"
+                );
+
+                isValid = false;
+            }
+
+            if (!selectedGoal) {
+                setError(
+                    "goalError",
+                    "Silakan pilih salah satu tujuan"
+                );
+
+                isValid = false;
+            }
+
+            if (!whatsapp.value.trim()) {
+                setError(
+                    "whatsappError",
+                    "Nomor WhatsApp harus diisi"
+                );
+
+                isValid = false;
+            }
+
+            if (!isValid || !selectedGoal) {
+                return;
+            }
+
+            const payload = {
+                business_name: businessName.value.trim(),
+                business_field: businessField.value.trim(),
+                city: city.value.trim(),
+                social_ref: socialRef.value.trim() || null,
+                goal: selectedGoal.value,
+                whatsapp: whatsapp.value.trim(),
+                website:
+                    (form.elements.namedItem("website") as HTMLInputElement | null)
+                        ?.value ?? "",
+            };
+
+            if (!API_URL) {
+                showToast("error", "Gagal", "Layanan belum bisa dihubungi. Silakan coba lagi nanti.");
+                return;
+            }
+
+            setLoading(true);
+
+            try {
+                const response = await fetch(
+                    submitEndpoint,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(payload),
+                    }
+                );
+
+                const data = await response.json().catch(() => ({}));
+
+                if (!response.ok) {
+                    throw new Error(
+                        typeof data.detail === "string"
+                            ? data.detail
+                            : "Gagal mengirim data"
+                    );
+                }
+
+                showToast(
+                    "success",
+                    "Berhasil",
+                    "Data bisnis berhasil dikirim"
+                );
+
+                const whatsappMessage = [
+                    "Halo, saya ingin Cek Bisnis Saya:",
+                    "",
+                    `Nama: ${payload.business_name}`,
+                    `Bidang: ${payload.business_field}`,
+                    `Kota: ${payload.city}`,
+                    `Ref: ${payload.social_ref || "-"}`,
+                    `Ingin dibereskan: ${payload.goal}`,
+                    `WhatsApp: ${payload.whatsapp}`,
+                ].join("\n");
+
+                const whatsappUrl =
+                    wa(WA_NUMBER, whatsappMessage);
+
+                form.reset();
+
+                window.open(
+                    whatsappUrl,
+                    "_blank",
+                    "noopener,noreferrer"
+                );
+
+            } catch (error) {
+                console.error(error);
+
+                showToast(
+                    "error",
+                    "Gagal",
+                    error instanceof Error
+                        ? error.message
+                        : "Terjadi kesalahan"
+                );
+
+            } finally {
+                setLoading(false);
+            }
+        });
+    }
+
+    function setError(
+        elementId: string,
+        message: string
+    ) {
+        const element = document.getElementById(elementId);
+
+        if (element) {
+            element.textContent = message;
+        }
+    }
+
+    function setLoading(loading: boolean) {
+        if (!submitBtn) return;
+
+        submitBtn.disabled = loading;
+        submitBtn.classList.toggle("loading", loading);
+    }
+
+
+    function showToast(
+        type: "success" | "error",
+        title: string,
+        message: string
+    ) {
+        const container =
+            document.getElementById("toastContainer");
+
+        if (!container) return;
+
+        const toast = document.createElement("div");
+
+        toast.className = `toast ${type}`;
+
+        const body = document.createElement("div");
+        const titleEl = document.createElement("div");
+        titleEl.className = "toast-title";
+        titleEl.textContent = title;
+        const messageEl = document.createElement("div");
+        messageEl.className = "toast-message";
+        messageEl.textContent = message;
+        body.append(titleEl, messageEl);
+        toast.appendChild(body);
+
+        container.appendChild(toast);
+
+        setTimeout(() => {
+            toast.remove();
+        }, 4000);
+    }
+</script>
+
+<style>
+    .hp-field {
+        position: absolute;
+        left: -10000px;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+    }
+
+    .contact-form-section {
+        padding: 2rem 0 5rem;
+        background: #ffffff;
+        position: relative;
+    }
+
+    .container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+
+    .form-wrapper {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #ffffff;
+        border: 1px solid #f3f4f6;
+        border-radius: 2rem;
+        padding: 2.5rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+
+    .form-header h2 {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 0.75rem;
+        line-height: 1.2;
+    }
+
+    .form-header p {
+        color: #6b7280;
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    .gradient-text {
+        background: linear-gradient(to right, #16a34a, #2563eb);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    @media (min-width: 640px) {
+        .form-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        position: relative;
+    }
+
+    .form-group.full-width {
+        grid-column: 1 / -1;
+    }
+
+    .form-group label, .group-label {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: #111827;
+    }
+
+    .required {
+        color: #ef4444;
+        margin-left: 2px;
+    }
+
+    .optional {
+        color: #9ca3af;
+        font-weight: normal;
+        font-size: 0.8rem;
+    }
+
+    .form-group input {
+        padding: 0.75rem 1rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.75rem;
+        font-size: 0.95rem;
+        font-family: inherit;
+        transition: all 0.2s ease;
+        background: #ffffff;
+        width: 100%;
+    }
+
+    .form-group input:focus {
+        outline: none;
+        border-color: #16a34a;
+        box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+    }
+
+    .form-group input.error {
+        border-color: #ef4444;
+    }
+
+    .form-group input::placeholder {
+        color: #9ca3af;
+    }
+
+    /* Radio Options Styling */
+    .radio-options-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        margin-top: 0.25rem;
+    }
+
+    @media (min-width: 640px) {
+        .radio-options-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    .radio-card {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.875rem 1rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.75rem;
+        background: #fafafa;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .radio-card:hover {
+        background: #f0fdf4;
+        border-color: #86efac;
+    }
+
+    .radio-card input[type="radio"] {
+        accent-color: #16a34a;
+        width: 1.1rem;
+        height: 1.1rem;
+        cursor: pointer;
+    }
+
+    .radio-card input[type="radio"]:checked + .radio-custom {
+        border-color: #16a34a;
+        background: #16a34a;
+    }
+
+    .radio-text {
+        font-size: 0.9rem;
+        color: #374151;
+        font-weight: 500;
+    }
+
+    .radio-card.highlight-choice {
+        grid-column: 1 / -1;
+        background: #f0fdf4;
+        border-color: #bbf7d0;
+    }
+
+    .radio-card.highlight-choice:hover {
+        background: #dcfce7;
+    }
+
+    .error-message {
+        font-size: 0.8rem;
+        color: #ef4444;
+        min-height: 1.2rem;
+    }
+
+    .submit-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        width: 100%;
+        padding: 1rem;
+        background: linear-gradient(to right, #16a34a, #2563eb);
+        color: white;
+        border: none;
+        border-radius: 0.75rem;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        position: relative;
+        overflow: hidden;
+        margin-top: 0.5rem;
+    }
+
+    .submit-btn:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 15px -3px rgba(37, 99, 235, 0.3);
+    }
+
+    .submit-btn:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+
+    .spinner {
+        display: none;
+        width: 1.2rem;
+        height: 1.2rem;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 0.8s linear infinite;
+    }
+
+    .submit-btn.loading .spinner {
+        display: inline-block;
+    }
+
+    .submit-btn.loading span:not(.spinner) {
+        opacity: 0.7;
+    }
+
+    .submit-btn.loading i {
+        display: none;
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+
+    .form-note {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        font-size: 0.85rem;
+        color: #6b7280;
+    }
+
+    .form-note i {
+        color: #16a34a;
+    }
+
+    /* Toast styling */
+    .toast-container {
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        max-width: 400px;
+        width: calc(100% - 4rem);
+        pointer-events: none;
+    }
+
+    .toast {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 1rem 1.25rem;
+        background: #ffffff;
+        border-radius: 0.75rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid transparent;
+        animation: slideIn 0.3s ease;
+        cursor: pointer;
+        pointer-events: auto;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .toast.success { border-left-color: #10b981; }
+    .toast.error { border-left-color: #ef4444; }
+
+    .toast-title { font-weight: 600; font-size: 0.95rem; color: #111827; margin-bottom: 0.25rem; }
+    .toast-message { font-size: 0.85rem; color: #6b7280; }
+
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+</style>

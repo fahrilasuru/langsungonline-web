@@ -1,0 +1,199 @@
+---
+interface PillarItem {
+    id: string;
+    title: string;
+    subtitle: string;
+    icon: string;
+    badgeColor: string;
+    goal: string;
+    items: string[];
+}
+
+const pillars: PillarItem[] = [
+    {
+        id: "hadir-online",
+        title: "Hadir Online",
+        subtitle: "Bisnis punya rumah digital yang proper.",
+        icon: "fas fa-globe",
+        badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
+        goal: "Bisnis punya rumah digital yang proper.",
+        items: [
+            "Website profesional",
+            "Domain resmi (.com / .id)",
+            "Email bisnis kredibel",
+            "Company profile terstruktur",
+            "Katalog / menu digital",
+            "Landing page siap konversi",
+        ],
+    },
+    {
+        id: "mudah-ditemukan",
+        title: "Mudah Ditemukan",
+        subtitle: "Orang yang mencari bisnis Anda bisa menemukannya.",
+        icon: "fas fa-map-marked-alt",
+        badgeColor: "bg-blue-50 text-blue-700 border-blue-200",
+        goal: "Orang yang mencari bisnis Anda bisa menemukannya.",
+        items: [
+            "Google Business Profile (GBP)",
+            "Google Maps optimasi titik lokasi",
+            "Search indexing mesin pencari",
+            "SEO dasar yang tepat sasaran",
+            "Informasi bisnis yang konsisten di semua platform",
+        ],
+    },
+    {
+        id: "mudah-dihubungi",
+        title: "Mudah Dihubungi",
+        subtitle: "Jangan sampai calon customer bingung harus melakukan apa.",
+        icon: "fas fa-comments",
+        badgeColor: "bg-green-50 text-green-700 border-green-200",
+        goal: "Jangan sampai calon customer bingung harus melakukan apa.",
+        items: [
+            "WhatsApp Business integration",
+            "Form inquiry / pesan langsung",
+            "Call to Action (CTA) yang jelas",
+            "Katalog produk terhubung chat",
+            "Auto-reply dasar untuk respon cepat",
+        ],
+    },
+    {
+        id: "menjangkau-pelanggan",
+        title: "Menjangkau Pelanggan",
+        subtitle: "Ketika fondasinya sudah siap, mulai aktif mencari pelanggan.",
+        icon: "fas fa-bullhorn",
+        badgeColor: "bg-purple-50 text-purple-700 border-purple-200",
+        goal: "Ketika fondasinya sudah siap, mulai aktif mencari pelanggan.",
+        items: [
+            "Social media presence",
+            "Perencanaan & pembuatan konten",
+            "Landing campaign promosi",
+            "Meta Ads & Google Ads setup",
+            "Tracking & analitik pengunjung",
+        ],
+    },
+    {
+        id: "tetap-beres",
+        title: "Tetap Beres",
+        subtitle: "Owner tidak perlu kembali mengurus teknisnya.",
+        icon: "fas fa-tools",
+        badgeColor: "bg-amber-50 text-amber-700 border-amber-200",
+        goal: "Owner tidak perlu kembali mengurus teknisnya.",
+        items: [
+            "Hosting & server handal",
+            "Backup data rutin",
+            "Keamanan & SSL terpelihara",
+            "Update informasi berkala",
+            "Maintenance sistem rutin",
+            "Troubleshooting kilat",
+        ],
+    },
+];
+---
+
+<section class="py-16 md:py-24 bg-gray-50/60">
+    <div class="container mx-auto px-4 max-w-4xl">
+        <!-- Header Section -->
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                Apa Saja yang <span class="bg-linear-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">Kami Bereskan?</span>
+            </h2>
+            <p class="text-base text-gray-600 max-w-2xl mx-auto">
+                Seluruh kebutuhan digital bisnis Anda dikelompokkan dalam 5 pilar utama agar terstruktur, mudah dipahami, dan tuntas dikerjakan.
+            </p>
+        </div>
+
+        <!-- Accordion Container -->
+        <div class="space-y-4" data-aos="fade-up" data-aos-delay="100">
+            {
+                pillars.map((pillar, index) => (
+                    <div 
+                        class="bg-white rounded-2xl border border-gray-200/80 shadow-xs overflow-hidden transition-all duration-300 accordion-item"
+                        data-index={index}
+                    >
+                        <!-- Accordion Header / Trigger -->
+                        <button
+                            type="button"
+                            class="w-full flex items-center justify-between p-5 md:p-6 text-left focus:outline-none cursor-pointer group hover:bg-gray-50/50 transition-colors"
+                            aria-expanded="false"
+                        >
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center text-gray-700 group-hover:scale-105 transition-transform shrink-0">
+                                    <i class={`${pillar.icon} text-lg text-blue-600`}></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg md:text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                                        {pillar.title}
+                                    </h3>
+                                    <p class="text-xs md:text-sm text-gray-500 font-medium mt-0.5">
+                                        {pillar.subtitle}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 group-hover:bg-blue-50 group-hover:text-blue-600 transition-all shrink-0 ml-2 accordion-icon">
+                                <i class="fas fa-chevron-down text-xs transition-transform duration-300"></i>
+                            </div>
+                        </button>
+
+                        <!-- Accordion Content / Body -->
+                        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out bg-gray-50/40 border-t border-transparent">
+                            <div class="p-5 md:p-6 pt-4 space-y-4">
+                                <!-- Tujuan / Goal Box -->
+                                <div class="p-3.5 rounded-xl bg-blue-50/60 border border-blue-100 text-xs md:text-sm text-blue-900 flex items-start gap-2.5">
+                                    <i class="fas fa-bullseye text-blue-600 mt-0.5 shrink-0"></i>
+                                    <div>
+                                        <span class="font-semibold">Tujuan utama:</span> {pillar.goal}
+                                    </div>
+                                </div>
+
+                                <!-- Detail Items List -->
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                                    {
+                                        pillar.items.map((item) => (
+                                            <div class="flex items-center gap-2.5 p-2.5 rounded-lg bg-white border border-gray-100 shadow-2xs">
+                                                <i class="fas fa-check text-green-500 text-xs shrink-0"></i>
+                                                <span class="text-xs md:text-sm text-gray-700 font-medium">{item}</span>
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const accordionItems = document.querySelectorAll(".accordion-item");
+
+        accordionItems.forEach((item) => {
+            const button = item.querySelector("button");
+            const content = item.querySelector(".accordion-content") as HTMLElement;
+            const icon = item.querySelector(".accordion-icon i") as HTMLElement;
+
+            if (!button || !content || !icon) return;
+
+            button.addEventListener("click", () => {
+                const isOpen = button.getAttribute("aria-expanded") === "true";
+
+                // Tutup semua accordion lain jika ingin mode eksklusif (opsional, saat ini dibiarkan independen)
+                // accordionItems.forEach(otherItem => { ... })
+
+                if (isOpen) {
+                    button.setAttribute("aria-expanded", "false");
+                    content.style.maxHeight = "0px";
+                    icon.style.transform = "rotate(0deg)";
+                    item.classList.remove("border-blue-300", "shadow-sm");
+                } else {
+                    button.setAttribute("aria-expanded", "true");
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    icon.style.transform = "rotate(180deg)";
+                    item.classList.add("border-blue-300", "shadow-sm");
+                }
+            });
+        });
+    });
+</script>

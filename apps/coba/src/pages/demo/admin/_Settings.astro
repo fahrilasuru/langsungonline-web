@@ -1,0 +1,192 @@
+<!-- ===== PENGATURAN ===== -->
+<section class="view" id="view-pengaturan" data-view="pengaturan" hidden>
+    <div class="view-head">
+        <div>
+            <h2 class="view-title">Pengaturan</h2>
+            <p class="view-sub">Atur profil toko, notifikasi, tampilan, dan keamanan akun.</p>
+        </div>
+    </div>
+
+    <div class="settings">
+        <nav class="settings-nav" aria-label="Kategori pengaturan">
+            <button class="settings-link active" data-action="settings-tab" data-tab="toko">
+                <span class="material-icons">store</span>Profil toko
+            </button>
+            <button class="settings-link" data-action="settings-tab" data-tab="notifikasi">
+                <span class="material-icons">notifications</span>Notifikasi
+            </button>
+            <button class="settings-link" data-action="settings-tab" data-tab="tampilan">
+                <span class="material-icons">palette</span>Tampilan
+            </button>
+            <button class="settings-link" data-action="settings-tab" data-tab="keamanan">
+                <span class="material-icons">lock</span>Keamanan
+            </button>
+        </nav>
+
+        <div class="settings-body">
+            <!-- Profil toko -->
+            <form class="panel settings-panel active" data-panel="toko" novalidate>
+                <div class="panel-head">
+                    <div>
+                        <h2 class="panel-title">Profil toko</h2>
+                        <p class="panel-sub">Informasi ini tampil di invoice dan email ke pelanggan.</p>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="field span-2">
+                        <label for="sStoreName">Nama toko</label>
+                        <input class="input" id="sStoreName" name="storeName" autocomplete="off" />
+                        <p class="field-error" data-error="storeName"></p>
+                    </div>
+                    <div class="field">
+                        <label for="sEmail">Email toko</label>
+                        <input class="input" id="sEmail" name="email" type="email" autocomplete="off" />
+                        <p class="field-error" data-error="email"></p>
+                    </div>
+                    <div class="field">
+                        <label for="sPhone">Nomor telepon</label>
+                        <input class="input" id="sPhone" name="phone" type="tel" autocomplete="off" />
+                    </div>
+                    <div class="field span-2">
+                        <label for="sAddress">Alamat</label>
+                        <textarea class="textarea" id="sAddress" name="address" rows="2"></textarea>
+                    </div>
+                    <div class="field span-2">
+                        <label for="sHours">Jam operasional</label>
+                        <input class="input" id="sHours" name="hours" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="settings-foot">
+                    <span class="dirty-note" data-dirty hidden>Ada perubahan yang belum disimpan</span>
+                    <button type="button" class="btn btn-ghost" data-action="settings-reset" disabled data-save-only>Batalkan</button>
+                    <button type="submit" class="btn btn-primary" disabled data-save-only>Simpan perubahan</button>
+                </div>
+            </form>
+
+            <!-- Notifikasi -->
+            <form class="panel settings-panel" data-panel="notifikasi" novalidate hidden>
+                <div class="panel-head">
+                    <div>
+                        <h2 class="panel-title">Notifikasi</h2>
+                        <p class="panel-sub">Pilih kejadian yang ingin Anda terima.</p>
+                    </div>
+                </div>
+                <label class="switch-row">
+                    <span><strong>Pesanan baru</strong><small>Beri tahu saat ada pesanan masuk.</small></span>
+                    <span class="switch"><input type="checkbox" name="notif.order" /><i></i></span>
+                </label>
+                <label class="switch-row">
+                    <span><strong>Stok menipis</strong><small>Peringatan saat stok produk di bawah batas.</small></span>
+                    <span class="switch"><input type="checkbox" name="notif.stock" /><i></i></span>
+                </label>
+                <label class="switch-row">
+                    <span><strong>Ringkasan harian via email</strong><small>Dikirim setiap pukul 20.00 WIB.</small></span>
+                    <span class="switch"><input type="checkbox" name="notif.daily" /><i></i></span>
+                </label>
+                <label class="switch-row">
+                    <span><strong>Ulasan pelanggan</strong><small>Beri tahu saat ada ulasan baru.</small></span>
+                    <span class="switch"><input type="checkbox" name="notif.review" /><i></i></span>
+                </label>
+                <div class="settings-foot">
+                    <span class="dirty-note" data-dirty hidden>Ada perubahan yang belum disimpan</span>
+                    <button type="submit" class="btn btn-primary" disabled data-save-only>Simpan perubahan</button>
+                </div>
+            </form>
+
+            <!-- Tampilan -->
+            <form class="panel settings-panel" data-panel="tampilan" novalidate hidden>
+                <div class="panel-head">
+                    <div>
+                        <h2 class="panel-title">Tampilan</h2>
+                        <p class="panel-sub">Perubahan di sini langsung diterapkan.</p>
+                    </div>
+                </div>
+                <fieldset class="choice-group">
+                    <legend>Tema</legend>
+                    <label class="choice">
+                        <input type="radio" name="theme" value="light" />
+                        <span class="choice-card">
+                            <span class="swatch swatch-light"></span>
+                            <strong>Terang</strong>
+                        </span>
+                    </label>
+                    <label class="choice">
+                        <input type="radio" name="theme" value="dark" />
+                        <span class="choice-card">
+                            <span class="swatch swatch-dark"></span>
+                            <strong>Gelap</strong>
+                        </span>
+                    </label>
+                </fieldset>
+                <fieldset class="choice-group">
+                    <legend>Kepadatan tabel</legend>
+                    <label class="choice">
+                        <input type="radio" name="density" value="nyaman" />
+                        <span class="choice-card"><strong>Nyaman</strong><small>Ruang lega antar baris</small></span>
+                    </label>
+                    <label class="choice">
+                        <input type="radio" name="density" value="ringkas" />
+                        <span class="choice-card"><strong>Ringkas</strong><small>Lebih banyak baris per layar</small></span>
+                    </label>
+                </fieldset>
+            </form>
+
+            <!-- Keamanan -->
+            <form class="panel settings-panel" data-panel="keamanan" novalidate hidden>
+                <div class="panel-head">
+                    <div>
+                        <h2 class="panel-title">Keamanan</h2>
+                        <p class="panel-sub">Lindungi akun admin dari akses yang tidak sah.</p>
+                    </div>
+                </div>
+                <label class="switch-row">
+                    <span><strong>Verifikasi dua langkah</strong><small>Minta kode OTP saat masuk dari perangkat baru.</small></span>
+                    <span class="switch"><input type="checkbox" name="twoFactor" data-instant /><i></i></span>
+                </label>
+
+                <h3 class="sub-title">Ganti kata sandi</h3>
+                <div class="form-grid">
+                    <div class="field span-2">
+                        <label for="pwOld">Kata sandi saat ini</label>
+                        <input class="input" id="pwOld" name="pwOld" type="password" autocomplete="off" />
+                        <p class="field-error" data-error="pwOld"></p>
+                    </div>
+                    <div class="field">
+                        <label for="pwNew">Kata sandi baru</label>
+                        <input class="input" id="pwNew" name="pwNew" type="password" autocomplete="off" />
+                        <p class="field-error" data-error="pwNew"></p>
+                    </div>
+                    <div class="field">
+                        <label for="pwConfirm">Ulangi kata sandi baru</label>
+                        <input class="input" id="pwConfirm" name="pwConfirm" type="password" autocomplete="off" />
+                        <p class="field-error" data-error="pwConfirm"></p>
+                    </div>
+                </div>
+
+                <h3 class="sub-title">Sesi aktif</h3>
+                <div class="session" data-session="1">
+                    <span class="material-icons">laptop_mac</span>
+                    <div><strong>Chrome di Windows</strong><small>Surabaya · sesi ini</small></div>
+                    <span class="badge b-ok">Sekarang</span>
+                </div>
+                <div class="session" data-session="2">
+                    <span class="material-icons">smartphone</span>
+                    <div><strong>Aplikasi Android</strong><small>Surabaya · 2 jam lalu</small></div>
+                    <button type="button" class="btn btn-ghost btn-sm" data-action="revoke-session" data-id="2">Keluarkan</button>
+                </div>
+                <div class="session" data-session="3">
+                    <span class="material-icons">tablet_mac</span>
+                    <div><strong>Safari di iPad</strong><small>Sidoarjo · 3 hari lalu</small></div>
+                    <button type="button" class="btn btn-ghost btn-sm" data-action="revoke-session" data-id="3">Keluarkan</button>
+                </div>
+
+                <div class="settings-foot">
+                    <button type="button" class="btn btn-danger-ghost" data-action="reset-demo">
+                        <span class="material-icons">restart_alt</span>Reset data demo
+                    </button>
+                    <button type="submit" class="btn btn-primary">Perbarui kata sandi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

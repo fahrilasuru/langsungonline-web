@@ -1,0 +1,32 @@
+---
+import { BASE, img, rupiah, wa, type Paket } from "./_data";
+interface Props { p: Paket }
+const { p } = Astro.props;
+const link = wa(`Halo Langkah Nusa, saya tertarik dengan paket "${p.nama}" (${p.durasi}). Jumlah peserta: ___, perkiraan tanggal: ___.`);
+---
+<article class="tv-card" data-kategori={p.kategori} data-tipe={p.tipe}>
+    <div class="tv-card-img">
+        <img src={img(p.foto, 700)} alt={`Pemandangan ${p.tujuan} untuk paket ${p.nama}`} loading="lazy" width="700" height="525" />
+        {p.badge && <span class="tv-badge">{p.badge}</span>}
+        <span class="tv-type">{p.tipe}</span>
+    </div>
+    <div class="tv-card-body">
+        <div class="tv-meta">
+            <span><i class="fa-solid fa-location-dot"></i>{p.tujuan}</span>
+            <span><i class="fa-regular fa-calendar"></i>{p.durasi}</span>
+        </div>
+        <h3>{p.nama}</h3>
+        <p>{p.ringkas}</p>
+        <div class="tv-card-foot">
+            <div class="tv-price">
+                <small>Mulai dari</small>
+                <strong>{rupiah(p.harga)}</strong>
+                <small>per orang</small>
+            </div>
+            <div style="text-align:right;display:grid;gap:6px;justify-items:end;">
+                <span class="tv-rating"><i class="fa-solid fa-star"></i> {p.rating.toFixed(1)} ({p.ulasan})</span>
+                <a href={link} class="tv-link" target="_blank" rel="noopener">Tanya paket <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</article>

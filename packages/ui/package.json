@@ -1,0 +1,27 @@
+{
+  "name": "@langsungonline/ui",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "UI bersama marketing dan coba: layout dasar, header/footer, komponen umum, gaya global, konstanta.",
+  "exports": {
+    "./layouts/*": "./src/layouts/*",
+    "./components/*": "./src/components/*",
+    "./scripts/*": "./src/scripts/*.ts",
+    "./styles/*": "./src/styles/*",
+    "./constants": "./src/constants.ts",
+    "./wa": "./src/wa.ts"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.1.0",
+    "aos": "^2.3.4",
+    "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "@types/aos": "^3.0.7",
+    "astro": "^5.17.1"
+  },
+  "peerDependencies": {
+    "astro": "^5.17.1"
+  }
+}

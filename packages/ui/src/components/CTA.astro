@@ -1,0 +1,220 @@
+---
+import { LINK_KONSULTASI, MARKETING_URL, COBA_URL } from "../constants";
+
+export interface Props {
+    variant?: "default" | "layanan";
+    title?: string;
+    subtitle?: string;
+    showFeatures?: boolean;
+    konsultasiLink?: string;
+    demoLink?: string;
+}
+
+const {
+    variant = "default",
+    title,
+    subtitle,
+    showFeatures = true,
+    konsultasiLink = LINK_KONSULTASI,
+    demoLink = `${COBA_URL}/demo`,
+} = Astro.props;
+
+const getCTAProps = () => {
+    const baseProps = {
+        title: title || "Nggak tahu harus mulai dari mana?",
+        subtitle:
+            subtitle ||
+            "Memang tidak perlu. Kirim nama bisnis Anda. Kami bantu lihat apa yang perlu dibereskan.",
+        features: [
+            { icon: "fa-bolt", text: "Live 3-7 hari", color: "text-amber-300" },
+            {
+                icon: "fa-rocket",
+                text: "Domain & hosting gratis",
+                color: "text-blue-300",
+            },
+            {
+                icon: "fa-mobile-screen",
+                text: "Mobile friendly",
+                color: "text-purple-300",
+            },
+            {
+                icon: "fa-magnifying-glass-chart",
+                text: "Siap di Google",
+                color: "text-green-300",
+            },
+        ],
+        footerNote: "Konsultasi tanpa biaya dan tanpa komitmen",
+    };
+
+    switch (variant) {
+        case "layanan":
+            return {
+                ...baseProps,
+                title: title || "Nggak tahu harus mulai dari mana?",
+                subtitle:
+                    subtitle ||
+                    "Memang tidak perlu. Kirim nama bisnis Anda. Kami bantu lihat apa yang perlu dibereskan.",
+                primaryButton: {
+                    text: "Cek Bisnis Saya di WhatsApp",
+                    icon: "fa-whatsapp",
+                    href: konsultasiLink,
+                    isExternal: true,
+                    buttonClass:
+                        "bg-white text-green-700 hover:shadow-2xl hover:scale-105 border-2 border-white",
+                    iconClass: "fab fa-whatsapp text-green-600",
+                },
+                secondaryButton: {
+                    text: "Lihat Demo",
+                    icon: "fa-play-circle",
+                    href: demoLink,
+                    isExternal: false,
+                    buttonClass:
+                        "bg-transparent text-white hover:bg-white/10 hover:scale-105 border-2 border-white/30",
+                    iconClass: "fas fa-play-circle text-white",
+                },
+                footerNote: "Konsultasi gratis • Demo interaktif",
+            };
+
+        default:
+            return {
+                ...baseProps,
+                primaryButton: {
+                    text: "Cek Bisnis Saya di WhatsApp",
+                    icon: "fa-whatsapp",
+                    href: konsultasiLink,
+                    isExternal: true,
+                    buttonClass:
+                        "bg-white text-green-700 hover:shadow-2xl hover:scale-105",
+                    iconClass: "fab fa-whatsapp text-green-600",
+                },
+                secondaryButton: {
+                    text: "Lihat Paket & Harga",
+                    icon: "fa-tag",
+                    href: `${MARKETING_URL}/layanan`,
+                    isExternal: false,
+                    buttonClass:
+                        "bg-transparent text-white hover:bg-white/10 hover:scale-105 border-2 border-white/30",
+                    iconClass: "fas fa-tag text-white",
+                },
+                footerNote: baseProps.footerNote,
+            };
+    }
+};
+
+const ctaConfig = getCTAProps();
+---
+
+<section class="py-16 md:py-20 cta-gradient text-white overflow-hidden">
+    <div class="container mx-auto px-4 relative">
+        <div
+            class="absolute top-0 left-0 w-64 h-64 bg-white/10 rounded-full -translate-x-1/2 -translate-y-1/2 blur-2xl"
+        >
+        </div>
+        <div
+            class="absolute bottom-0 right-0 w-96 h-96 bg-white/5 rounded-full translate-x-1/3 translate-y-1/3 blur-2xl"
+        >
+        </div>
+        <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-white/5 rounded-full blur-3xl"
+        >
+        </div>
+
+        <div
+            class="relative z-10 max-w-4xl mx-auto text-center"
+            data-aos="fade-up"
+        >
+            <h2
+                class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight"
+            >
+                {ctaConfig.title}
+            </h2>
+            <p
+                class="text-base md:text-lg mb-8 text-white/80 max-w-2xl mx-auto leading-relaxed"
+            >
+                {ctaConfig.subtitle}
+            </p>
+
+            {
+                showFeatures && (
+                    <div class="hidden md:flex flex-wrap items-center justify-center gap-3 mb-10">
+                        {ctaConfig.features.map((feature) => (
+                            <div class="flex items-center bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm border border-white/10">
+                                <i
+                                    class={`fas ${feature.icon} ${feature.color} mr-2 text-sm`}
+                                />
+                                <span class="text-sm font-medium">
+                                    {feature.text}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                )
+            }
+
+            <div
+                class="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            >
+                <a
+                    href={ctaConfig.primaryButton.href}
+                    target={ctaConfig.primaryButton.isExternal
+                        ? "_blank"
+                        : undefined}
+                    rel={ctaConfig.primaryButton.isExternal
+                        ? "noopener noreferrer"
+                        : undefined}
+                    class={`w-full sm:w-auto px-8 py-4 rounded-full font-bold text-base transition-all inline-flex items-center justify-center gap-3 group ${ctaConfig.primaryButton.buttonClass}`}
+                >
+                    <i
+                        class={`${ctaConfig.primaryButton.iconClass} group-hover:scale-110 transition-transform`}
+                    ></i>
+                    <span>{ctaConfig.primaryButton.text}</span>
+                </a>
+
+                <a
+                    href={ctaConfig.secondaryButton.href}
+                    target={ctaConfig.secondaryButton.isExternal
+                        ? "_blank"
+                        : undefined}
+                    rel={ctaConfig.secondaryButton.isExternal
+                        ? "noopener noreferrer"
+                        : undefined}
+                    class={`w-full sm:w-auto px-8 py-4 rounded-full font-bold text-base transition-all inline-flex items-center justify-center gap-3 group ${ctaConfig.secondaryButton.buttonClass}`}
+                >
+                    <i
+                        class={`${ctaConfig.secondaryButton.iconClass} group-hover:scale-110 transition-transform`}
+                    ></i>
+                    <span>{ctaConfig.secondaryButton.text}</span>
+                </a>
+            </div>
+
+            <p
+                class="text-sm text-white/60 mt-6 flex items-center justify-center gap-2"
+            >
+                <i class="fas fa-check-circle text-white/40"></i>
+                <span>{ctaConfig.footerNote}</span>
+            </p>
+        </div>
+    </div>
+</section>
+
+<style>
+    .cta-gradient {
+        background: linear-gradient(135deg, #059669 0%, #3b82f6 100%);
+        position: relative;
+    }
+
+    .cta-gradient::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(
+            circle at 30% 50%,
+            rgba(255, 255, 255, 0.1) 0%,
+            transparent 50%
+        );
+        pointer-events: none;
+    }
+</style>

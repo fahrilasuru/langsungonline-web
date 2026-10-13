@@ -1,0 +1,22 @@
+@layer preview {
+/* Primitif bersama; dimuat terakhir agar menang atas aturan lama */
+.mock{position:relative}
+.ph{position:relative;overflow:hidden;background:#e2e8f0}
+.ph>.im{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.av{background:linear-gradient(135deg,var(--lg1,var(--accent)),var(--lg2,var(--accent)));color:#fff;font:700 15px system-ui,sans-serif;overflow:hidden;position:relative}
+.recs li::before,.sr .pts li::before{content:"\f00c";font-family:"Font Awesome 7 Free","Font Awesome 6 Free";font-weight:900}
+.pfeed{position:relative}.ppa [data-like].on i{color:#ed4956}
+.sug{font:600 11px system-ui,sans-serif;color:var(--mute);border:1px solid var(--line);border-radius:6px;padding:0 6px;margin-left:6px;vertical-align:middle;white-space:nowrap}
+
+}
+
+@layer preview {
+.ph>.im.pz{position:absolute;inset:auto;max-width:none;object-fit:cover}
+.ph>canvas.pz-c{position:absolute;inset:0;width:100%;height:100%;display:block}
+.pzf{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(var(--a,135deg),var(--lg1,var(--accent)),var(--lg2,var(--accent)));color:rgba(255,255,255,.55);font-size:30px}
+.ppi.crop{aspect-ratio:4/5}.ppi.crop .pzf{font-size:64px}
+}
+
+@layer preview {
+button.ring{border:0;cursor:pointer;display:block}.ring.seen,.ring-off{background:var(--line)}
+}

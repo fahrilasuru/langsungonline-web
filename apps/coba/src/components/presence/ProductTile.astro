@@ -1,0 +1,10 @@
+---
+import Img from "../ui/Img.astro";
+import Suggested from "../ui/Suggested.astro";
+import { rupiah } from "../../format";
+const { p, i } = Astro.props;
+---
+<button class="prod" data-pid={p.id} data-name={p.name.toLowerCase()} data-cat={p.category ?? ""} data-price={p.price ?? 0} data-idx={i}>
+  <div class="pi ph"><Img img={p.image} /></div>
+  <div>{p.name}{p.suggested && <Suggested />}<b>{p.price != null ? rupiah(p.price) : "Hubungi penjual"}</b></div>
+</button>

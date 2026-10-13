@@ -1,0 +1,5 @@
+---
+const { cta, href } = Astro.props;
+---
+<section class="cband"><div class="w"><div class="cb rv"><h2>{cta.headline}</h2><p>{cta.body}</p>
+  <a class="b" href={href} target="_blank" rel="noopener">{cta.label}</a></div></div></section>

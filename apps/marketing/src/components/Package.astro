@@ -1,0 +1,237 @@
+---
+import { LINK_KONSULTASI } from '@langsungonline/ui/constants';
+
+export interface Props {
+    showHeader?: boolean;
+    limit?: number;
+    columns?: 2 | 3 | 4;
+    showFooterCta?: boolean;
+}
+
+const {
+    showHeader = true,
+    limit,
+    columns = 3,
+    showFooterCta = false,
+} = Astro.props;
+
+interface Stage {
+    name: string;
+    fungsi: string;
+    pembayaran: string;
+    harga: string;
+    untuk: string;
+    description: string;
+    icon: string;
+    badge: string;
+    badgeColor: string;
+    features: string[];
+    popular: boolean;
+    ctaText: string;
+    ctaLink: string;
+}
+
+const partnershipStages: Stage[] = [
+    {
+        name: "Online Check",
+        fungsi: "Cari tahu yang kurang",
+        pembayaran: "Gratis",
+        harga: "Rp 0",
+        untuk: "Semua calon customer",
+        description: "Audit awal untuk mengecek kehadiran digital bisnis Anda dan melihat apa yang perlu dibereskan.",
+        icon: "fa-stethoscope",
+        badge: "Langkah Awal",
+        badgeColor: "bg-emerald-100 text-emerald-700",
+        features: [
+            "Analisis Google, Sosmed & Kontak",
+            "Cek aset digital yang sudah ada",
+            "Rencana prioritas perbaikan",
+            "Tanpa biaya sepeser pun",
+        ],
+        popular: false,
+        ctaText: "Cek Bisnis Saya Gratis",
+        ctaLink: LINK_KONSULTASI,
+    },
+    {
+        name: "Online Setup",
+        fungsi: "Bereskan yang perlu",
+        pembayaran: "Sekali bayar",
+        harga: "Mulai ±Rp 2,5 Jt",
+        untuk: "Bisnis siap dikerjakan",
+        description: "Eksekusi tuntas: website, domain, Google presence, tracking, dan jalur pelanggan dirapikan.",
+        icon: "fa-rocket",
+        badge: "Paling Dicari",
+        badgeColor: "bg-blue-100 text-blue-700",
+        features: [
+            "Setup ekosistem digital lengkap",
+            "Website & domain profesional",
+            "Optimalisasi Google & WhatsApp flow",
+            "Bebas pusing urusan teknis",
+        ],
+        popular: true,
+        ctaText: "Mulai Setup Bisnis",
+        ctaLink: LINK_KONSULTASI,
+    },
+    {
+        name: "Online Care",
+        fungsi: "Jaga tetap beres",
+        pembayaran: "Bulanan",
+        harga: "Sesuai kebutuhan",
+        untuk: "Customer existing",
+        description: "Pendampingan berkelanjutan, pemeliharaan sistem, update konten, dan tempat bertanya kapan saja.",
+        icon: "fa-shield-heart",
+        badge: "Dukungan Rutin",
+        badgeColor: "bg-purple-100 text-purple-700",
+        features: [
+            "Satu kontak untuk semua kendala",
+            "Pemeliharaan sistem & update berkala",
+            "Pengembangan konten & optimasi lanjutan",
+            "Tenang, ada partner yang menjaga",
+        ],
+        popular: false,
+        ctaText: "Diskusikan Kebutuhan",
+        ctaLink: LINK_KONSULTASI,
+    },
+];
+
+const displayedStages = limit ? partnershipStages.slice(0, limit) : partnershipStages;
+
+const gridClasses = {
+    2: "grid-cols-1 md:grid-cols-2",
+    3: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
+    4: "grid-cols-1 md:grid-cols-2 lg:grid-cols-4",
+};
+
+const headerData = {
+    badge: "Tahap Hubungan",
+    title: "Tiga Langkah Sederhana",
+    highlight: "Check → Setup → Care",
+    subtitle: "Layanan website, Google, konten, hingga ads terintegrasi langsung di dalam sistem ini, bukan sebagai katalog produk yang membingungkan.",
+};
+
+const footerCta = {
+    text: "Pelajari Cara Kerja Kami",
+    icon: "fa-arrow-right",
+    href: "/layanan",
+};
+---
+
+<section class="py-12 md:py-16 bg-white">
+    <div class="container mx-auto px-4 md:px-8">
+        {
+            showHeader && (
+                <div class="text-center max-w-3xl mx-auto mb-8 md:mb-12">
+                    <h2 class="text-xl md:text-2xl lg:text-4xl font-bold text-gray-900 mb-2 md:mb-4">
+                        {headerData.title}{" "}
+                        <br><span class="bg-linear-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+                            {headerData.highlight}
+                        </span>
+                    </h2>
+                    <p class="text-sm md:text-base text-gray-600 max-w-2xl mx-auto">
+                        {headerData.subtitle}
+                    </p>
+                </div>
+            )
+        }
+
+        <div
+            class={`grid ${gridClasses[columns]} gap-4 md:gap-8 items-stretch`}
+        >
+            {
+                displayedStages.map((stage) => (
+                    <div
+                        class={`relative bg-white rounded-2xl border ${stage.popular ? "border-blue-500 shadow-xl ring-2 ring-blue-500/20" : "border-gray-200 shadow-md"} p-6 md:p-8 flex flex-col h-full hover:shadow-xl transition-all duration-300`}
+                    >
+                        {stage.popular && (
+                            <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                                <span class="bg-linear-to-r from-blue-600 to-green-600 text-white px-3.5 py-1 rounded-full text-xs font-semibold shadow-lg whitespace-nowrap">
+                                    <i class="fas fa-star mr-1 text-xs" />
+                                    Utama
+                                </span>
+                            </div>
+                        )}
+
+                        <div class="mb-4">
+                            <span
+                                class={`px-2.5 py-1 ${stage.badgeColor} text-xs font-semibold rounded-full`}
+                            >
+                                {stage.badge}
+                            </span>
+                        </div>
+
+                        <div class="flex items-center gap-3.5 mb-4">
+                            <div class="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-linear-to-br from-gray-50 to-gray-100 flex items-center justify-center shadow-xs">
+                                <i
+                                    class={`fas ${stage.icon} text-xl md:text-2xl ${stage.popular ? "text-blue-600" : "text-gray-700"}`}
+                                />
+                            </div>
+                            <div>
+                                <h3 class="text-xl md:text-2xl font-bold text-gray-900">
+                                    {stage.name}
+                                </h3>
+                                <div class="flex items-baseline gap-1.5 mt-0.5">
+                                    <span class="text-lg md:text-xl font-extrabold text-blue-600">
+                                        {stage.harga}
+                                    </span>
+                                    <span class="text-xs font-medium text-gray-500">
+                                        ({stage.pembayaran})
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ringkasan Fungsi & Target -->
+                        <div class="bg-gray-50 rounded-xl p-3.5 mb-4 border border-gray-100 space-y-1.5 text-xs md:text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-500 font-medium">Fungsi:</span>
+                                <span class="font-semibold text-gray-800">{stage.fungsi}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-500 font-medium">Untuk:</span>
+                                <span class="font-semibold text-gray-800">{stage.untuk}</span>
+                            </div>
+                        </div>
+
+                        <p class="text-xs md:text-sm text-gray-600 mb-6 leading-relaxed">
+                            {stage.description}
+                        </p>
+
+                        <ul class="space-y-2.5 mb-8 flex-1">
+                            {stage.features.map((feature) => (
+                                <li class="flex items-start text-xs md:text-sm">
+                                    <i class="fas fa-check-circle text-green-500 mr-2.5 mt-0.5 text-xs shrink-0" />
+                                    <span class="text-gray-700">{feature}</span>
+                                </li>
+                            ))}
+                        </ul>
+
+                        <a
+                            href={stage.ctaLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class={`block w-full py-3.5 px-4 rounded-xl text-xs md:text-sm font-semibold text-center transition-all mt-auto shadow-sm hover:shadow-md ${stage.popular ? "bg-linear-to-r from-blue-600 to-green-600 text-white hover:opacity-95" : "bg-gray-900 text-white hover:bg-gray-800"}`}
+                        >
+                            {stage.ctaText}
+                        </a>
+                    </div>
+                ))
+            }
+        </div>
+
+        {
+            showFooterCta && (
+                <div class="text-center mt-10 md:mt-12">
+                    <a
+                        href={footerCta.href}
+                        class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-gray-100 text-gray-800 font-semibold rounded-xl hover:bg-gray-200 transition-all group"
+                    >
+                        <span>{footerCta.text}</span>
+                        <i
+                            class={`fas ${footerCta.icon} text-sm group-hover:translate-x-1 transition-transform`}
+                        />
+                    </a>
+                </div>
+            )
+        }
+    </div>
+</section>

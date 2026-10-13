@@ -1,0 +1,64 @@
+---
+import Layout from "../_Layout.astro";
+import ProjectCard from "../_ProjectCard.astro";
+import { BASE, projects, categories, waDefault } from "../_data";
+---
+
+<Layout
+    active="proyek"
+    title="Proyek & Studi Kasus | Raka Pratama"
+    description="Kumpulan proyek website, aplikasi mobile, dan dashboard karya Raka Pratama, lengkap dengan studi kasus dan hasilnya."
+>
+    <section class="page-hero">
+        <div class="page-hero-inner">
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href={`${BASE}/`}>Beranda</a> <i class="fa-solid fa-chevron-right" style="font-size:10px"></i> <span>Proyek</span>
+            </nav>
+            <h1>Proyek yang pernah saya kerjakan</h1>
+            <p>Setiap proyek punya cerita: masalah awal, keputusan desain, dan hasil yang diukur. Pilih satu untuk membaca studi kasusnya.</p>
+        </div>
+    </section>
+
+    <section class="section" style="padding-top:24px;">
+        <div class="section-inner">
+            <div class="filters" role="group" aria-label="Filter kategori proyek">
+                {categories.map((c, i) => (
+                    <button class="filter-btn" data-filter={c} aria-pressed={i === 0 ? "true" : "false"}>{c}</button>
+                ))}
+            </div>
+            <div class="project-grid" id="projectGrid">
+                {projects.map((p) => <ProjectCard project={p} />)}
+            </div>
+            <p id="emptyState" hidden style="text-align:center;color:var(--ink-2);margin-top:32px;">Belum ada proyek di kategori ini. Coba pilih kategori lain.</p>
+        </div>
+    </section>
+
+    <section class="cta-wrap">
+        <div class="cta-band">
+            <div>
+                <h2>Proyek Anda bisa jadi yang berikutnya</h2>
+                <p>Ceritakan kebutuhan dan budget Anda. Saya bantu mencari solusi yang realistis.</p>
+            </div>
+            <a href={waDefault} class="btn btn-light" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Ajak Diskusi</a>
+        </div>
+    </section>
+</Layout>
+
+<script>
+    const buttons = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+    const cards = document.querySelectorAll<HTMLElement>("#projectGrid .project-card");
+    const empty = document.getElementById("emptyState");
+    buttons.forEach((btn) =>
+        btn.addEventListener("click", () => {
+            const f = btn.dataset.filter;
+            buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+            let shown = 0;
+            cards.forEach((c) => {
+                const show = f === "Semua" || c.dataset.category === f;
+                c.hidden = !show;
+                if (show) shown++;
+            });
+            if (empty) empty.hidden = shown > 0;
+        }),
+    );
+</script>

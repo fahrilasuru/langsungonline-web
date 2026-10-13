@@ -1,0 +1,53 @@
+<!-- ===== LAPORAN ===== -->
+<section class="view" id="view-laporan" data-view="laporan" hidden>
+    <div class="view-head">
+        <div>
+            <h2 class="view-title">Laporan keuangan</h2>
+            <p class="view-sub" id="reportSub"></p>
+        </div>
+        <div class="view-actions">
+            <select class="select" data-bind="report.months" aria-label="Rentang laporan">
+                <option value="3">3 bulan terakhir</option>
+                <option value="6" selected>6 bulan terakhir</option>
+                <option value="12">12 bulan terakhir</option>
+            </select>
+            <button class="btn btn-ghost" data-action="export-report">
+                <span class="material-icons">download</span><span class="hide-sm">Ekspor CSV</span>
+            </button>
+            <button class="btn btn-ghost" data-action="print-report">
+                <span class="material-icons">print</span><span class="hide-sm">Cetak</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="stat-grid" id="reportKpis"></div>
+
+    <div class="grid-report">
+        <div class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2 class="panel-title">Pendapatan dan laba</h2>
+                    <p class="panel-sub">Per bulan, dalam rupiah</p>
+                </div>
+            </div>
+            <div class="chart-box"><canvas id="monthlyChart" aria-label="Grafik pendapatan bulanan" role="img"></canvas></div>
+        </div>
+        <div class="panel">
+            <div class="panel-head">
+                <div>
+                    <h2 class="panel-title">Penjualan per kategori</h2>
+                    <p class="panel-sub">Berdasarkan nilai penjualan</p>
+                </div>
+            </div>
+            <div class="chart-box chart-box-sm"><canvas id="categoryChart" aria-label="Penjualan per kategori" role="img"></canvas></div>
+            <div class="legend" id="categoryLegend"></div>
+        </div>
+    </div>
+
+    <div class="panel panel-flush">
+        <div class="panel-head pad">
+            <h2 class="panel-title">Produk terlaris</h2>
+        </div>
+        <div id="topProducts"></div>
+    </div>
+</section>

@@ -1,0 +1,71 @@
+---
+import TokoLayout from "../_TokoLayout.astro";
+import ProductCard from "../_ProductCard.astro";
+import { products, categories, BASE } from "../_products.js";
+---
+<TokoLayout title="Katalog Produk | Teduh Coffee" description="Belanja biji kopi single origin, alat seduh, paket hemat dan merchandise Teduh Coffee." active="produk">
+<section class="phero"><div class="wrap">
+  <div class="crumb"><a href={`${BASE}/`}>Beranda</a><i class="fa-solid fa-chevron-right"></i>Produk</div>
+  <h1>Katalog Produk</h1><p>Temukan kopi dan alat seduh yang cocok untuk rutinitas pagi Anda.</p>
+</div></section>
+
+<section class="sec" style="padding-top:48px">
+  <div class="wrap cat-l">
+    <button class="btn ghost sm filt-toggle" id="filtBtn" aria-expanded="false" aria-controls="filt"><i class="fa-solid fa-sliders"></i> Filter &amp; kategori</button>
+    <aside class="filt" id="filt" aria-label="Filter produk">
+      <div><h4>Kategori</h4>
+        <label><input type="radio" name="kat" value="all" checked /> Semua</label>
+        {categories.map((c) => <label><input type="radio" name="kat" value={c.id} /> {c.label}</label>)}
+      </div>
+      <div><h4>Rentang harga</h4>
+        <label><input type="radio" name="hrg" value="all" checked /> Semua harga</label>
+        <label><input type="radio" name="hrg" value="0-150000" /> Di bawah Rp150.000</label>
+        <label><input type="radio" name="hrg" value="150000-300000" /> Rp150.000 - Rp300.000</label>
+        <label><input type="radio" name="hrg" value="300000-99999999" /> Di atas Rp300.000</label>
+      </div>
+      <div><h4>Lainnya</h4>
+        <label><input type="checkbox" id="fSale" /> Sedang diskon</label>
+        <label><input type="checkbox" id="fWish" /> Wishlist saya</label>
+      </div>
+      <button class="btn ghost sm" id="reset"><i class="fa-solid fa-rotate-left"></i> Reset filter</button>
+    </aside>
+    <div>
+      <div class="tools">
+        <div class="sbox"><i class="fa-solid fa-magnifying-glass"></i><input id="q" type="search" placeholder="Cari produk..." aria-label="Cari produk" /></div>
+        <select id="sort" aria-label="Urutkan"><option value="pop">Terlaris</option><option value="lo">Harga terendah</option><option value="hi">Harga tertinggi</option><option value="rate">Rating tertinggi</option></select>
+      </div>
+      <div class="cnt" id="cnt"></div>
+      <div class="pgrid" id="pgrid">
+        {products.map((p) => <ProductCard p={p} />)}
+        <div class="empty" id="empty" hidden><i class="fa-solid fa-magnifying-glass"></i><b>Produk tidak ditemukan</b>Coba kata kunci lain atau reset filter.</div>
+      </div>
+    </div>
+  </div>
+</section>
+</TokoLayout>
+
+<script>
+  import { wish } from "../_cart.js";
+  const $ = (s) => document.querySelector(s), $$ = (s) => [...document.querySelectorAll(s)];
+  const grid = $("#pgrid"), cards = $$(".pcard"), params = new URLSearchParams(location.search);
+  const kat = params.get("kat"); if (kat) { const r = $(`input[name=kat][value=${kat}]`); if (r) r.checked = true; }
+  if (params.get("q")) $("#q").value = params.get("q");
+  const val = (n) => $(`input[name=${n}]:checked`).value;
+  const run = () => {
+    const k = val("kat"), [lo, hi] = val("hrg") === "all" ? [0, 1e9] : val("hrg").split("-").map(Number);
+    const q = $("#q").value.trim().toLowerCase(), sale = $("#fSale").checked, w = $("#fWish").checked, ws = wish.get(), s = $("#sort").value;
+    let n = 0;
+    cards.forEach((c) => {
+      const p = +c.dataset.price;
+      const ok = (k === "all" || c.dataset.cat === k) && p >= lo && p <= hi && c.dataset.name.includes(q) && (!sale || c.querySelector(".tag:not(.new)")) && (!w || ws.includes(c.dataset.slug));
+      c.hidden = !ok; if (ok) n++;
+    });
+    const key = { pop: (c) => -c.dataset.sold, lo: (c) => +c.dataset.price, hi: (c) => -c.dataset.price, rate: (c) => -c.dataset.rating }[s];
+    cards.sort((a, b) => key(a) - key(b)).forEach((c) => grid.insertBefore(c, $("#empty")));
+    $("#empty").hidden = n > 0; $("#cnt").textContent = `Menampilkan ${n} produk`;
+  };
+  $$(".filt input, #q, #sort").forEach((el) => el.addEventListener("input", run));
+  $("#reset").onclick = () => { $("input[name=kat][value=all]").checked = true; $("input[name=hrg][value=all]").checked = true; $("#fSale").checked = $("#fWish").checked = false; $("#q").value = ""; run(); };
+  $("#filtBtn").onclick = (e) => { const o = $("#filt").classList.toggle("open"); e.currentTarget.setAttribute("aria-expanded", o); };
+  run();
+</script>

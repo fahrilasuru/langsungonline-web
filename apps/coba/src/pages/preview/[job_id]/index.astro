@@ -1,0 +1,69 @@
+---
+import PreviewLayout from "../../../layouts/PreviewLayout.astro";
+import PreviewIntro from "../../../components/preview/PreviewIntro.astro";
+import PresenceNav from "../../../components/preview/PresenceNav.astro";
+import WebsitePreview from "../../../components/preview/WebsitePreview.astro";
+import RecommendationSummary from "../../../components/preview/RecommendationSummary.astro";
+import ConsultationCTA from "../../../components/preview/ConsultationCTA.astro";
+import FloatingConsultationCTA from "../../../components/preview/FloatingConsultationCTA.astro";
+import { registry } from "../../../components/presence/registry";
+import { getPreview } from "../../../api";
+import { sortPresence } from "../../../presence";
+import ExtraChannels from "../../../components/preview/ExtraChannels.astro";
+import RememberPreview from "../../../components/preview/RememberPreview.astro";
+import { fixtures } from "../../../fixtures/index";
+import { wa } from "@langsungonline/ui/wa";
+import { WA_NUMBER } from "@langsungonline/ui/constants";
+
+export const prerender = false;
+
+let data: Awaited<ReturnType<typeof getPreview>> = null;
+let unavailable = false;
+try {
+  data = await getPreview(Astro.params.job_id!);
+} catch (e) {
+  console.error("PREVIEW LOAD ERROR:", e); // mis. API_URL salah atau API tidak terjangkau
+  unavailable = true;
+  Astro.response.status = 503;
+}
+const r = data?.status === "ready" ? data : null;
+const team = r ? { ...r.business, whatsapp: r.consult_whatsapp } : null; // tombol konsultasi ke tim, bukan ke bisnis
+const channels = r ? sortPresence(r.recommended_presence) : [];
+const sections = channels.filter((c) => c.type !== "website").map((c) => ({ C: registry[c.type], c })).filter((x) => x.C);
+const msg = unavailable ? ["Layanan sedang sibuk", "Coba muat ulang sebentar lagi. Preview Anda tetap tersimpan."]
+  : !data ? ["Preview tidak ditemukan", "Periksa kembali tautannya."]
+  : data.status === "processing" ? ["Kami sedang menyiapkan preview Anda", "Halaman ini menyegarkan diri otomatis."]
+  : data.status === "needs_info" ? ["Satu hal lagi supaya gambarannya pas", data.question]
+  : data.status === "declined" ? ["Maaf, kami belum bisa membantu untuk ini", "Jika menurut Anda ini keliru, ceritakan lewat WhatsApp."]
+  : ["Maaf, preview belum bisa dibuat", "Hubungi kami lewat WhatsApp dan kami bantu langsung."];
+const WA = WA_NUMBER;
+const jobId = Astro.params.job_id!;
+---
+<PreviewLayout title={r ? `${r.business.name} – Preview | Langsung Online` : "Preview | Langsung Online"}>
+  <Fragment slot="head">{(data?.status === "processing" || unavailable) && <meta http-equiv="refresh" content="5" />}</Fragment>
+  {data && !Object.hasOwn(fixtures, jobId) && <RememberPreview id={jobId} status={data.status} name={r?.business.name} category={r?.business.category} />}
+  {r ? (
+    <>
+      <PreviewIntro business={r.business} channels={channels} />
+      <PresenceNav channels={channels} />
+      <WebsitePreview business={r.business} slug={r.site.slug} jobId={r.job_id} />
+      {sections.length > 0 && (
+        <div class="wrap" style="padding-top:12px">
+          <h2 class="sec">Kehadiran digital yang kami sarankan</h2>
+          <p class="sec-sub">Website jadi pusatnya, kanal lain membantu pelanggan menemukan Anda.</p>
+        </div>
+      )}
+      {sections.map(({ C, c }) => <C business={r.business} presence={c} slug={r.site.slug} theme={r.site.theme} />)}
+      <ExtraChannels extras={r.extras ?? []} />
+      <RecommendationSummary items={r.recommendations} />
+      <ConsultationCTA business={team} jobId={r.job_id} />
+      <FloatingConsultationCTA business={team} jobId={r.job_id} />
+    </>
+  ) : (
+    <div class="wrap intro">
+      <h1>{msg[0]}</h1><p class="sub">{msg[1]}</p>
+      {data?.status === "needs_info" && <p style="margin-top:18px"><a class="btn btn-p" href="/">Lengkapi cerita Anda</a></p>}
+      {WA && data && ["failed", "declined"].includes(data.status) && <p style="margin-top:18px"><a class="btn btn-wa" href={wa(WA, `Halo Langsung Online, saya butuh bantuan soal preview (ref: ${jobId}).`)} target="_blank" rel="noopener">Hubungi kami via WhatsApp</a></p>}
+    </div>
+  )}
+</PreviewLayout>

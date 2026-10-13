@@ -1,0 +1,38 @@
+---
+import Icon from "./_Icon.astro";
+---
+
+<!-- ===== DAFTAR PERCAKAPAN ===== -->
+<aside class="sidebar" aria-label="Daftar percakapan">
+    <div class="side-head">
+        <span class="brand-mark" aria-hidden="true">R</span>
+        <div class="side-title">
+            <strong>RuangRapi Interior</strong>
+            <span>Pesan pelanggan</span>
+        </div>
+    </div>
+
+    <div class="search">
+        <Icon name="search" size={16} />
+        <input
+            type="search"
+            data-search
+            maxlength="60"
+            placeholder="Cari nama atau proyek"
+            aria-label="Cari percakapan"
+            autocomplete="off"
+            spellcheck="false"
+        />
+    </div>
+
+    <div class="tabs" role="group" aria-label="Filter percakapan">
+        <button type="button" class="tab" data-tab="all" aria-pressed="true">
+            Semua <span class="tab-count" data-count-all></span>
+        </button>
+        <button type="button" class="tab" data-tab="unread" aria-pressed="false">
+            Belum dibaca <span class="tab-count" data-count-unread></span>
+        </button>
+    </div>
+
+    <ul class="conv-list" data-list></ul>
+</aside>

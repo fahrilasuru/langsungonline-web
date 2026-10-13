@@ -1,0 +1,60 @@
+---
+import TokoLayout from "./_TokoLayout.astro";
+import { BASE } from "./_products.js";
+---
+<TokoLayout title="Checkout | Teduh Coffee" description="Selesaikan pesanan Anda di Teduh Coffee (halaman demo)." active="">
+<section class="phero"><div class="wrap"><div class="crumb"><a href={`${BASE}/`}>Beranda</a><i class="fa-solid fa-chevron-right"></i><a href={`${BASE}/keranjang`}>Keranjang</a><i class="fa-solid fa-chevron-right"></i>Checkout</div><h1>Checkout</h1><p>Halaman demo: data yang Anda isi tidak dikirim ke mana pun.</p></div></section>
+<section class="sec" style="padding-top:44px"><div class="wrap">
+  <div class="stp" id="stp"><span class="on"><i>1</i>Data pengiriman</span><span><i>2</i>Pembayaran</span><span><i>3</i>Selesai</span></div>
+  <div id="done" hidden></div>
+  <form class="cl" id="coForm" novalidate>
+    <div style="display:grid;gap:24px">
+      <div class="box"><h3 style="margin-bottom:18px">Data penerima</h3>
+        <div class="form">
+          <label>Nama lengkap<input name="nm" required placeholder="Contoh: Rina Wulandari" /></label>
+          <label>Nomor WhatsApp<input name="wa" required inputmode="tel" placeholder="08xxxxxxxxxx" /></label>
+          <label class="w">Alamat lengkap<textarea name="ad" rows="3" required placeholder="Jalan, nomor, kecamatan, kota, kode pos"></textarea></label>
+          <label>Kurir<select name="kr"><option>JNE Reguler (2-3 hari)</option><option>SiCepat BEST (1-2 hari)</option><option>GoSend Same Day (Surabaya)</option></select></label>
+          <label>Gilingan kopi<select name="gl"><option>Biji utuh</option><option>Espresso</option><option>V60 / Pour over</option><option>French press</option></select></label>
+          <label class="w">Catatan pesanan (opsional)<input name="ct" placeholder="Contoh: tolong kemas sebagai hadiah" /></label>
+        </div>
+      </div>
+      <div class="box"><h3 style="margin-bottom:18px">Metode pembayaran</h3>
+        <div class="pay-o">
+          <label><input type="radio" name="py" checked /><i class="fa-solid fa-qrcode"></i> QRIS</label>
+          <label><input type="radio" name="py" /><i class="fa-solid fa-building-columns"></i> Transfer Bank BCA</label>
+          <label><input type="radio" name="py" /><i class="fa-solid fa-credit-card"></i> Virtual Account Mandiri</label>
+          <label><input type="radio" name="py" /><i class="fa-solid fa-money-bill-wave"></i> Bayar di tempat (COD)</label>
+        </div>
+      </div>
+    </div>
+    <div class="box side"><h3 style="margin-bottom:16px">Pesanan Anda</h3><div id="sumBox"></div>
+      <button class="btn moss full" type="submit" style="margin-top:20px"><i class="fa-solid fa-lock"></i> Buat Pesanan</button>
+      <p class="mute" style="font-size:12.5px;margin-top:12px;text-align:center">Ini simulasi. Tidak ada pembayaran nyata.</p></div>
+  </form>
+</div></section>
+</TokoLayout>
+
+<script>
+  import { Cart, fmt, toast } from "./_cart.js";
+  const base = document.querySelector(".toko").dataset.base, form = document.getElementById("coForm");
+  const draw = () => {
+    const T = Cart.totals();
+    if (!T.L.length && !form.hidden) { form.innerHTML = `<div class="box cart-empty" style="grid-column:1/-1"><i class="fa-solid fa-bag-shopping"></i><h2>Belum ada produk</h2><p class="mute" style="margin:8px 0 22px">Tambahkan produk dulu sebelum checkout.</p><a class="btn moss" href="${base}/produk">Lihat Produk</a></div>`; return; }
+    document.getElementById("sumBox").innerHTML = T.L.map((l) => `<div class="di" style="grid-template-columns:56px 1fr auto"><img src="${l.img}" alt="" style="width:56px;height:56px" onerror="this.style.visibility='hidden'"><div><b>${l.name}</b><span class="mute">${l.label} · x${l.qty}</span></div><b>${fmt(l.total)}</b></div>`).join("") +
+      `<div class="sum" style="margin-top:16px"><div><span>Subtotal</span><span>${fmt(T.sub)}</span></div>${T.disc ? `<div class="sav"><span>Diskon</span><span>-${fmt(T.disc)}</span></div>` : ""}<div><span>Ongkir</span><span>${T.ship ? fmt(T.ship) : "Gratis"}</span></div><div class="t"><span>Total</span><span>${fmt(T.total)}</span></div></div>`;
+  };
+  draw(); document.addEventListener("cart:change", () => { if (!form.hidden) draw(); });
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const f = new FormData(form);
+    if (!f.get("nm").trim() || !f.get("wa").trim() || !f.get("ad").trim()) { toast("Lengkapi nama, WhatsApp dan alamat dulu ya"); return; }
+    if (!Cart.totals().L.length) return;
+    const no = "TC-" + Math.floor(100000 + Math.random() * 900000), total = fmt(Cart.totals().total);
+    Cart.clear(); form.hidden = true;
+    document.querySelectorAll("#stp span").forEach((s) => s.classList.add("on"));
+    const d = document.getElementById("done"); d.hidden = false;
+    d.innerHTML = `<div class="done"><div class="big"><i class="fa-solid fa-check"></i></div><h2>Pesanan berhasil dibuat</h2><p class="mute">Nomor pesanan <b>${no}</b> dengan total <b>${total}</b>.<br>Ini hanya simulasi: tidak ada pembayaran atau pengiriman nyata.</p><div style="display:flex;gap:12px;justify-content:center;margin-top:26px;flex-wrap:wrap"><a class="btn moss" href="${base}/produk">Lanjut belanja</a><a class="btn ghost" href="${base}/">Ke beranda</a></div></div>`;
+    scrollTo({ top: 0, behavior: "smooth" });
+  });
+</script>

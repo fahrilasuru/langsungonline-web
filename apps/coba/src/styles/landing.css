@@ -1,0 +1,50 @@
+@layer preview {
+/* Menyelaraskan chrome Langsung Online dengan beranda: hijau-biru, tombol rounded-xl, kartu rounded-2xl */
+.btn{border-radius:12px;font-weight:500;transition:box-shadow .3s,transform .3s}
+.btn-p{background:linear-gradient(to right,#059669,#2563eb);color:#fff}
+.btn-wa{background:linear-gradient(to bottom right,#22c55e,#16a34a);color:#fff}
+.btn-p:hover,.btn-wa:hover{box-shadow:0 10px 25px -8px rgba(5,150,105,.45);transform:scale(1.02)}
+.btn-o{background:#fff;border-color:var(--line)}
+.pv .intro-sec{padding:56px 0 40px;background:radial-gradient(ellipse at top,rgba(5,150,105,.15) 0%,transparent 50%),radial-gradient(ellipse at bottom right,rgba(37,99,235,.15) 0%,transparent 50%),linear-gradient(135deg,rgba(5,150,105,.08),rgba(37,99,235,.08) 50%,rgba(168,85,247,.05))}
+.intro{padding:0}
+.intro h1{font-size:clamp(2rem,5.4vw,3.4rem);max-width:22ch;margin:10px 0 16px;text-wrap:balance}
+.intro h1 .grad{background:linear-gradient(to right,#059669,#2563eb);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pv .intro .eyebrow{display:inline-block;font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#047857}
+.pv .intro .sub{max-width:36rem;color:#4b5563;font-size:1.05rem}
+.intro .lead{font-family:inherit;font-size:clamp(1.15rem,3.2vw,1.5rem);font-weight:500;color:#1f2937}
+.chip{background:#ecfdf5;color:#047857;font-weight:600}
+.tag{display:inline-flex;background:#ecfdf5;color:#047857;border-radius:999px;padding:4px 14px;font-size:13px;font-weight:600}
+h2.sec{font-size:clamp(1.75rem,4vw,2.5rem)}
+.pill.act{background:linear-gradient(to right,#059669,#2563eb);color:#fff;border-color:transparent}
+.pnav{top:5rem;background:rgba(255,255,255,.92);backdrop-filter:blur(10px)}
+.why h3{font-size:1.5rem}.why p{color:#4b5563}
+.browser,.mock,.hlink,.recs li{border-color:#f1f5f9}
+.recs li{border-radius:16px;box-shadow:0 1px 2px rgba(15,23,42,.05)}
+.consult{background:linear-gradient(135deg,#059669 0%,#0ea5e9 50%,#6366f1 100%);color:#fff;border-radius:24px}
+.consult .btn-wa{background:#fff;color:#047857;box-shadow:0 10px 25px -10px rgba(0,0,0,.35)}
+.consult .ref{opacity:.8}
+.float .btn-wa{box-shadow:0 12px 28px -8px rgba(22,163,74,.55)}
+.hlink{border-radius:16px;transition:box-shadow .3s}.hlink:hover{box-shadow:0 20px 40px -18px rgba(15,23,42,.3)}
+.hav{background:linear-gradient(135deg,#059669,#2563eb);color:#fff}
+.hstat{background:#ecfdf5;color:#047857}
+
+}
+
+@layer preview {
+.pv .extras{padding:0}
+.xgrid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));margin-top:20px}
+.xcard{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid #f1f5f9;border-radius:16px;padding:18px;box-shadow:0 1px 2px rgba(15,23,42,.05)}
+.xcard .xi{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;color:#fff;background:var(--xc);font-size:20px;flex:none}
+.xcard h3{font-size:16px;margin-bottom:4px}.xcard p{font-size:14px;color:var(--mute)}.xcard .xn{margin-top:6px;color:var(--ink)}
+}
+
+@layer preview {
+.xmore{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline;margin-top:20px;padding:16px 18px;border-radius:16px;background:#ecfdf5;color:#047857;font-size:15px}
+.xmore a{font-weight:600;text-decoration:underline;text-underline-offset:3px}
+}
+
+@layer preview {
+.upd{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid #f1f5f9;border-radius:16px;padding:20px;box-shadow:0 1px 2px rgba(15,23,42,.05)}
+.upd .xi{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,#059669,#2563eb);font-size:20px;flex:none}
+.upd h3{font-size:16px;margin-bottom:4px}.upd p{font-size:14px;color:var(--mute)}
+}

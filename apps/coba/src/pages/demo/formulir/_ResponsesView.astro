@@ -1,0 +1,82 @@
+<!-- ===== HASIL: RESPONS ===== -->
+<section id="view-respons" class="view" role="tabpanel" aria-labelledby="tab-respons" hidden>
+    <div class="view-inner">
+        <div class="view-head">
+            <div>
+                <h2 class="view-title">Respons</h2>
+                <p class="view-sub">Konsultasi proyek interior, 14 hari terakhir</p>
+            </div>
+            <div class="view-btns">
+                <button type="button" id="btnCsv" class="btn btn-ghost btn-sm">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"></path></svg>
+                    Ekspor CSV
+                </button>
+            </div>
+        </div>
+
+        <div class="kpis">
+            <div class="kpi"><p class="kpi-l">Total respons</p><p class="kpi-v" id="kpiTotal">0</p><p class="kpi-n" id="kpiTotalNote"></p></div>
+            <div class="kpi"><p class="kpi-l">Kepuasan rata-rata</p><p class="kpi-v" id="kpiRating">0</p><p class="kpi-n" id="kpiRatingNote"></p></div>
+            <div class="kpi"><p class="kpi-l">Skor NPS</p><p class="kpi-v" id="kpiNps">0</p><p class="kpi-n" id="kpiNpsNote"></p></div>
+            <div class="kpi"><p class="kpi-l">Rasio pengiriman</p><p class="kpi-v" id="kpiRate">0</p><p class="kpi-n" id="kpiRateNote"></p></div>
+        </div>
+
+        <div class="charts">
+            <div class="side-card chart-card chart-wide">
+                <h3 class="side-title">Respons per hari</h3>
+                <div id="chartDays"></div>
+            </div>
+            <div class="side-card chart-card">
+                <h3 class="side-title">Jenis properti</h3>
+                <ul id="chartTypes" class="hb-list"></ul>
+            </div>
+            <div class="side-card chart-card">
+                <h3 class="side-title">Sebaran NPS</h3>
+                <div id="chartNps"></div>
+            </div>
+        </div>
+
+        <div class="side-card tbl-card">
+            <div class="tbl-tools">
+                <div class="search">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4"></path></svg>
+                    <label class="sr-only" for="rSearch">Cari responden</label>
+                    <input id="rSearch" class="inp" type="search" maxlength="80" placeholder="Cari nama, kode, atau kota" autocomplete="off" />
+                </div>
+                <div class="status-filter">
+                    <label class="sr-only" for="rStatus">Filter status</label>
+                    <select id="rStatus" class="inp">
+                        <option value="">Semua status</option>
+                        <option value="Baru">Baru</option>
+                        <option value="Dibaca">Dibaca</option>
+                        <option value="Ditindaklanjuti">Ditindaklanjuti</option>
+                    </select>
+                </div>
+            </div>
+
+            <table id="rTable" class="tbl">
+                <caption class="sr-only">Daftar respons formulir</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Responden</th>
+                        <th scope="col">Jenis</th>
+                        <th scope="col">Anggaran</th>
+                        <th scope="col">Kepuasan</th>
+                        <th scope="col">Masuk</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody id="rBody"></tbody>
+            </table>
+            <p id="rEmpty" class="empty" hidden>Tidak ada respons yang cocok. Ubah kata kunci atau filter status.</p>
+
+            <div class="pager">
+                <p id="rInfo" class="pager-info" role="status"></p>
+                <div class="pager-btns">
+                    <button type="button" id="rPrev" class="btn btn-ghost btn-sm">Sebelumnya</button>
+                    <button type="button" id="rNext" class="btn btn-ghost btn-sm">Berikutnya</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

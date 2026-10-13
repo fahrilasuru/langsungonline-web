@@ -1,0 +1,50 @@
+<!-- ===== PESANAN ===== -->
+<section class="view" id="view-pesanan" data-view="pesanan" hidden>
+    <div class="view-head">
+        <div>
+            <h2 class="view-title">Daftar pesanan</h2>
+            <p class="view-sub" id="orderSub"></p>
+        </div>
+        <div class="view-actions">
+            <button class="btn btn-ghost" data-action="export-orders">
+                <span class="material-icons">download</span><span class="hide-sm">Ekspor CSV</span>
+            </button>
+            <button class="btn btn-primary" data-action="new-order">
+                <span class="material-icons">add</span>Buat pesanan
+            </button>
+        </div>
+    </div>
+
+    <div class="tabs" id="orderTabs" role="tablist" aria-label="Status pesanan"></div>
+
+    <div class="toolbar">
+        <div class="input-icon grow">
+            <span class="material-icons">search</span>
+            <input class="input" type="search" placeholder="Cari nomor invoice atau pelanggan" data-bind="orders.q" aria-label="Cari pesanan" />
+        </div>
+        <select class="select" data-bind="orders.pay" aria-label="Metode pembayaran">
+            <option value="all">Semua pembayaran</option>
+            <option>Transfer BCA</option>
+            <option>QRIS</option>
+            <option>GoPay</option>
+            <option>COD</option>
+        </select>
+        <select class="select" data-bind="orders.range" aria-label="Rentang waktu">
+            <option value="all">Semua waktu</option>
+            <option value="1">Hari ini</option>
+            <option value="7">7 hari terakhir</option>
+            <option value="30">30 hari terakhir</option>
+        </select>
+        <select class="select" data-bind="orders.sort" aria-label="Urutkan">
+            <option value="terbaru">Terbaru</option>
+            <option value="terlama">Terlama</option>
+            <option value="total-desc">Total tertinggi</option>
+            <option value="total-asc">Total terendah</option>
+        </select>
+    </div>
+
+    <div class="panel panel-flush">
+        <div id="orderTable"></div>
+        <div class="pager" id="orderPager"></div>
+    </div>
+</section>

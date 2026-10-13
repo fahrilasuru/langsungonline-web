@@ -1,0 +1,12 @@
+@layer preview {
+/* Token dan dasar halaman preview. Semua dibatasi pada .pv agar tidak menimpa Header/Footer beranda (Tailwind). */
+.pv{--bg:#fff;--surface:#fff;--ink:#111827;--mute:#6b7280;--line:#e5e7eb;--accent:#059669;--accent-ink:#fff;--soft:#ecfdf5;--wa:#16a34a;
+--shadow:0 1px 2px rgba(15,23,42,.05),0 12px 32px -14px rgba(15,23,42,.22);margin:0;background:var(--bg);color:var(--ink);line-height:1.6}
+:where(.pv) *,:where(.pv) *::before,:where(.pv) *::after{box-sizing:border-box}
+:where(.pv) h1,:where(.pv) h2,:where(.pv) h3{line-height:1.15;margin:0;font-weight:700;letter-spacing:-.02em}
+:where(.pv) p{margin:0}
+:where(.pv) button{font:inherit;cursor:pointer}:where(.pv) a{color:inherit}
+:where(.pv) :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+
+}

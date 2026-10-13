@@ -1,0 +1,452 @@
+<!-- ===== MODAL, DRAWER & DIALOG ===== -->
+
+<!-- Produk: tambah / ubah -->
+<div class="overlay modal" id="productModal" hidden role="dialog" aria-modal="true" aria-labelledby="productModalTitle">
+    <div class="overlay-bg" data-action="close-overlay"></div>
+    <form class="modal-card" id="productForm" novalidate>
+        <header class="modal-head">
+            <h2 id="productModalTitle">Tambah produk</h2>
+            <button type="button" class="btn-icon" data-action="close-overlay" aria-label="Tutup"><span class="material-icons">close</span></button>
+        </header>
+        <div class="modal-body">
+            <div class="form-grid">
+                <div class="field span-2">
+                    <label for="pName">Nama produk</label>
+                    <input class="input" id="pName" name="name" autocomplete="off" placeholder="Contoh: Kopi Arabika Gayo 200 gr" data-autofocus />
+                    <p class="field-error" data-error="name"></p>
+                </div>
+                <div class="field">
+                    <label for="pSku">SKU</label>
+                    <input class="input" id="pSku" name="sku" autocomplete="off" placeholder="Kosongkan untuk dibuat otomatis" />
+                    <p class="field-error" data-error="sku"></p>
+                </div>
+                <div class="field">
+                    <label for="pCat">Kategori</label>
+                    <select class="select" id="pCat" name="category">
+                        <option>Makanan</option>
+                        <option>Minuman</option>
+                        <option>Fashion</option>
+                        <option>Kecantikan</option>
+                        <option>Kerajinan</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="pPrice">Harga (Rp)</label>
+                    <input class="input" id="pPrice" name="price" type="number" min="0" step="500" inputmode="numeric" />
+                    <p class="field-error" data-error="price"></p>
+                </div>
+                <div class="field">
+                    <label for="pStock">Stok</label>
+                    <input class="input" id="pStock" name="stock" type="number" min="0" inputmode="numeric" />
+                    <p class="field-error" data-error="stock"></p>
+                </div>
+                <div class="field span-2">
+                    <label for="pStatus">Status</label>
+                    <select class="select" id="pStatus" name="status">
+                        <option value="aktif">Aktif — tampil di toko</option>
+                        <option value="arsip">Arsip — disembunyikan</option>
+                    </select>
+                </div>
+                <div class="field span-2">
+                    <label for="pDesc">Deskripsi <span class="opt">(opsional)</span></label>
+                    <textarea class="textarea" id="pDesc" name="desc" rows="3"></textarea>
+                </div>
+            </div>
+        </div>
+        <footer class="modal-foot">
+            <button type="button" class="btn btn-ghost" data-action="close-overlay">Batal</button>
+            <button type="submit" class="btn btn-primary" id="productSubmit">Simpan produk</button>
+        </footer>
+    </form>
+</div>
+
+<!-- Tambah stok -->
+<div class="overlay modal" id="stockModal" hidden role="dialog" aria-modal="true" aria-labelledby="stockModalTitle">
+    <div class="overlay-bg" data-action="close-overlay"></div>
+    <form class="modal-card modal-sm" id="stockForm" novalidate>
+        <header class="modal-head">
+            <h2 id="stockModalTitle">Tambah stok</h2>
+            <button type="button" class="btn-icon" data-action="close-overlay" aria-label="Tutup"><span class="material-icons">close</span></button>
+        </header>
+        <div class="modal-body">
+            <p class="stock-product" id="stockProduct"></p>
+            <div class="field">
+                <label for="stockQty">Jumlah masuk</label>
+                <input class="input" id="stockQty" name="qty" type="number" min="1" inputmode="numeric" data-autofocus />
+                <p class="field-error" data-error="qty"></p>
+            </div>
+            <div class="quick-qty">
+                <button type="button" class="chip" data-action="quick-qty" data-qty="10">+10</button>
+                <button type="button" class="chip" data-action="quick-qty" data-qty="25">+25</button>
+                <button type="button" class="chip" data-action="quick-qty" data-qty="50">+50</button>
+            </div>
+            <p class="stock-preview" id="stockPreview"></p>
+        </div>
+        <footer class="modal-foot">
+            <button type="button" class="btn btn-ghost" data-action="close-overlay">Batal</button>
+            <button type="submit" class="btn btn-primary">Tambah stok</button>
+        </footer>
+    </form>
+</div>
+
+<!-- Pesanan baru -->
+<div class="overlay modal" id="orderModal" hidden role="dialog" aria-modal="true" aria-labelledby="orderModalTitle">
+    <div class="overlay-bg" data-action="close-overlay"></div>
+    <form class="modal-card modal-lg" id="orderForm" novalidate>
+        <header class="modal-head">
+            <h2 id="orderModalTitle">Buat pesanan</h2>
+            <button type="button" class="btn-icon" data-action="close-overlay" aria-label="Tutup"><span class="material-icons">close</span></button>
+        </header>
+        <div class="modal-body">
+            <div class="form-grid">
+                <div class="field">
+                    <label for="oCustomer">Nama pelanggan</label>
+                    <input class="input" id="oCustomer" name="customer" list="customerList" autocomplete="off" placeholder="Ketik atau pilih pelanggan" data-autofocus />
+                    <datalist id="customerList"></datalist>
+                    <p class="field-error" data-error="customer"></p>
+                </div>
+                <div class="field">
+                    <label for="oPhone">Nomor WhatsApp <span class="opt">(opsional)</span></label>
+                    <input class="input" id="oPhone" name="phone" type="tel" autocomplete="off" />
+                </div>
+                <div class="field span-2">
+                    <label for="oAddress">Alamat pengiriman</label>
+                    <input class="input" id="oAddress" name="address" autocomplete="off" />
+                    <p class="field-error" data-error="address"></p>
+                </div>
+                <div class="field">
+                    <label for="oPayment">Pembayaran</label>
+                    <select class="select" id="oPayment" name="payment">
+                        <option>Transfer BCA</option>
+                        <option>QRIS</option>
+                        <option>GoPay</option>
+                        <option>COD</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="oCourier">Kurir</label>
+                    <select class="select" id="oCourier" name="courier">
+                        <option>JNE Reguler</option>
+                        <option>J&amp;T Express</option>
+                        <option>SiCepat</option>
+                        <option>Kurir Toko</option>
+                    </select>
+                </div>
+            </div>
+
+            <h3 class="sub-title">Item pesanan</h3>
+            <div id="orderItems"></div>
+            <p class="field-error" data-error="items"></p>
+            <button type="button" class="btn btn-soft btn-sm" data-action="add-order-row">
+                <span class="material-icons">add</span>Tambah item
+            </button>
+
+            <div class="field mt">
+                <label for="oNote">Catatan <span class="opt">(opsional)</span></label>
+                <input class="input" id="oNote" name="note" autocomplete="off" />
+            </div>
+            <div class="order-total"><span>Total</span><strong id="orderTotal">Rp 0</strong></div>
+        </div>
+        <footer class="modal-foot">
+            <button type="button" class="btn btn-ghost" data-action="close-overlay">Batal</button>
+            <button type="submit" class="btn btn-primary">Simpan pesanan</button>
+        </footer>
+    </form>
+</div>
+
+<!-- Pengguna: tambah / ubah -->
+<div class="overlay modal" id="userModal" hidden role="dialog" aria-modal="true" aria-labelledby="userModalTitle">
+    <div class="overlay-bg" data-action="close-overlay"></div>
+    <form class="modal-card modal-sm" id="userForm" novalidate>
+        <header class="modal-head">
+            <h2 id="userModalTitle">Tambah pengguna</h2>
+            <button type="button" class="btn-icon" data-action="close-overlay" aria-label="Tutup"><span class="material-icons">close</span></button>
+        </header>
+        <div class="modal-body">
+            <div class="field">
+                <label for="uName">Nama lengkap</label>
+                <input class="input" id="uName" name="name" autocomplete="off" placeholder="Contoh: Dimas Pratama" data-autofocus />
+                <p class="field-error" data-error="name"></p>
+            </div>
+            <div class="field">
+                <label for="uEmail">Email</label>
+                <input class="input" id="uEmail" name="email" type="email" autocomplete="off" placeholder="nama@umkmkita.id" />
+                <p class="field-error" data-error="email"></p>
+            </div>
+            <div class="field">
+                <label for="uRole">Role</label>
+                <select class="select" id="uRole" name="role">
+                    <option>Admin</option>
+                    <option>Staff Gudang</option>
+                    <option>Kasir</option>
+                    <option>Marketing</option>
+                </select>
+            </div>
+            <p class="hint" id="userHint">Undangan dikirim ke email ini. Pengguna membuat kata sandi sendiri.</p>
+        </div>
+        <footer class="modal-foot">
+            <button type="button" class="btn btn-ghost" data-action="close-overlay">Batal</button>
+            <button type="submit" class="btn btn-primary" id="userSubmit">Kirim undangan</button>
+        </footer>
+    </form>
+</div>
+
+<!-- Profil -->
+<div class="overlay modal" id="profileModal" hidden role="dialog" aria-modal="true" aria-labelledby="profileModalTitle">
+    <div class="overlay-bg" data-action="close-overlay"></div>
+    <form class="modal-card modal-sm" id="profileForm" novalidate>
+        <header class="modal-head">
+            <h2 id="profileModalTitle">Profil saya</h2>
+            <button type="button" class="btn-icon" data-action="close-overlay" aria-label="Tutup"><span class="material-icons">close</span></button>
+        </header>
+        <div class="modal-body">
+            <div class="profile-hero">
+                <span class="avatar avatar-lg" data-text="profileInitials">AU</span>
+                <div>
+                    <strong data-text="profileName">Admin Utama</strong>
+                    <span class="badge b-ok">Super Admin</span>
+                </div>
+            </div>
+            <div class="field">
+                <label for="prName">Nama lengkap</label>
+                <input class="input" id="prName" name="name" autocomplete="off" data-autofocus />
+                <p class="field-error" data-error="name"></p>
+            </div>
+            <div class="field">
+                <label for="prEmail">Email</label>
+                <input class="input" id="prEmail" name="email" type="email" disabled />
+            </div>
+            <div class="field">
+                <label for="prPhone">Nomor telepon</label>
+                <input class="input" id="prPhone" name="phone" type="tel" autocomplete="off" />
+            </div>
+        </div>
+        <footer class="modal-foot">
+            <button type="button" class="btn btn-ghost" data-action="close-overlay">Batal</button>
+            <button type="submit" class="btn btn-primary">Simpan profil</button>
+        </footer>
+    </form>
+</div>
+
+<!-- Konfirmasi -->
+<div class="overlay modal modal-top" id="confirmModal" hidden role="alertdialog" aria-modal="true" aria-labelledby="confirmTitle" aria-describedby="confirmMsg">
+    <div class="overlay-bg" data-action="confirm-cancel"></div>
+    <div class="modal-card modal-xs confirm">
+        <div class="confirm-icon" data-confirm-icon><span class="material-icons">help</span></div>
+        <h2 id="confirmTitle" data-confirm-title>Konfirmasi</h2>
+        <p id="confirmMsg" data-confirm-message></p>
+        <div class="confirm-actions">
+            <button class="btn btn-ghost" data-action="confirm-cancel">Batal</button>
+            <button class="btn btn-primary" data-action="confirm-ok" data-confirm-ok data-autofocus>Ya, lanjutkan</button>
+        </div>
+    </div>
+</div>
+
+<!-- Detail pesanan (drawer) -->
+<div class="overlay drawer" id="orderDrawer" hidden role="dialog" aria-modal="true" aria-label="Detail pesanan">
+    <div class="overlay-bg" data-action="close-overlay"></div>
+    <aside class="drawer-card" id="drawerContent"></aside>
+</div>
+
+<style>
+    .overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 2000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+    }
+
+    .overlay[hidden] {
+        display: none;
+    }
+
+    .overlay-bg {
+        position: absolute;
+        inset: 0;
+        background: rgba(10, 20, 12, 0.5);
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+
+    .overlay.open .overlay-bg {
+        opacity: 1;
+    }
+
+    .modal-top {
+        z-index: 2100;
+    }
+
+    .modal-card {
+        position: relative;
+        width: 100%;
+        max-width: 580px;
+        max-height: min(92vh, 860px);
+        display: flex;
+        flex-direction: column;
+        background: var(--surface);
+        color: var(--ink);
+        border-radius: 20px;
+        box-shadow: var(--shadow-lg);
+        opacity: 0;
+        transform: translateY(14px) scale(0.98);
+        transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .overlay.open .modal-card {
+        opacity: 1;
+        transform: none;
+    }
+
+    .modal-lg {
+        max-width: 720px;
+    }
+
+    .modal-sm {
+        max-width: 460px;
+    }
+
+    .modal-xs {
+        max-width: 400px;
+    }
+
+    .modal-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 24px 8px;
+    }
+
+    .modal-head h2 {
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: -0.3px;
+    }
+
+    .modal-body {
+        padding: 12px 24px 8px;
+        overflow-y: auto;
+    }
+
+    .modal-foot {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        padding: 16px 24px 20px;
+        border-top: 1px solid var(--border);
+        margin-top: 8px;
+    }
+
+    .drawer {
+        justify-content: flex-end;
+        align-items: stretch;
+        padding: 0;
+    }
+
+    .drawer-card {
+        position: relative;
+        width: min(480px, 100%);
+        height: 100%;
+        background: var(--surface);
+        color: var(--ink);
+        display: flex;
+        flex-direction: column;
+        box-shadow: var(--shadow-lg);
+        transform: translateX(100%);
+        transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .overlay.open .drawer-card {
+        transform: none;
+    }
+
+    .confirm {
+        padding: 28px 24px 22px;
+        text-align: center;
+    }
+
+    .confirm h2 {
+        font-size: 18px;
+        font-weight: 800;
+        margin: 12px 0 6px;
+    }
+
+    .confirm p {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .confirm-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        margin: 0 auto;
+        display: grid;
+        place-items: center;
+        background: var(--tint);
+        color: var(--primary);
+    }
+
+    .confirm-icon.is-danger {
+        background: var(--danger-bg);
+        color: var(--danger);
+    }
+
+    .confirm-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 22px;
+    }
+
+    @media (max-width: 600px) {
+        .modal {
+            align-items: flex-end;
+            padding: 0;
+        }
+
+        .modal-card,
+        .modal-lg,
+        .modal-sm {
+            max-width: none;
+            border-radius: 20px 20px 0 0;
+            max-height: 94vh;
+        }
+
+        .modal-top {
+            align-items: center;
+            padding: 16px;
+        }
+
+        .modal-top .modal-card {
+            border-radius: 20px;
+        }
+
+        .modal-head {
+            padding: 16px 18px 4px;
+        }
+
+        .modal-body {
+            padding: 10px 18px 4px;
+        }
+
+        .modal-foot {
+            padding: 12px 18px calc(14px + env(safe-area-inset-bottom, 0px));
+        }
+
+        .modal-foot .btn {
+            flex: 1;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .overlay-bg,
+        .modal-card,
+        .drawer-card {
+            transition: none;
+        }
+    }
+</style>

@@ -1,0 +1,20 @@
+---
+import Icon from "../../ui/Icon.astro";
+import { hasPlace, mapsUrl, telUrl } from "../../../format";
+const { business: b, href } = Astro.props;
+---
+<section class="sec"><div class="w cgrid">
+  {(b.address || b.city) && (
+    <article class="card rv"><span class="ic"><Icon n="location-dot" /></span><h3>{b.address ? "Alamat" : "Wilayah"}</h3>
+      <p>{[b.address, b.city].filter(Boolean).join(", ")}</p>
+      {hasPlace(b) && <a class="b b-o b-s" href={mapsUrl(b)} target="_blank" rel="noopener">Buka di Google Maps</a>}</article>
+  )}
+  {b.hours.length > 0 && (
+    <article class="card rv"><span class="ic"><Icon n="clock" /></span><h3>Jam buka</h3>
+      <ul class="hrs2">{b.hours.map((h) => <li><span>{h.days}</span><b>{h.open}</b></li>)}</ul></article>
+  )}
+  <article class="card rv"><span class="ic"><Icon n="comment-dots" /></span><h3>Hubungi kami</h3>
+    <p>Tanya, pesan, atau diskusi langsung lewat WhatsApp.</p>
+    <a class="b b-p b-s" href={href} target="_blank" rel="noopener"><Icon n="whatsapp" s="brands" /> Chat WhatsApp</a>
+    {b.phone && <p class="tel"><a href={telUrl(b.phone)}><Icon n="phone" /> {b.phone}</a></p>}</article>
+</div></section>

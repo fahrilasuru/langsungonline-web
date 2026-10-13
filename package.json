@@ -1,0 +1,23 @@
+{
+  "name": "langsungonline",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --parallel --filter ./apps/* dev",
+    "dev:marketing": "pnpm --filter @langsungonline/marketing dev",
+    "dev:coba": "pnpm --filter @langsungonline/coba dev",
+    "build": "pnpm --recursive --filter ./apps/* build",
+    "build:marketing": "pnpm --filter @langsungonline/marketing build",
+    "build:coba": "pnpm --filter @langsungonline/coba build",
+    "check": "pnpm --recursive --filter ./apps/* check",
+    "gen:types": "pnpm --filter @langsungonline/coba gen:types"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": "24.x"
+  }
+}

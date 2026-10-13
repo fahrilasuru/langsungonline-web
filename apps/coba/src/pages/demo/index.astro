@@ -1,0 +1,84 @@
+---
+export const prerender = true;
+
+import Base from "@langsungonline/ui/layouts/Base.astro";
+import DemoGrid from "../../components/DemoGrid.astro";
+import CTA from "@langsungonline/ui/components/CTA.astro";
+import FAQ from "@langsungonline/ui/components/FAQ.astro";
+import Flow from "@langsungonline/ui/components/Flow.astro";
+import PageHero from "@langsungonline/ui/components/PageHero.astro";
+import { COBA_URL, MARKETING_URL } from "@langsungonline/ui/constants";
+
+const breadcrumbDemo = [
+	{ name: "Beranda", url: `${MARKETING_URL}/` },
+	{ name: "Demo", url: `${COBA_URL}/demo/` },
+];
+
+const faq_id = "faq";
+const faqsDemo = [
+	{
+		question: "Bisa ganti warna atau tampilan?",
+		answer: "Bisa. Warna, foto, teks, dan beberapa bagian desain bisa disesuaikan agar lebih cocok dengan brand Anda.",
+	},
+	{
+		question: "Berapa lama setelah pilih demo website jadi?",
+		answer: "Kalau data sudah lengkap, biasanya bisa live dalam beberapa hari saja.",
+	},
+	{
+		question: "Kalau mau tambah fitur bisa?",
+		answer: "Bisa, nantinya akan diskusikan kebutuhan tambahan dan estimasi biayanya.",
+	},
+];
+
+const faqSchema = {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	"@id": `${COBA_URL}/demo/#${faq_id}`,
+	mainEntity: faqsDemo.map((item) => ({
+		"@type": "Question",
+		name: item.question,
+		acceptedAnswer: {
+			"@type": "Answer",
+			text: item.answer,
+		},
+	})),
+};
+---
+
+<Base
+	title="Demo | Langsung.Online"
+	description="Coba gratis berbagai demo solusi digital: website kuliner, personal branding, toko online, dan lainnya. Rasakan sendiri kemudahannya."
+	canonical={`${COBA_URL}/demo/`}
+>
+	<Fragment slot="schema"
+		><script
+			is:inline
+			type="application/ld+json"
+			set:html={JSON.stringify({
+				"@context": "https://schema.org",
+				"@type": "BreadcrumbList",
+				itemListElement: breadcrumbDemo.map((item, index) => ({
+					"@type": "ListItem",
+					position: index + 1,
+					name: item.name,
+					...(item.url && { item: item.url }),
+				})),
+			})}
+		/>
+		<script
+			is:inline
+			type="application/ld+json"
+			set:html={JSON.stringify(faqSchema)}
+		/>
+	</Fragment>
+
+	<PageHero
+		title='Bayangkan <span style="background: linear-gradient(to right, #16a34a, #2563eb); -webkit-background-clip: text; background-clip: text; color: transparent;">Bisnis Anda</span> Sudah Online'
+		subtitle="Lihat beberapa contoh bagaimana kami membuat bisnis lebih mudah ditemukan, dipahami dan dihubungi."
+	/>
+
+	<DemoGrid />
+	<Flow />
+	<CTA />
+	<FAQ faq_id={faq_id} faqs={faqsDemo} />
+</Base>

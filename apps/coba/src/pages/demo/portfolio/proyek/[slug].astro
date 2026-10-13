@@ -1,0 +1,90 @@
+---
+import Layout from "../_Layout.astro";
+import { BASE, projects, wa } from "../_data";
+
+export function getStaticPaths() {
+    return projects.map((p, i) => ({
+        params: { slug: p.slug },
+        props: {
+            project: p,
+            prev: projects[(i - 1 + projects.length) % projects.length],
+            next: projects[(i + 1) % projects.length],
+        },
+    }));
+}
+const { project: p, prev, next } = Astro.props;
+const meta = [
+    { l: "Klien", v: p.client },
+    { l: "Peran", v: p.role },
+    { l: "Durasi", v: p.duration },
+    { l: "Tahun", v: p.year },
+];
+---
+
+<Layout active="proyek" title={`${p.title} | Studi Kasus Raka Pratama`} description={p.summary}>
+    <section class="page-hero" style="padding-bottom:36px;">
+        <div class="page-hero-inner">
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href={`${BASE}/`}>Beranda</a> <i class="fa-solid fa-chevron-right" style="font-size:10px"></i>
+                <a href={`${BASE}/proyek/`}>Proyek</a> <i class="fa-solid fa-chevron-right" style="font-size:10px"></i>
+                <span>{p.category}</span>
+            </nav>
+            <h1 style="max-width:24ch;">{p.title}</h1>
+            <p>{p.summary}</p>
+        </div>
+    </section>
+
+    <div class="case-cover"><img src={p.img} alt={`Tampilan proyek ${p.title}`} loading="eager" /></div>
+
+    <div class="case-meta">
+        {meta.map((m) => <div><span>{m.l}</span><strong>{m.v}</strong></div>)}
+    </div>
+
+    <div class="case-body">
+        <div>
+            <h2>Tantangan</h2>
+            <p>{p.challenge}</p>
+        </div>
+        <div>
+            <h2>Solusi</h2>
+            <p>{p.solution}</p>
+        </div>
+    </div>
+
+    <section class="section alt">
+        <div class="section-inner">
+            <div class="section-header">
+                <div class="section-label"><i class="fa-solid fa-chart-line"></i> Hasil</div>
+                <h2 class="section-title">Dampak setelah peluncuran</h2>
+            </div>
+            <div class="result-grid">
+                {p.results.map((r) => <div class="result"><div class="n">{r.n}</div><div class="l">{r.l}</div></div>)}
+            </div>
+            <div style="margin-top:40px;">
+                <strong style="font-size:15px;">Alat yang dipakai</strong>
+                <div class="tags" style="margin-top:12px;">{p.tools.map((t) => <span class="tag">{t}</span>)}</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-inner">
+            <div class="case-nav">
+                <a href={`${BASE}/proyek/${prev.slug}/`}><small><i class="fa-solid fa-arrow-left"></i> Proyek sebelumnya</small><strong>{prev.title}</strong></a>
+                <a href={`${BASE}/proyek/${next.slug}/`}><small>Proyek berikutnya <i class="fa-solid fa-arrow-right"></i></small><strong>{next.title}</strong></a>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-wrap">
+        <div class="cta-band">
+            <div>
+                <h2>Butuh hasil serupa untuk bisnis Anda?</h2>
+                <p>Ceritakan tantangan Anda, saya bantu pikirkan langkah pertamanya.</p>
+            </div>
+            <a href={wa(`Halo Raka, saya tertarik dengan proyek "${p.title}" dan ingin membahas kebutuhan serupa.`)} class="btn btn-light" target="_blank" rel="noopener">
+                <i class="fa-brands fa-whatsapp"></i> Diskusikan Proyek Serupa
+            </a>
+        </div>
+    </section>
+</Layout>

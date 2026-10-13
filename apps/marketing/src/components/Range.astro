@@ -1,0 +1,118 @@
+---
+// Anda bisa menyesuaikan data kartu atau ikon sesuai kebutuhan
+const ecosystemCards = [
+    {
+        name: "Google Business",
+        category: "Peta & Pencarian",
+        icon: "fas fa-map-marker-alt",
+        color: "from-blue-500 to-indigo-600",
+        badgeColor: "bg-blue-50 text-blue-600",
+        desc: "Mudah ditemukan pelanggan di sekitar.",
+        zIndex: "z-10",
+        rotate: "-rotate-6 md:-rotate-12",
+        translate: "translate-y-4 md:translate-y-8",
+    },
+    {
+        name: "Website Profesional",
+        category: "Rumah Utama",
+        icon: "fas fa-globe",
+        color: "from-emerald-500 to-teal-600",
+        badgeColor: "bg-emerald-50 text-emerald-600",
+        desc: "Pusat informasi & kredibilitas bisnis.",
+        zIndex: "z-30",
+        rotate: "rotate-0",
+        translate: "translate-y-0 scale-105 shadow-2xl",
+    },
+    {
+        name: "Instagram / Sosmed",
+        category: "Etalase & Branding",
+        icon: "fab fa-instagram",
+        color: "from-pink-500 to-purple-600",
+        badgeColor: "bg-pink-50 text-pink-600",
+        desc: "Tempat interaksi & daya tarik visual.",
+        zIndex: "z-20",
+        rotate: "rotate-6 md:rotate-6",
+        translate: "translate-y-2 md:translate-y-4",
+    },
+    {
+        name: "WhatsApp Bisnis",
+        category: "Jalur Penjualan",
+        icon: "fab fa-whatsapp",
+        color: "from-green-500 to-emerald-600",
+        badgeColor: "bg-green-50 text-green-600",
+        desc: "Tempat closing transaksi & tanya jawab.",
+        zIndex: "z-20",
+        rotate: "-rotate-3 md:-rotate-6",
+        translate: "translate-y-6 md:translate-y-12",
+    },
+    {
+        name: "Shopee / Marketplace",
+        category: "Opsional Jualan",
+        icon: "fas fa-store",
+        color: "from-orange-500 to-amber-600",
+        badgeColor: "bg-orange-50 text-orange-600",
+        desc: "Jika relevan untuk produk fisik Anda.",
+        zIndex: "z-10",
+        rotate: "rotate-3 md:rotate-12",
+        translate: "translate-y-8 md:translate-y-16",
+    }
+];
+---
+
+<section class="py-20 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
+    <div class="container mx-auto px-4">
+        
+        <!-- Header Section -->
+        <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+            <h2 class="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight mb-6">
+                Bukan cuma website.
+            </h2>
+            <p class="text-lg md:text-xl text-gray-600 leading-relaxed">
+                Bisnis Anda hidup di lebih dari satu tempat. Yang perlu dibereskan berbeda untuk setiap bisnis.
+            </p>
+        </div>
+
+        <!-- Visual Mockup Overlapping Cards / Devices -->
+        <div class="relative max-w-5xl mx-auto mb-20 px-4" data-aos="fade-up" data-aos-delay="200">
+            <!-- Background Glow Effect -->
+            <div class="absolute inset-0 bg-linear-to-r from-green-100/50 via-blue-100/50 to-purple-100/50 blur-3xl -z-10 rounded-full max-w-2xl mx-auto"></div>
+
+            <!-- Grid / Flex Container untuk Desktop & Mobile -->
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-2 items-center justify-center">
+                {ecosystemCards.map((card) => (
+                    <div 
+                        class={`bg-white rounded-2xl p-5 border border-gray-100 shadow-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${card.zIndex} ${card.rotate} ${card.translate} flex flex-col justify-between h-48 md:h-56`}
+                    >
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class={`w-10 h-10 rounded-xl bg-gradient-to-br ${card.color} flex items-center justify-center text-white shadow-md`}>
+                                    <i class={`${card.icon} text-lg`}></i>
+                                </div>
+                                <span class={`text-[10px] font-bold px-2.5 py-1 rounded-full ${card.badgeColor}`}>
+                                    Aktif
+                                </span>
+                            </div>
+                            <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider block mb-1">
+                                {card.category}
+                            </span>
+                            <h3 class="font-bold text-gray-900 text-base mb-1">
+                                {card.name}
+                            </h3>
+                        </div>
+                        <p class="text-xs text-gray-500 leading-snug">
+                            {card.desc}
+                        </p>
+                    </div>
+                ))}
+            </div>
+        </div>
+
+        <!-- Penutup / Penjelasan Jalur -->
+        <div class="max-w-2xl mx-auto text-center bg-white border border-gray-100 shadow-sm rounded-2xl p-6 md:p-8" data-aos="fade-up" data-aos-delay="400">
+            <p class="text-base md:text-lg text-gray-700 leading-relaxed font-medium">
+                Kami membantu menentukan mana yang memang penting untuk bisnis Anda, lalu membereskannya sebagai <span class="text-transparent bg-clip-text bg-linear-to-r from-green-600 to-blue-600 font-semibold">satu jalur yang rapi</span>.
+            </p>
+        </div>
+
+    </div>
+</section>

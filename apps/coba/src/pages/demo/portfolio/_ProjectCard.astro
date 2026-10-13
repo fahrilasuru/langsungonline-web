@@ -1,0 +1,17 @@
+---
+import { BASE, type Project } from "./_data";
+interface Props { project: Project; }
+const { project: p } = Astro.props;
+---
+
+<article class="project-card" data-category={p.category}>
+    <a href={`${BASE}/proyek/${p.slug}/`} class="project-thumb" tabindex="-1" aria-hidden="true">
+        <img src={p.img.replace("w=1200", "w=800")} alt="" loading="lazy" />
+    </a>
+    <div class="project-body">
+        <div class="project-meta"><span>{p.category}</span><span>{p.year}</span></div>
+        <h3><a href={`${BASE}/proyek/${p.slug}/`}>{p.title}</a></h3>
+        <p>{p.summary}</p>
+        <div class="tags">{p.tags.map((t) => <span class="tag">{t}</span>)}</div>
+    </div>
+</article>

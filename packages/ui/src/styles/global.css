@@ -1,0 +1,81 @@
+@import "tailwindcss";
+/* Tailwind v4 hanya memindai folder app. Tanpa ini, class yang hanya dipakai komponen paket ui tidak dibuat. */
+@source "../";
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+@layer base {
+    :root {
+        --primary: #059669;
+        --secondary: #2563eb;
+        --accent: #d97706;
+        --dark: #1e293b;
+        --light: #f8fafc;
+    }
+
+    html {
+        font-size: 16px;
+        line-height: 1.5;
+        scroll-behavior: smooth;
+    }
+
+    h1 {
+        font-size: clamp(2.5rem, 5vw, 3.75rem);
+    }
+
+    h2 {
+        font-size: clamp(2rem, 4vw, 3rem);
+    }
+
+    section {
+        padding: 5rem 0;
+    }
+}
+
+@layer components {
+    .gradient-bg {
+        background: linear-gradient(135deg,
+                rgba(5, 150, 105, 0.08) 0%,
+                rgba(37, 99, 235, 0.08) 50%,
+                rgba(168, 85, 247, 0.05) 100%);
+    }
+
+    .cta-gradient {
+        background: linear-gradient(135deg,
+                #059669 0%,
+                #0ea5e9 50%,
+                #6366f1 100%);
+        background-size: 200% 200%;
+        animation: gradient-shift 8s ease infinite;
+    }
+
+    .logo-icon {
+        position: relative;
+        overflow: hidden;
+    }
+}
+
+@layer utilities {
+    @keyframes gradient-shift {
+        0%,
+        100% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+    }
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, var(--primary), var(--secondary));
+    border-radius: 4px;
+}

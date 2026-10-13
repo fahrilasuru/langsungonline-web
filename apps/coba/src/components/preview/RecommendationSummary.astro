@@ -1,0 +1,26 @@
+---
+import Icon from "../ui/Icon.astro";
+import { labelOf } from "../../presence";
+const { items = [], channels = [] } = Astro.props;
+const META = {
+  website: { icon: "globe", s: "solid", color: "#059669" },
+  google_business: { icon: "google", s: "brands", color: "#4285f4" },
+  instagram: { icon: "instagram", s: "brands", color: "#e1306c" },
+  marketplace: { icon: "bag-shopping", s: "solid", color: "#ee4d2d" },
+};
+const reasons = channels.filter((c) => c.reason && META[c.type]);
+---
+<section id="alasan"><div class="wrap">
+  <h2 class="sec">Kenapa kami menyarankan ini?</h2>
+  <p class="sec-sub">Setiap saran punya alasan, dan semuanya berangkat dari cerita yang Anda tulis.</p>
+  {reasons.length > 0 ? (
+    <div class="xgrid">{reasons.map((c) => (
+      <article class="xcard" style={`--xc:${META[c.type].color}`}>
+        <span class="xi"><Icon n={META[c.type].icon} s={META[c.type].s} /></span>
+        <div><h3>{labelOf(c)}</h3><p>{c.reason}</p></div>
+      </article>
+    ))}</div>
+  ) : (
+    <ul class="recs">{items.map((r) => <li>{r}</li>)}</ul>
+  )}
+</div></section>

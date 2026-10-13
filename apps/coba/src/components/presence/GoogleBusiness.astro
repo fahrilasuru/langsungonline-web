@@ -1,0 +1,61 @@
+---
+import PresenceSection from "./PresenceSection.astro";
+import MockFrame from "../ui/MockFrame.astro";
+import Icon from "../ui/Icon.astro";
+import Img from "../ui/Img.astro";
+import Suggested from "../ui/Suggested.astro";
+import { rupiah, mapsUrl, telUrl, hasPlace, place, wa } from "../../format";
+import { exampleDomain } from "../../site";
+const { business: b, presence, slug } = Astro.props;
+const { photos, rating } = presence.data;
+const copy = presence.copy ?? (hasPlace(b)
+  ? { title: "Mudah ditemukan", body: `Pelanggan bisa menemukan lokasi, jam buka, foto, dan cara menghubungi ${b.name} dengan lebih mudah.` }
+  : { title: "Dikenal dan dinilai pelanggan", body: `Profil bisnis memuat foto, ulasan, dan cara menghubungi ${b.name}, termasuk untuk usaha yang melayani tanpa alamat tetap.` });
+const tabs = [["ringkasan", "Ringkasan"], ["menu", "Menu"], ["foto", "Foto"], ["ulasan", "Ulasan"]].filter(([k]) => (k !== "menu" || b.products.length) && (k !== "foto" || photos.length));
+---
+<PresenceSection id="google_business" title={copy.title} body={copy.body}>
+  <MockFrame id="gbp" mock="google" class="gbp">
+    <div class="gh"><h4>{b.name}</h4>
+      {rating && (
+        <button class="grate" data-act="reviews" aria-label="Lihat ulasan">
+          <b>{String(rating.value).replace(".", ",")}</b>
+          <span class="st">{[1, 2, 3, 4, 5].map(() => <Icon n="star" />)}</span>
+          {rating.count != null && <span>({rating.count})</span>}
+          {rating.sample && <span class="ex">contoh</span>}
+        </button>
+      )}
+      <div class="cat">{place(b)}</div></div>
+    <div class="gchips" role="tablist">{tabs.map(([k, l], i) => <button role="tab" data-tab={k} class:list={{ on: i === 0 }}>{l}</button>)}</div>
+
+    <div class="gpane" data-pane="ringkasan">
+      {photos.length > 0 && (
+        <div class="gcw">
+          <div class="gcar">{photos.map((p) => <div class="ph"><Img img={p} /></div>)}</div>
+          <span class="gcnt">1/{photos.length}</span>
+          <button class="gnav l" data-nav="prev" aria-label="Foto sebelumnya"><Icon n="chevron-left" /></button>
+          <button class="gnav r" data-nav="next" aria-label="Foto berikutnya"><Icon n="chevron-right" /></button>
+        </div>
+      )}
+      <div class="gact">
+        {b.phone
+          ? <a href={telUrl(b.phone)}><span class="gi"><Icon n="phone" /></span>Telepon</a>
+          : <a href={wa(b.whatsapp, `Halo ${b.name}, saya ingin bertanya.`)} target="_blank" rel="noopener"><span class="gi"><Icon n="whatsapp" s="brands" /></span>Chat</a>}
+        {hasPlace(b) && <a href={mapsUrl(b)} target="_blank" rel="noopener"><span class="gi"><Icon n="diamond-turn-right" /></span>Rute</a>}
+        <button data-act="save"><span class="gi"><Icon n="bookmark" /></span><span class="l">Simpan</span></button>
+        <button data-act="share"><span class="gi"><Icon n="share-nodes" /></span>Bagikan</button>
+      </div>
+      {b.hours.length > 0 && (<>
+      <button class="grow" data-act="hours"><span class="ic"><Icon n="clock" /></span><span>Jam buka · {b.hours[0]?.open} <Icon n="chevron-down" /></span></button>
+      <div class="hrs" hidden>{b.hours.map((h) => <div><span>{h.days}</span><span>{h.open}</span></div>)}</div>
+      </>)}
+      {b.address && <a class="grow" href={mapsUrl(b)} target="_blank" rel="noopener"><span class="ic"><Icon n="location-dot" /></span><span>{b.address}</span><span class="map"><Icon n="location-dot" /></span></a>}
+      {!b.address && <div class="grow"><span class="ic"><Icon n="location-dot" /></span><span>{b.city ? `Melayani area ${b.city}` : "Area layanan ditentukan bersama"}</span></div>}
+      {b.phone && <a class="grow" href={telUrl(b.phone)}><span class="ic"><Icon n="phone" /></span><span>{b.phone}</span></a>}
+      <a class="grow" href="#website"><span class="ic"><Icon n="globe" /></span><span>{exampleDomain(slug)}</span></a>
+    </div>
+    <div class="gpane" data-pane="menu" hidden>{b.products.map((p) => <div class="li"><b>{p.name}{p.suggested && <Suggested />}</b><span>{p.price != null ? rupiah(p.price) : ""}</span></div>)}</div>
+    <div class="gpane" data-pane="foto" hidden><div class="gph">{photos.map((p, i) => <button class="ph" data-photo={i} aria-label={`Foto ${i + 1}`}><Img img={p} /></button>)}</div></div>
+    <div class="gpane" data-pane="ulasan" hidden><div class="gemp">Ulasan asli dari pelanggan akan tampil di sini setelah profil Anda aktif.</div></div>
+  </MockFrame>
+</PresenceSection>
+<script>import "../../scripts/google";</script>

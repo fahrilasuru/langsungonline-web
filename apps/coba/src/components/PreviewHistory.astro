@@ -1,0 +1,112 @@
+---
+// Riwayat preview dari localStorage. Dipakai halaman coba dan /preview.
+const {
+    headingTag = "h2",
+    emptyText = "Belum ada preview di perangkat ini. Mulai dengan menceritakan bisnis Anda di atas.",
+    emptyCta,
+} = Astro.props;
+const H = headingTag;
+---
+
+<section id="riwayat" class="px-4" data-history>
+    <div class="mx-auto max-w-2xl">
+        <div class="mb-4 flex items-end justify-between gap-4">
+            <div>
+                <H class="text-xl font-bold tracking-tight text-gray-900">Riwayat preview Anda</H>
+                <p class="mt-1 text-sm text-gray-500">Tersimpan di perangkat ini saja, tanpa akun.</p>
+            </div>
+            <button type="button" data-clear hidden class="shrink-0 text-sm text-gray-500 underline underline-offset-4 hover:text-gray-800">
+                Hapus semua
+            </button>
+        </div>
+
+        <ul data-list class="grid gap-3"></ul>
+
+        <div data-empty hidden class="rounded-2xl border border-dashed border-gray-300 bg-white/60 px-4 py-8 text-center text-sm text-gray-500">
+            <p>{emptyText}</p>
+            {emptyCta && (
+                <a href={emptyCta.href} class="mt-4 inline-flex items-center justify-center rounded-xl bg-linear-to-r from-green-600 to-blue-600 px-5 py-2.5 font-semibold text-white shadow-sm transition hover:shadow-lg">
+                    {emptyCta.label}
+                </a>
+            )}
+        </div>
+
+        <template data-tpl>
+            <li class="relative">
+                <a href="#" data-link class="flex items-center gap-4 rounded-2xl border border-gray-100 bg-white p-4 pr-14 shadow-sm transition hover:shadow-xl">
+                    <span data-av class="flex size-12 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-green-600 to-blue-600 font-bold text-white"></span>
+                    <span class="min-w-0 flex-1">
+                        <b data-name class="block truncate text-base text-gray-900"></b>
+                        <small data-meta class="block text-xs text-gray-500"></small>
+                        <span data-status class="mt-1 inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold"></span>
+                    </span>
+                </a>
+                <button type="button" data-del aria-label="Hapus dari riwayat" class="absolute right-3 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-full text-gray-400 hover:bg-gray-100 hover:text-gray-700">
+                    <i class="fas fa-xmark"></i>
+                </button>
+            </li>
+        </template>
+    </div>
+</section>
+
+<script>
+    import { read, upsert, remove, clear } from "@langsungonline/ui/scripts/history";
+
+    const STATUS: Record<string, string> = {
+        processing: "Sedang disiapkan", ready: "Siap dilihat", needs_info: "Perlu satu jawaban",
+        declined: "Tidak bisa dibuat", failed: "Gagal dibuat", missing: "Tidak ditemukan",
+    };
+    const GOOD = "bg-emerald-50 text-emerald-700";
+    const MUTED = "border border-gray-200 bg-gray-50 text-gray-500";
+    const fmt = new Intl.DateTimeFormat("id-ID", { dateStyle: "medium", timeStyle: "short" });
+
+    function init() {
+        const root = document.querySelector<HTMLElement>("[data-history]");
+        if (!root || root.dataset.ready) return;
+        root.dataset.ready = "1";
+
+        const list = root.querySelector<HTMLElement>("[data-list]")!;
+        const empty = root.querySelector<HTMLElement>("[data-empty]")!;
+        const clearBtn = root.querySelector<HTMLElement>("[data-clear]")!;
+        const tpl = root.querySelector<HTMLTemplateElement>("[data-tpl]")!;
+
+        function render() {
+            const items = read();
+            list.replaceChildren(...items.map((e) => {
+                const li = (tpl.content.cloneNode(true) as DocumentFragment).querySelector("li")!;
+                li.dataset.id = e.id;
+                li.querySelector("[data-link]")!.setAttribute("href", `/preview/${e.id}`);
+                li.querySelector("[data-name]")!.textContent = e.name || "Preview Anda";
+                li.querySelector("[data-meta]")!.textContent = [e.category, fmt.format(e.savedAt)].filter(Boolean).join(" · ");
+                li.querySelector("[data-av]")!.textContent = (e.name || "•").split(/\s+/).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
+                const st = li.querySelector<HTMLElement>("[data-status]")!;
+                st.textContent = STATUS[e.status] ?? e.status;
+                st.className += " " + (["missing", "failed", "declined"].includes(e.status) ? MUTED : GOOD);
+                return li;
+            }));
+            empty.hidden = items.length > 0;
+            clearBtn.hidden = items.length === 0;
+        }
+
+        list.addEventListener("click", (ev) => {
+            const b = (ev.target as HTMLElement).closest("[data-del]");
+            if (b) { remove(b.closest("li")!.dataset.id!); render(); }
+        });
+        clearBtn.addEventListener("click", () => { if (confirm("Hapus semua riwayat di perangkat ini?")) { clear(); render(); } });
+
+        async function refresh(id: string) {
+            try {
+                const r = await fetch(`/preview/${id}/meta.json`);
+                if (r.status === 404) upsert({ id, status: "missing" });
+                else if (r.ok) { const m = await r.json(); upsert({ id, status: m.status, name: m.name ?? undefined, category: m.category ?? undefined }); }
+                else return;
+                render();
+            } catch { /* tetap tampilkan data lokal */ }
+        }
+        render();
+        read().filter((e) => e.status === "processing").forEach((e) => refresh(e.id));
+    }
+
+    init();
+    document.addEventListener("astro:page-load", init);
+</script>

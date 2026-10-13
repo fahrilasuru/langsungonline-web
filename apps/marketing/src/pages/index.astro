@@ -1,0 +1,90 @@
+---
+import Base from "@langsungonline/ui/layouts/Base.astro";
+import Flow from "@langsungonline/ui/components/Flow.astro";
+import CTA from "@langsungonline/ui/components/CTA.astro";
+import FAQ from "@langsungonline/ui/components/FAQ.astro";
+import ValueProposition from "../components/ValueProposition.astro";
+import Service from "../components/Service.astro";
+import Action from "../components/Action.astro";
+import Range from "../components/Range.astro";
+import MainHero from "../components/MainHero.astro";
+import Problem from "../components/Problem.astro";
+import { SERVICE_WEBSITE } from "@langsungonline/ui/constants";
+
+const faq_id = "faq";
+const faqsHome = [
+	{
+		question: "Langsung.online itu sebenarnya jasa apa?",
+		answer: "Kami membantu bisnis agar tampil lebih profesional di internet. Mulai dari pembuatan website, pengelolaan media sosial, sampai menjalankan iklan agar lebih banyak pelanggan yang datang.",
+	},
+	{
+		question: "Kalau saya masih baru mulai usaha, bisa pakai layanan ini?",
+		answer: "Tentu bisa. Justru cocok untuk usaha yang baru mulai dan ingin terlihat lebih meyakinkan di mata calon pelanggan.",
+	},
+	{
+		question: "Harus paham teknologi dulu nggak?",
+		answer: "Tidak perlu. Kami yang urus bagian teknisnya, Anda tinggal fokus ke bisnis.",
+	},
+	{
+		question: "Bisa konsultasi dulu sebelum ambil paket?",
+		answer: "Bisa. Konsultasi awal gratis supaya Anda tahu solusi apa yang paling cocok.",
+	},
+	{
+		question: "Pembayarannya bagaimana?",
+		answer: "Untuk proyek website biasanya DP di awal dan pelunasan setelah selesai. Untuk layanan bulanan dibayar di awal periode.",
+	},
+];
+
+const faqSchema = {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	"@id": `https://langsung.online/#${faq_id}`,
+	mainEntity: faqsHome.map((item) => ({
+		"@type": "Question",
+		name: item.question,
+		acceptedAnswer: {
+			"@type": "Answer",
+			text: item.answer,
+		},
+	})),
+};
+
+---
+
+<Base
+	title="Langsung.Online | Penyedia Jasa Digitalisasi Praktis"
+	description="Melayani kebutuhan digital bisnis dalam satu ekosistem terintegrasi, mulai dari pembuatan website profesional hingga manajemen akun bisnis online."
+	canonical="https://langsung.online/">
+
+	<Fragment slot="schema">
+		<script
+			is:inline
+			type="application/ld+json"
+			set:html={JSON.stringify(SERVICE_WEBSITE)} />
+		<script
+			is:inline
+			type="application/ld+json"
+			set:html={JSON.stringify(faqSchema)} />
+	</Fragment>
+
+	<MainHero />
+
+	<Range />
+
+	<Problem />
+
+	<Action />
+
+	<Service />
+
+	<Flow />
+
+	<ValueProposition />
+
+	<CTA />
+
+	<FAQ
+		faq_id={faq_id}
+		faqs={faqsHome} />
+	
+</Base>
