@@ -1,7 +1,7 @@
 ---
 import { WA_NUMBER } from "@langsungonline/ui/constants";
 import { wa } from "@langsungonline/ui/wa";
-import { demoGroups, demos } from "../pages/demo/_demos";
+import { demoGroups, demos } from "../demos";
 
 const groups = demoGroups
     .map((g) => ({ ...g, items: demos.filter((d) => d.kind === g.kind) }))

@@ -8,7 +8,7 @@
     "dev": "pnpm --parallel --filter ./apps/* dev",
     "dev:marketing": "pnpm --filter @langsungonline/marketing dev",
     "dev:coba": "pnpm --filter @langsungonline/coba dev",
-    "build": "pnpm --recursive --filter ./apps/* build",
+    "build": "pnpm --recursive --filter './apps/*' build",
     "build:marketing": "pnpm --filter @langsungonline/marketing build",
     "build:coba": "pnpm --filter @langsungonline/coba build",
     "check": "pnpm --recursive --filter ./apps/* check",
