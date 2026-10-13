@@ -1,0 +1,100 @@
+---
+import Art from "./_Art.astro";
+import { EVENT, MAPS_URL, waLink, rupiah } from "./_data";
+const register = waLink(`Halo panitia ${EVENT.name}, saya ingin mendaftar. Nama: ___, jumlah peserta: ___.`);
+---
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="beranda" aria-labelledby="hero-title">
+    <div class="hero-inner">
+        <div class="hero-copy">
+            <p class="badge">
+                <span class="dot" aria-hidden="true"></span>
+                <span data-countdown data-date={EVENT.dateISO}>Pendaftaran dibuka</span>
+            </p>
+
+            <h1 id="hero-title">
+                {EVENT.name}
+                <span class="sub">{EVENT.subtitle}</span>
+            </h1>
+            <p class="lead">{EVENT.tagline}</p>
+
+            <dl class="facts">
+                <div>
+                    <dt><svg class="ico" aria-hidden="true"><use href="#i-cal"></use></svg> Tanggal</dt>
+                    <dd>{EVENT.dateLong}</dd>
+                </div>
+                <div>
+                    <dt><svg class="ico" aria-hidden="true"><use href="#i-clock"></use></svg> Waktu</dt>
+                    <dd>{EVENT.start}–{EVENT.end} WIB</dd>
+                </div>
+                <div>
+                    <dt><svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg> Tempat</dt>
+                    <dd><a href={MAPS_URL} target="_blank" rel="noopener noreferrer">{EVENT.venue}, Malang</a></dd>
+                </div>
+            </dl>
+
+            <div class="ctas">
+                <a href={register} class="btn btn-gold" target="_blank" rel="noopener noreferrer">
+                    Daftar • {rupiah(EVENT.price)}
+                    <svg class="ico" aria-hidden="true"><use href="#i-arrow"></use></svg>
+                </a>
+                <button type="button" class="btn btn-ghost-dark" data-ics
+                    data-title={`${EVENT.name}: ${EVENT.subtitle}`} data-start={EVENT.icsStart} data-end={EVENT.icsEnd}
+                    data-loc={`${EVENT.venue}, ${EVENT.address}`}>
+                    <svg class="ico" aria-hidden="true"><use href="#i-calplus"></use></svg>
+                    Simpan ke kalender
+                </button>
+                <button type="button" class="btn btn-ghost-dark" data-share data-title={`${EVENT.name}: ${EVENT.subtitle}`}
+                    data-text={`${EVENT.dateLong}, ${EVENT.venue}, Malang. Yuk ikut!`}>
+                    <svg class="ico" aria-hidden="true"><use href="#i-share"></use></svg>
+                    Bagikan
+                </button>
+            </div>
+        </div>
+
+        <div class="poster-wrap">
+            <div class="poster">
+                <Art name="poster" label={`Poster ${EVENT.name}, ${EVENT.subtitle}`} />
+            </div>
+            <div class="date-badge" aria-hidden="true">
+                <strong>{EVENT.dateDay}</strong>
+                <span>{EVENT.dateMonth}</span>
+                <small>{EVENT.dateYear}</small>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .hero { background: radial-gradient(700px 400px at 90% 0%, rgba(124, 58, 237, 0.55), transparent 65%), radial-gradient(500px 300px at 0% 100%, rgba(245, 158, 11, 0.12), transparent 70%), var(--ink); color: #fff; overflow: hidden; }
+    .hero-inner { max-width: 1100px; margin: 0 auto; padding: 64px 24px 80px; display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items: center; }
+    .badge { display: inline-flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.18); padding: 8px 16px; border-radius: var(--radius-full); font-size: 13px; font-weight: 700; margin-bottom: 22px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.25); }
+    h1 { font-size: clamp(44px, 7.5vw, 80px); font-weight: 800; line-height: 1; letter-spacing: -2.5px; margin-bottom: 20px; }
+    .sub { display: block; font-size: clamp(18px, 2.6vw, 26px); font-weight: 600; letter-spacing: -0.3px; color: #ddd6fe; margin-top: 12px; }
+    .lead { font-size: 17px; line-height: 1.75; color: rgba(255, 255, 255, 0.78); max-width: 540px; margin-bottom: 28px; }
+    .facts { display: grid; grid-template-columns: repeat(3, auto); gap: 12px 28px; justify-content: start; padding: 20px 0; margin-bottom: 28px; border-top: 1px solid rgba(255, 255, 255, 0.16); border-bottom: 1px solid rgba(255, 255, 255, 0.16); }
+    dt { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: #c4b5fd; margin-bottom: 4px; }
+    dt .ico { font-size: 14px; }
+    dd { font-size: 15px; font-weight: 700; }
+    dd a { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(255, 255, 255, 0.4); }
+    .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+    .poster-wrap { position: relative; max-width: 380px; width: 100%; margin: 0 auto; }
+    .poster { aspect-ratio: 480 / 600; border-radius: 22px; overflow: hidden; rotate: 3deg; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45); border: 5px solid #fff; background: #2e1065; }
+    .date-badge { position: absolute; left: -18px; top: 40px; width: 92px; height: 92px; border-radius: 20px; background: var(--gold); color: #1e1b3a; display: grid; place-content: center; text-align: center; line-height: 1; box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35); rotate: -6deg; }
+    .date-badge strong { font-size: 36px; font-weight: 800; }
+    .date-badge span { font-size: 14px; font-weight: 800; letter-spacing: 2px; margin-top: 2px; }
+    .date-badge small { font-size: 11px; font-weight: 700; margin-top: 3px; opacity: 0.75; }
+    @media (max-width: 900px) {
+        .hero-inner { grid-template-columns: 1fr; gap: 44px; padding: 44px 24px 64px; }
+        .poster-wrap { max-width: 320px; }
+    }
+    @media (max-width: 600px) {
+        .hero-inner { padding: 36px 20px 56px; }
+        .facts { grid-template-columns: 1fr; gap: 14px; }
+        .ctas .btn { flex: 1 1 100%; }
+        .date-badge { left: -6px; }
+        h1 { letter-spacing: -1.5px; }
+    }
+</style>

@@ -1,0 +1,40 @@
+---
+import { EVENT, waLink } from "./_data";
+const links = [
+    { href: "#pembicara", label: "Pembicara" },
+    { href: "#jadwal", label: "Jadwal" },
+    { href: "#lokasi", label: "Lokasi" },
+];
+const register = waLink(`Halo panitia ${EVENT.name}, saya ingin mendaftar. Nama: ___, jumlah peserta: ___.`);
+---
+
+<!-- ===== HEADER ===== -->
+<header class="header" id="header">
+    <div class="header-inner">
+        <a href="#beranda" class="logo" aria-label={`${EVENT.name}, kembali ke atas`}>
+            <span class="logo-icon" aria-hidden="true">N</span>
+            {EVENT.name}
+        </a>
+        <nav class="nav" aria-label="Navigasi utama">
+            {links.map((l) => <a href={l.href}>{l.label}</a>)}
+        </nav>
+        <a href={register} class="header-cta" target="_blank" rel="noopener noreferrer">
+            Daftar<span class="sr-only"> via WhatsApp (tab baru)</span>
+        </a>
+    </div>
+</header>
+
+<style>
+    .header { position: sticky; top: 0; z-index: 1000; background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid transparent; transition: var(--transition); }
+    .header.scrolled { border-bottom-color: var(--border); box-shadow: var(--shadow-sm); }
+    .header-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .nav { display: flex; gap: 30px; }
+    .nav a { font-size: 14px; font-weight: 600; color: var(--text-light); padding: 8px 0; transition: var(--transition); }
+    .nav a:hover { color: var(--accent); }
+    .header-cta { display: inline-flex; align-items: center; background: var(--accent); color: #fff; padding: 10px 22px; border-radius: var(--radius-full); font-size: 14px; font-weight: 700; min-height: 44px; transition: var(--transition); }
+    .header-cta:hover { background: var(--accent-hover); transform: translateY(-1px); }
+    @media (max-width: 700px) {
+        .nav { display: none; }
+        .header-inner { padding: 0 16px; }
+    }
+</style>

@@ -1,0 +1,108 @@
+---
+import DemoWrapper from "../../../components/DemoWrapper.astro";
+import "./_shared.css";
+import Icons from "./_Icons.astro";
+import Header from "./_Header.astro";
+import Hero from "./_Hero.astro";
+import Speakers from "./_Speakers.astro";
+import Rundown from "./_Rundown.astro";
+import Venue from "./_Venue.astro";
+import Register from "./_Register.astro";
+import Footer from "./_Footer.astro";
+import "./_reveal.css";
+import { EVENT, EMAIL, speakers } from "./_data";
+
+// Data terstruktur (Event). "<" di-escape agar string apa pun tidak bisa menutup tag <script>.
+const jsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: `${EVENT.name}: ${EVENT.subtitle}`,
+    description: EVENT.tagline,
+    startDate: "2026-11-28T09:00:00+07:00",
+    endDate: "2026-11-28T15:30:00+07:00",
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    location: {
+        "@type": "Place",
+        name: EVENT.venue,
+        address: { "@type": "PostalAddress", streetAddress: "Jl. Veteran No. 21, Lowokwaru", addressLocality: "Malang", addressRegion: "Jawa Timur", addressCountry: "ID" },
+    },
+    performer: speakers.map((s) => ({ "@type": "Person", name: s.name, jobTitle: s.role })),
+    organizer: { "@type": "Organization", name: `Panitia ${EVENT.name}`, email: EMAIL },
+    offers: { "@type": "Offer", price: String(EVENT.price), priceCurrency: "IDR", availability: "https://schema.org/InStock" },
+}).replace(/</g, "\\u003c");
+---
+
+<DemoWrapper
+    bar={{ label: "Contoh Brosur Acara Digital", cta: "Mau acara Anda seperti ini?", bg: "#1e1b3a", accent: "#f59e0b" }}
+    title="Naik Kelas: Seminar Usaha Kuliner Lokal 2026 | 28 November, Malang"
+    description="Seminar sehari bersama empat praktisi kuliner. Sabtu, 28 November 2026 di Aula Graha Serbaguna, Malang. Lihat pembicara, jadwal, dan daftar lewat WhatsApp."
+>
+    <Fragment slot="head">
+        <!-- Pengaman tambahan. Untuk produksi, tetapkan juga header CSP di server/hosting. -->
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
+        <meta http-equiv="Content-Security-Policy" content="object-src 'none'; base-uri 'self'; form-action 'self'" />
+        <meta name="theme-color" content="#1e1b3a" />
+        <script type="application/ld+json" set:html={jsonLd} />
+    </Fragment>
+
+    <div class="body">
+        <a class="skip-link" href="#konten">Lewati ke konten utama</a>
+        <Icons />
+        <Header />
+        <main id="konten" tabindex="-1">
+            <Hero />
+            <Speakers />
+            <Rundown />
+            <Venue />
+            <Register />
+        </main>
+        <Footer />
+        <div class="toast" data-toast role="status" aria-live="polite"></div>
+    </div>
+</DemoWrapper>
+
+<script>
+    import "./_interactions.js";
+</script>
+
+<style is:global>
+    :root {
+        --ink: #1e1b3a;
+        --accent: #6d28d9;
+        --accent-hover: #5b21b6;
+        --gold: #f59e0b;
+        --soft: #f6f4fc;
+        --text-light: #5d5878;
+        --border: #e7e3f3;
+        --border-strong: #cfc8e6;
+        --shadow-sm: 0 1px 3px rgba(30, 27, 58, 0.08);
+        --shadow-md: 0 8px 28px rgba(30, 27, 58, 0.1);
+        --shadow-lg: 0 18px 48px rgba(30, 27, 58, 0.16);
+        --radius: 14px;
+        --radius-lg: 22px;
+        --radius-full: 100px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        /* Alias untuk wrapper demo yang memakai nama variabel lain. */
+        --primary: var(--ink);
+        --primary-dark: #12102a;
+    }
+    html { scroll-padding-top: 88px; }
+    @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+    body { font-family: var(--font-body); color: var(--ink); background: #fff; line-height: 1.7; -webkit-font-smoothing: antialiased; text-size-adjust: 100%; }
+
+    .toast {
+        position: fixed; left: 50%; bottom: 24px; z-index: 3000; max-width: calc(100vw - 32px);
+        translate: -50% 20px; opacity: 0; pointer-events: none;
+        background: var(--ink); color: #fff; padding: 12px 20px; border-radius: 12px; font-size: 14px; font-weight: 600;
+        box-shadow: var(--shadow-lg); transition: opacity 0.3s, translate 0.3s;
+    }
+    .toast.show { opacity: 1; translate: -50% 0; }
+
+    @media print {
+        .header, .toast, .skip-link, .register { display: none !important; }
+        .hero { background: #fff !important; color: #000 !important; }
+        .section { padding: 24px 0 !important; }
+    }
+</style>

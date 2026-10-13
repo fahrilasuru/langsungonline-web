@@ -1,0 +1,49 @@
+---
+import { rundown } from "./_data";
+---
+
+<!-- ===== JADWAL ===== -->
+<section class="section rundown" id="jadwal" aria-labelledby="rundown-title">
+    <div class="section-inner">
+        <div class="section-header reveal">
+            <div class="section-label">Susunan Acara</div>
+            <h2 class="section-title" id="rundown-title">Satu hari, empat sesi.</h2>
+        </div>
+
+        <ol class="timeline">
+            {
+                rundown.map((r) => (
+                    <li class={`slot slot-${r.kind} reveal`}>
+                        <time class="time">{r.time}</time>
+                        <div class="body-slot">
+                            <h3>{r.title}</h3>
+                            {r.by && <p>{r.by}</p>}
+                        </div>
+                    </li>
+                ))
+            }
+        </ol>
+    </div>
+</section>
+
+<style>
+    .rundown { background: var(--soft); }
+    .timeline { list-style: none; max-width: 760px; position: relative; display: grid; gap: 14px; }
+    .timeline::before { content: ""; position: absolute; left: 49px; top: 8px; bottom: 8px; width: 2px; background: var(--border-strong); }
+    .slot { display: grid; grid-template-columns: 76px 1fr; gap: 24px; align-items: start; position: relative; }
+    .time { font-size: 15px; font-weight: 800; color: var(--ink); font-variant-numeric: tabular-nums; padding-top: 16px; }
+    .slot::before { content: ""; position: absolute; left: 44px; top: 22px; width: 12px; height: 12px; border-radius: 50%; background: #fff; border: 3px solid var(--accent); z-index: 1; }
+    .body-slot { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; margin-left: 4px; }
+    .body-slot h3 { font-size: 16px; font-weight: 700; color: var(--ink); line-height: 1.4; }
+    .body-slot p { font-size: 14px; color: var(--accent); font-weight: 600; margin-top: 2px; }
+    .slot-sesi .body-slot { border-left: 4px solid var(--accent); }
+    .slot-rehat .body-slot { background: rgba(245, 158, 11, 0.12); border-color: rgba(245, 158, 11, 0.4); }
+    .slot-rehat::before { border-color: var(--gold); }
+    @media (max-width: 520px) {
+        .timeline::before { left: 64px; }
+        .slot { grid-template-columns: 50px 1fr; gap: 28px; }
+        .slot::before { left: 59px; }
+        .time { font-size: 14px; }
+        .body-slot { padding: 14px 16px; margin-left: 0; }
+    }
+</style>

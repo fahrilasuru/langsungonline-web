@@ -1,0 +1,40 @@
+---
+import Art from "./_Art.astro";
+import { EVENT, MAPS_URL } from "./_data";
+---
+
+<!-- ===== LOKASI ===== -->
+<section class="section venue" id="lokasi" aria-labelledby="venue-title">
+    <div class="section-inner grid">
+        <div class="copy reveal">
+            <div class="section-label">Lokasi</div>
+            <h2 class="section-title" id="venue-title">{EVENT.venue}</h2>
+            <address>
+                <svg class="ico" aria-hidden="true"><use href="#i-pin"></use></svg>
+                <span>{EVENT.address}</span>
+            </address>
+            <ul class="notes">
+                <li><svg class="ico" aria-hidden="true"><use href="#i-clock"></use></svg> 10 menit dari Stasiun Malang Kota</li>
+                <li><svg class="ico" aria-hidden="true"><use href="#i-users"></use></svg> Parkir motor dan mobil tersedia</li>
+                <li><svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg> Akses kursi roda dan musala</li>
+            </ul>
+            <a href={MAPS_URL} class="btn btn-primary" target="_blank" rel="noopener noreferrer">Buka di Google Maps</a>
+        </div>
+        <div class="map reveal">
+            <Art name="map" label={`Peta ilustrasi lokasi ${EVENT.venue} di Jalan Veteran, Malang`} />
+        </div>
+    </div>
+</section>
+
+<style>
+    .venue { background: #fff; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+    address { display: flex; gap: 12px; font-style: normal; font-size: 17px; font-weight: 600; color: var(--ink); margin-bottom: 22px; line-height: 1.5; }
+    address .ico { font-size: 22px; color: var(--accent); margin-top: 2px; }
+    .notes { list-style: none; display: grid; gap: 12px; margin-bottom: 28px; }
+    .notes li { display: flex; gap: 10px; font-size: 15px; color: var(--text-light); }
+    .notes .ico { font-size: 18px; color: var(--accent); margin-top: 2px; }
+    .map { aspect-ratio: 600 / 440; border-radius: var(--radius-lg); overflow: hidden; border: 5px solid #fff; box-shadow: var(--shadow-lg); }
+    @media (max-width: 860px) { .grid { grid-template-columns: 1fr; gap: 36px; } }
+    @media (max-width: 520px) { .copy .btn { width: 100%; } }
+</style>

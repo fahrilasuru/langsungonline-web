@@ -1,0 +1,35 @@
+---
+import { EVENT, EMAIL } from "./_data";
+const year = new Date().getFullYear();
+---
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <div class="inner">
+        <a href="#beranda" class="logo">
+            <span class="logo-icon" aria-hidden="true">N</span>
+            {EVENT.name}
+        </a>
+        <p>{EVENT.subtitle} • {EVENT.dateLong}</p>
+        <p class="small">
+            <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+        </p>
+        <div class="bottom">
+            <span>&copy; {year} Panitia {EVENT.name}.</span>
+            <span>
+                Website demo oleh
+                <a href="https://langsung.online" target="_blank" rel="noopener noreferrer" class="credit">Langsung.Online</a>
+            </span>
+        </div>
+    </div>
+</footer>
+
+<style>
+    .footer { background: #12102a; color: rgba(255, 255, 255, 0.7); padding: 48px 24px 24px; }
+    .inner { max-width: 1100px; margin: 0 auto; display: grid; gap: 10px; }
+    .footer .logo { color: #fff; margin-bottom: 4px; }
+    p { font-size: 14px; }
+    .small a { text-decoration: underline; text-underline-offset: 3px; }
+    .bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; margin-top: 22px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 13px; }
+    .credit { color: #c4b5fd; font-weight: 600; }
+</style>

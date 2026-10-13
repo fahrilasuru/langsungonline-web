@@ -1,0 +1,52 @@
+---
+import { speakers } from "./_data";
+---
+
+<!-- ===== PEMBICARA ===== -->
+<section class="section speakers" id="pembicara" aria-labelledby="speakers-title">
+    <div class="section-inner">
+        <div class="section-header reveal">
+            <div class="section-label">Pembicara</div>
+            <h2 class="section-title" id="speakers-title">Belajar dari yang sudah menjalaninya.</h2>
+            <p class="section-subtitle">Empat praktisi dengan cerita nyata, bukan teori. Tiap sesi 60 menit termasuk tanya jawab.</p>
+        </div>
+
+        <ul class="grid">
+            {
+                speakers.map((s) => (
+                    <li class="card reveal">
+                        <span class={`avatar tone-${s.tone}`} aria-hidden="true">{s.initials}</span>
+                        <div>
+                            <h3>{s.name}</h3>
+                            <p class="role">{s.role}</p>
+                            <p class="topic">
+                                <svg class="ico" aria-hidden="true"><use href="#i-mic"></use></svg>
+                                {s.topic}
+                            </p>
+                        </div>
+                    </li>
+                ))
+            }
+        </ul>
+    </div>
+</section>
+
+<style>
+    .speakers { background: #fff; }
+    .grid { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .card { display: flex; gap: 20px; align-items: center; background: var(--soft); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px; transition: var(--transition); }
+    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); background: #fff; }
+    .avatar { width: 76px; height: 76px; border-radius: 50%; flex-shrink: 0; display: grid; place-items: center; font-size: 24px; font-weight: 800; color: #fff; letter-spacing: 1px; }
+    .tone-1 { background: linear-gradient(135deg, #7c3aed, #4c1d95); }
+    .tone-2 { background: linear-gradient(135deg, #db2777, #831843); }
+    .tone-3 { background: linear-gradient(135deg, #0d9488, #134e4a); }
+    .tone-4 { background: linear-gradient(135deg, #ea580c, #7c2d12); }
+    h3 { font-size: 19px; font-weight: 800; color: var(--ink); letter-spacing: -0.3px; margin-bottom: 2px; }
+    .role { font-size: 14px; color: var(--text-light); margin-bottom: 10px; }
+    .topic { display: flex; gap: 8px; align-items: flex-start; font-size: 14px; font-weight: 600; color: var(--accent); line-height: 1.45; }
+    .topic .ico { font-size: 16px; margin-top: 2px; }
+    @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+    @media (max-width: 420px) {
+        .card { flex-direction: column; align-items: flex-start; gap: 14px; }
+    }
+</style>

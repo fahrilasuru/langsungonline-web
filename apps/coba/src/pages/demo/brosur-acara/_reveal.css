@@ -1,0 +1,36 @@
+/* Animasi muncul saat di-scroll (kelas .reveal; .visible ditambahkan oleh _interactions.js).
+ *
+ * Aman tanpa JavaScript: elemen hanya disembunyikan setelah skrip menandai pembungkus dengan `.js`.
+ * Memakai properti `translate` (bukan `transform`) agar tidak menimpa efek hover kartu.
+ * Diimpor TERAKHIR di index.astro supaya transisinya menang atas transisi bawaan komponen. */
+.body.js .reveal {
+    opacity: 0;
+    translate: 0 28px;
+    transition:
+        opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+        translate 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.body.js .reveal.visible {
+    opacity: 1;
+    translate: 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .body.js .reveal {
+        opacity: 1;
+        translate: none;
+        transition: none;
+    }
+}
+
+@media print {
+    .body.js .reveal {
+        opacity: 1;
+        translate: none;
+    }
+}

@@ -1,0 +1,59 @@
+---
+import { EVENT, EMAIL, includes, rupiah, waLink } from "./_data";
+const register = waLink(`Halo panitia ${EVENT.name}, saya ingin mendaftar. Nama: ___, jumlah peserta: ___.`);
+const icons = ["i-check", "i-food", "i-award", "i-users"];
+---
+
+<!-- ===== DAFTAR ===== -->
+<section class="register" id="daftar" aria-labelledby="register-title">
+    <div class="register-inner">
+        <div class="copy reveal">
+            <h2 id="register-title">Amankan kursi Anda sebelum penuh.</h2>
+            <p>
+                Kuota {EVENT.quota} peserta. Saat ini sisa <strong>{EVENT.left} kursi</strong>. Pendaftaran dan
+                konfirmasi lewat WhatsApp panitia.
+            </p>
+            <p class="mail">Pertanyaan lain? <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+        </div>
+
+        <div class="ticket reveal">
+            <div class="ticket-top">
+                <span class="tlabel"><svg class="ico" aria-hidden="true"><use href="#i-ticket"></use></svg> Tiket Umum</span>
+                <div class="price">{rupiah(EVENT.price)}<small>/orang</small></div>
+                <p class="when">{EVENT.dateLong}</p>
+            </div>
+            <div class="ticket-body">
+                <ul>
+                    {includes.map((t, i) => <li><svg class="ico" aria-hidden="true"><use href={`#${i === 0 ? "i-check" : icons[i]}`}></use></svg> {t}</li>)}
+                </ul>
+                <a href={register} class="btn btn-gold" target="_blank" rel="noopener noreferrer">Daftar via WhatsApp</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .register { background: radial-gradient(600px 300px at 80% 0%, rgba(124, 58, 237, 0.5), transparent 70%), var(--ink); color: #fff; padding: 88px 24px; }
+    .register-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 0.9fr; gap: 56px; align-items: center; }
+    h2 { font-size: clamp(28px, 4.2vw, 42px); font-weight: 800; line-height: 1.15; letter-spacing: -1px; margin-bottom: 16px; text-wrap: balance; }
+    .copy p { font-size: 17px; color: rgba(255, 255, 255, 0.78); line-height: 1.75; }
+    .copy strong { color: var(--gold); }
+    .mail { margin-top: 18px; font-size: 14px !important; }
+    .mail a { color: #ddd6fe; text-decoration: underline; text-underline-offset: 3px; }
+    .ticket { background: #fff; color: var(--ink); border-radius: 22px; overflow: hidden; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4); }
+    .ticket-top { padding: 28px 28px 24px; background: linear-gradient(135deg, #f5f3ff, #ede9fe); border-bottom: 2px dashed var(--border-strong); position: relative; }
+    .ticket-top::before, .ticket-top::after { content: ""; position: absolute; bottom: -13px; width: 24px; height: 24px; border-radius: 50%; background: var(--ink); }
+    .ticket-top::before { left: -12px; }
+    .ticket-top::after { right: -12px; }
+    .tlabel { display: inline-flex; gap: 8px; align-items: center; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.4px; color: var(--accent); }
+    .price { font-size: 40px; font-weight: 800; letter-spacing: -1px; margin: 8px 0 2px; }
+    .price small { font-size: 14px; font-weight: 600; color: var(--text-light); margin-left: 4px; }
+    .when { font-size: 14px; color: var(--text-light); font-weight: 600; }
+    .ticket-body { padding: 28px; }
+    .ticket-body ul { list-style: none; display: grid; gap: 12px; margin-bottom: 24px; }
+    .ticket-body li { display: flex; gap: 10px; font-size: 15px; font-weight: 500; }
+    .ticket-body .ico { font-size: 18px; color: var(--accent); margin-top: 2px; }
+    .ticket-body .btn { width: 100%; }
+    @media (max-width: 860px) { .register-inner { grid-template-columns: 1fr; gap: 36px; } }
+    @media (max-width: 600px) { .register { padding: 60px 20px; } .ticket-top, .ticket-body { padding: 22px; } }
+</style>
