@@ -1,0 +1,12 @@
+---
+export const prerender = false;
+
+import TenantPage from "../../components/TenantPage.astro";
+
+const { tenant, tenantPath } = Astro.params;
+---
+
+<TenantPage
+  tenant={tenant ?? ""}
+  pagePath={tenantPath ?? ""}
+/>

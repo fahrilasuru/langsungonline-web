@@ -1,0 +1,52 @@
+---
+import NotFound from "@langsungonline/ui/components/NotFound.astro";
+
+interface Props {
+  tenant: string;
+  pagePath?: string;
+}
+
+const { tenant, pagePath = "" } = Astro.props;
+
+// Temukan semua halaman tenant saat build.
+const pageModules = import.meta.glob(
+  "../tenantPages/**/*.astro",
+);
+
+// Validasi nama tenant dan segmen path.
+const validSegment = /^[a-zA-Z0-9_-]+$/;
+const segments = pagePath.split("/").filter(Boolean);
+
+const validPath =
+  validSegment.test(tenant) &&
+  segments.every((segment) => validSegment.test(segment));
+
+const normalizedPath = segments.join("/");
+
+const candidates = normalizedPath
+  ? [
+      `../tenantPages/${tenant}/${normalizedPath}.astro`,
+      `../tenantPages/${tenant}/${normalizedPath}/index.astro`,
+    ]
+  : [
+      `../tenantPages/${tenant}/index.astro`,
+    ];
+
+const modulePath = validPath
+  ? candidates.find((path) => path in pageModules)
+  : undefined;
+
+const loadPage = modulePath
+  ? pageModules[modulePath]
+  : undefined;
+
+const Page = loadPage
+  ? (await loadPage()).default
+  : null;
+
+if (!Page) {
+  Astro.response.status = 404;
+}
+---
+
+{Page ? <Page /> : <NotFound />}
