@@ -1,26 +1,280 @@
 @import "tailwindcss";
 
+* {
+  box-sizing: border-box;
+}
+
+/* ---------- Design tokens ---------- */
 :root {
+  /* Layout */
+  --navbar-height: 56px;
+  --sidebar-width: 220px;
+
+  /* Base */
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Surface */
+  --surface: #ffffff;
+  --surface-muted: #f3f4f6;
+  --surface-hover: #e5e7eb;
+  --surface-selected: #d1d5db;
+
+  /* Navbar */
+  --navbar-background: #ffffff;
+  --navbar-foreground: #111827;
+    --navbar-border: #e5e7eb;
+
+  /* Sidebar */
+  --sidebar-background: var(--surface-muted);
+  --sidebar-border: #e5e7eb;
+  --sidebar-item-background: transparent;
+  --sidebar-item-hover: var(--surface-hover);
+  --sidebar-item-selected: #d1d5db;
+  --sidebar-item-selected-foreground: #111827;
+
+  /* Buttons */
+  --button-primary: #2563eb;
+  --button-primary-foreground: #ffffff;
+  --button-border: #6b7280;
+
+  /* Dialog */
+  --dialog-background: var(--surface);
+  --dialog-backdrop: rgb(0 0 0 / 50%);
+    --input-border: #d1d5db;
+
+  /* Overlay */
+  --overlay-background: rgb(0 0 0 / 40%);
+
+  /* Feedback */
+  --color-error: #dc2626;
+
+  /* Border radius */
+  --radius-control: 6px;
+  --radius-dialog: 8px;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-hover: var(--surface-hover);
+  --color-surface-selected: var(--surface-selected);
+  --color-primary: var(--button-primary);
+  --color-error: var(--color-error);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
+/* ---------- Dark mode ---------- */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+
+    --surface: #171717;
+    --surface-muted: #1f2937;
+    --surface-hover: #374151;
+    --surface-selected: #4b5563;
+
+    --navbar-background: #111827;
+    --navbar-foreground: #ffffff;
+
+    --sidebar-background: var(--surface-muted);
+    --sidebar-border: #374151;
+    --sidebar-item-hover: var(--surface-hover);
+    --sidebar-item-selected: #2563eb;
+    --sidebar-item-selected-foreground: #ffffff;
+
+    --button-primary: #2563eb;
+    --button-primary-foreground: #ffffff;
+    --button-border: #6b7280;
+
+    --dialog-background: var(--surface);
+      --input-border: #4b5563;
   }
 }
 
+/* ---------- Body ---------- */
 body {
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ---------- Navbar ---------- */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height: var(--navbar-height);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+
+  background: var(--navbar-background);
+  color: var(--navbar-foreground);
+
+  border-bottom: 1px solid var(--navbar-border);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 5%);
+
+  z-index: 30;
+}
+
+.menu-button {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.logout-button {
+  margin-left: auto;
+  padding: 6px 12px;
+  background: none;
+  border: 1px solid var(--button-border);
+  border-radius: var(--radius-control);
+  color: inherit;
+  cursor: pointer;
+}
+
+/* ---------- Dialog login ---------- */
+.login-backdrop {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: var(--dialog-backdrop);
+}
+
+.login-box {
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  background: var(--dialog-background);
+  color: var(--foreground);
+  border-radius: var(--radius-dialog);
+}
+
+.login-box h2 {
+  margin: 0;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 16px;
+  color: var(--foreground);
+  background: var(--surface);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-control);
+  outline: none;
+}
+
+.login-box input:focus {
+  border-color: var(--button-primary);
+  box-shadow: 0 0 0 3px rgb(37 99 235 / 15%);
+}
+
+.login-box button {
+  padding: 10px;
+  font-size: 15px;
+  background: var(--button-primary);
+  color: var(--button-primary-foreground);
+  border: none;
+  border-radius: var(--radius-control);
+  cursor: pointer;
+}
+
+.login-error {
+  margin: 0;
+  color: var(--color-error);
+  font-size: 14px;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+  position: fixed;
+  top: var(--navbar-height);
+  bottom: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  padding: 12px;
+  background: var(--sidebar-background);
+  border-right: 1px solid var(--sidebar-border);
+  z-index: 20;
+
+  transform: translateX(-100%);
+  transition: transform 0.2s;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar-item {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 4px;
+  text-align: left;
+  font-size: 15px;
+  background: var(--sidebar-item-background);
+  color: var(--foreground);
+  border: none;
+  border-radius: var(--radius-control);
+  cursor: pointer;
+}
+
+.sidebar-item:hover {
+  background: var(--sidebar-item-hover);
+}
+
+.sidebar-item.active {
+  background: var(--sidebar-item-selected);
+  color: var(--sidebar-item-selected-foreground);
+}
+
+/* ---------- Overlay ---------- */
+.overlay {
+  position: fixed;
+  inset: var(--navbar-height) 0 0 0;
+  background: var(--overlay-background);
+  z-index: 10;
+}
+
+/* ---------- Konten utama ---------- */
+.content {
+  padding: calc(var(--navbar-height) + 24px) 24px 24px;
+}
+
+/* ---------- Desktop ---------- */
+@media (min-width: 768px) {
+  .menu-button {
+    display: none;
+  }
+
+  .sidebar {
+    transform: none;
+  }
+
+  .overlay {
+    display: none;
+  }
+
+  .content {
+    margin-left: var(--sidebar-width);
+  }
 }
