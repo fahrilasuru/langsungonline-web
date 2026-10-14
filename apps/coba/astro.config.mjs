@@ -16,5 +16,14 @@ export default defineConfig({
     vite: {
         plugins: [tailwindcss()],
         ssr: { noExternal: ["@langsungonline/ui"] }, // paket workspace dikirim sebagai source (.astro/.ts)
+        server: {
+            proxy: {
+                '/sditdarulquran': {
+                    target: 'https://sditdarulquran.sch.id',
+                    changeOrigin: true,
+                    rewrite: (path) => path.replace(/^\/sditdarulquran/, ''),
+                },
+            },
+        },
     },
 });
