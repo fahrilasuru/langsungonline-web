@@ -9,8 +9,18 @@ interface Props {
 const { tenant, pagePath = "" } = Astro.props;
 
 // Temukan semua halaman tenant saat build.
-const pageModules = import.meta.glob(
+const allPageModules = import.meta.glob(
   "../tenantPages/**/*.astro",
+);
+
+const pageModules = Object.fromEntries(
+  Object.entries(allPageModules).filter(([path]) => {
+    const relativePath = path.replace("../tenantPages/", "");
+
+    return !relativePath
+      .split("/")
+      .some((segment) => segment.startsWith("_"));
+  }),
 );
 
 // Validasi nama tenant dan segmen path.

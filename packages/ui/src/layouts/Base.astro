@@ -18,7 +18,7 @@ interface Props {
 const {
     title,
     description,
-    image = "https://langsung.online/preview.jpeg",
+    image = "https://langsung.online/og-image.png",
     canonical = new URL(Astro.url.pathname, Astro.site).href,
     noIndex=false
 } = Astro.props;
@@ -32,11 +32,12 @@ const {
         ></script>
         <script is:inline>
             window.dataLayer = window.dataLayer || [];
+            
             function gtag() {
                 dataLayer.push(arguments);
             }
+            
             gtag("js", new Date());
-
             gtag("config", "G-KV6Z7J0S96");
         </script>
 
