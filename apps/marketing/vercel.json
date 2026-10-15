@@ -32,11 +32,6 @@
   ],
   "redirects": [
     {
-      "source": "/demo/:path*",
-      "destination": "https://coba.langsung.online/demo/:path*",
-      "permanent": true
-    },
-    {
       "source": "/preview/:path*",
       "destination": "https://coba.langsung.online/preview/:path*",
       "permanent": true
