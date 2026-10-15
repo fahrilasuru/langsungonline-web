@@ -267,12 +267,19 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.1.18
         version: 4.3.3(vite@6.4.4(@types/node@24.19.2)(jiti@2.7.0)(lightningcss@1.32.0)(yaml@2.9.1))
+      aos:
+        specifier: ^2.3.4
+        version: 2.3.4
       astro:
         specifier: ^5.17.1
         version: 5.18.2(@types/node@24.19.2)(@vercel/functions@2.2.13)(jiti@2.7.0)(lightningcss@1.32.0)(rollup@4.64.5)(supports-color@7.2.0)(typescript@5.9.3)(yaml@2.9.1)
       tailwindcss:
         specifier: ^4.1.18
         version: 4.3.3
+    devDependencies:
+      '@types/aos':
+        specifier: ^3.0.7
+        version: 3.0.8
 
   packages/ui:
     dependencies:

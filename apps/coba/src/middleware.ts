@@ -5,10 +5,10 @@ const TARGET_ORIGIN = "https://sditdarulquran.sch.id";
 
 // Endpoint yang tetap ditangani oleh aplikasi Astro lokal.
 const LOCAL_PREFIXES = [
+    "/preview",
   "/api",
   "/_vercel",
-];
-
+]
 function isLocalPath(pathname: string): boolean {
   return LOCAL_PREFIXES.some(
     (prefix) =>
