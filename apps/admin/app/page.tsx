@@ -55,7 +55,6 @@ export default function Page() {
     <>
       <Navbar
         onToggleSidebar={handleToggleSidebar}
-        onLogout={handleLogout}
         sidebarOpen={sidebarOpen}
       />
 
@@ -64,6 +63,7 @@ export default function Page() {
         activeMenu={activeMenu}
         onSelect={handleSelect}
         isOpen={sidebarOpen}
+          onLogout={handleLogout}
       />
 
       {sidebarOpen && (

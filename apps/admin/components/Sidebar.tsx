@@ -8,6 +8,7 @@ type SidebarProps = {
   activeMenu: Menu;
   onSelect: (menu: Menu) => void;
   isOpen: boolean;
+    onLogout: () => void;
 };
 
 export default function Sidebar({
@@ -15,6 +16,7 @@ export default function Sidebar({
   activeMenu,
   onSelect,
   isOpen,
+    onLogout,
 }: SidebarProps) {
   return (
     <aside
@@ -38,6 +40,14 @@ export default function Sidebar({
           </button>
         ))}
       </nav>
+
+        <button
+        type="button"
+        className="logout-button"
+        onClick={onLogout}
+      >
+        Keluar
+      </button>
     </aside>
   );
 }

@@ -85,24 +85,7 @@ export default function Home() {
     : 0;
 
   return (
-    <main className="min-h-screen bg-slate-100 px-4 py-12 text-slate-800">
       <section className="mx-auto max-w-xl rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-        {/* Header */}
-        <header className="mb-8 flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold tracking-tight">
-              My Tasks
-            </h1>
-            <p className="mt-1 text-sm text-slate-500">
-              Kelola tugas harianmu dengan mudah.
-            </p>
-          </div>
-
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-xl font-bold text-blue-600">
-            ✓
-          </div>
-        </header>
-
         {/* Form tambah tugas */}
         <form onSubmit={addTodo} className="mb-8 flex gap-2">
           <input
@@ -116,9 +99,7 @@ export default function Home() {
           <button
             type="submit"
             className="rounded-lg bg-blue-600 px-4 py-3 text-sm font-medium text-white transition hover:bg-blue-700 active:scale-95"
-          >
-            + Tambah
-          </button>
+          >+</button>
         </form>
 
         {/* Judul daftar */}
@@ -200,6 +181,5 @@ export default function Home() {
           </div>
         </footer>
       </section>
-    </main>
   );
 }

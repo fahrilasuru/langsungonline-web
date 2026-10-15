@@ -124,7 +124,7 @@ body {
 }
 
 .logout-button {
-  margin-left: auto;
+  margin-top: auto;
   padding: 6px 12px;
   background: none;
   border: 1px solid var(--button-border);
@@ -200,6 +200,8 @@ body {
   left: 0;
   width: var(--sidebar-width);
   padding: 12px;
+  display: flex;
+  flex-direction: column;
   background: var(--sidebar-background);
   border-right: 1px solid var(--sidebar-border);
   z-index: 20;

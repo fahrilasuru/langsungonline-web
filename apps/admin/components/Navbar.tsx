@@ -2,13 +2,11 @@
 
 type NavbarProps = {
   onToggleSidebar: () => void;
-  onLogout: () => void;
   sidebarOpen: boolean;
 };
 
 export default function Navbar({
   onToggleSidebar,
-  onLogout,
   sidebarOpen,
 }: NavbarProps) {
   return (
@@ -25,14 +23,6 @@ export default function Navbar({
       </button>
 
       <strong>Admin Panel</strong>
-
-      <button
-        type="button"
-        className="logout-button"
-        onClick={onLogout}
-      >
-        Keluar
-      </button>
     </header>
   );
 }
