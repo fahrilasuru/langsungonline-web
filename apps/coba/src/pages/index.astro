@@ -4,7 +4,6 @@ export const prerender = true; // tidak bergantung pada request; riwayat diisi d
 import Base from "@langsungonline/ui/layouts/Base.astro";
 import StoryForm from "@langsungonline/ui/components/StoryForm.astro";
 import PreviewHistory from "../components/PreviewHistory.astro";
-import DemoGrid from "../components/DemoGrid.astro";
 import { COBA_URL } from "@langsungonline/ui/constants";
 ---
 
@@ -24,8 +23,6 @@ import { COBA_URL } from "@langsungonline/ui/constants";
     <div class="py-10">
         <PreviewHistory />
     </div>
-
-    <DemoGrid />
 </Base>
 
 <style>
