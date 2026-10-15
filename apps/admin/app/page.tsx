@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 import LoginDialog from "@/components/LoginDialog";
+import Messages from "@/components/Messages";
+import Previews from "@/components/Previews";
 import { menus } from "@/types/menu";
 import type { Menu } from "@/types/menu";
 
@@ -72,7 +74,8 @@ export default function Page() {
       )}
 
       <main className="content">
-        <h1>{activeMenu}</h1>
+          {activeMenu == "Pesan" && <Messages />}
+          {activeMenu == "Preview" && <Previews />}
       </main>
     </>
   );

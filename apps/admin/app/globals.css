@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 * {
   box-sizing: border-box;
@@ -47,25 +49,11 @@
   --overlay-background: rgb(0 0 0 / 40%);
 
   /* Feedback */
-  --color-error: #dc2626;
+  --error: #dc2626;
 
   /* Border radius */
   --radius-control: 6px;
   --radius-dialog: 8px;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-surface: var(--surface);
-  --color-surface-muted: var(--surface-muted);
-  --color-surface-hover: var(--surface-hover);
-  --color-surface-selected: var(--surface-selected);
-  --color-primary: var(--button-primary);
-  --color-error: var(--color-error);
-
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
 /* ---------- Dark mode ---------- */
@@ -200,7 +188,7 @@ body {
 
 .login-error {
   margin: 0;
-  color: var(--color-error);
+  color: var(--error);
   font-size: 14px;
 }
 
