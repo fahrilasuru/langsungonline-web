@@ -1,8 +1,7 @@
 export const menus = [
-  "Dashboard",
+  "Target",
   "Pesan",
   "Preview",
-  "Pengaturan",
 ] as const;
 
 export type Menu = (typeof menus)[number];

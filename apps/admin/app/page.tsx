@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 import LoginDialog from "@/components/LoginDialog";
+import ToDoList from "@/components/ToDoList";
 import Messages from "@/components/Messages";
 import Previews from "@/components/Previews";
 import { menus } from "@/types/menu";
@@ -74,6 +75,7 @@ export default function Page() {
       )}
 
       <main className="content">
+          {activeMenu == "Target" && <ToDoList />}
           {activeMenu == "Pesan" && <Messages />}
           {activeMenu == "Preview" && <Previews />}
       </main>
