@@ -100,8 +100,15 @@ export async function GET(request: NextRequest) {
         },
       }
     );
-  } catch (error) {
-    console.error("Search Console API error:", error);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error("Search Console API error:", {
+        message: error.message,
+        name: error.name,
+      });
+    } else {
+      console.error("Search Console API error: unknown");
+    }
 
     return NextResponse.json(
       { error: "Gagal mengambil data Search Console" },
