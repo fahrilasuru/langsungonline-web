@@ -1,0 +1,20 @@
+---
+import Layout from "./_Layout.astro";
+import PageHero from "./_PageHero.astro";
+import { wa } from "./_site.js";
+const ci = [["fa-brands fa-whatsapp","WhatsApp","0812-3456-7890",wa()],["fa-solid fa-location-dot","Pusat belajar","Jl. Contoh Raya No. 12, Surabaya",null],["fa-solid fa-clock","Jam layanan","Senin–Sabtu, 08.00–20.00",null],["fa-solid fa-envelope","Email","halo@rumahpintar.id","mailto:halo@rumahpintar.id"]];
+---
+<Layout title="Kontak & Daftar | Rumah Pintar Tutoring" description="Hubungi Rumah Pintar Tutoring untuk jadwal kelas percobaan gratis di Surabaya, Sidoarjo, dan Gresik.">
+<PageHero title="Daftar Kelas Percobaan" sub="Isi formulir singkat. Kami balas lewat WhatsApp maksimal 1×24 jam." photo="1523240795612-9a054b0db644" />
+<section class="sec"><div class="wrap split" style="align-items:start">
+  <form class="form card" id="kform" style="padding:30px">
+    <div class="f2"><label>Nama orang tua<input name="nama" required /></label><label>No. WhatsApp<input name="hp" type="tel" required /></label></div>
+    <div class="f2"><label>Kelas anak<select name="kelas"><option>SD</option><option>SMP</option><option>SMA</option><option>Alumni / Gap year</option></select></label>
+    <label>Mata pelajaran<select name="mapel"><option>Matematika & IPA</option><option>Calistung</option><option>Bahasa Inggris</option><option>UTBK</option><option>Coding</option></select></label></div>
+    <label>Catatan (opsional)<textarea name="pesan" placeholder="Kesulitan anak, jadwal yang diinginkan, lokasi"></textarea></label>
+    <button class="btn btn-y" type="submit"><i class="fa-brands fa-whatsapp"></i> Kirim via WhatsApp</button>
+  </form>
+  <div class="grid">{ci.map(([i,t,d,h])=>(<div class="card ci"><div class="ico"><i class={i}></i></div><div><h3>{t}</h3>{h?<a href={h} target="_blank" rel="noopener"><p>{d}</p></a>:<p>{d}</p>}</div></div>))}
+  <div class="card ci"><div class="ico"><i class="fa-solid fa-map"></i></div><div><h3>Area layanan</h3><p>Surabaya, Sidoarjo, Gresik, dan online ke seluruh Indonesia.</p></div></div></div>
+</div></section>
+</Layout>

@@ -6,3 +6,7 @@ allowBuilds:
   esbuild: true
   sharp: true
   unrs-resolver: true
+
+minimumReleaseAgeExclude:
+  - '@astrojs/internal-helpers@0.13.0'
+  - '@astrojs/react@7.1.0'

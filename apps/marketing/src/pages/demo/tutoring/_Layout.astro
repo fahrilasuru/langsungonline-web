@@ -1,0 +1,51 @@
+---
+import DemoWrapper from "../../../components/DemoWrapper.astro";
+import "./_shared.css";
+import { BASE, nav, wa } from "./_site.js";
+const { title, description } = Astro.props;
+const path = Astro.url.pathname.replace(/\/?$/, "/");
+const active = (h) => path === h;
+---
+<DemoWrapper bar={{ label: "Contoh Website Bisnis Jasa", cta: "Mau bisnis Anda seperti ini?", bg: "#0d2421", accent: "#f5b700" }} title={title} description={description}>
+    <Fragment slot="head">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+        <script type="application/ld+json" set:html={JSON.stringify({ "@context": "https://schema.org", "@type": "EducationalOrganization", name: "Rumah Pintar Tutoring", areaServed: ["Surabaya", "Sidoarjo", "Gresik"], telephone: "+6281234567890", aggregateRating: { "@type": "AggregateRating", ratingValue: "4.9", reviewCount: "230" } })} />
+    </Fragment>
+    <div class="tt">
+        <header class="hd" id="hd">
+            <div class="hd-in">
+                <a href={BASE} class="logo">Rumah Pintar</a>
+                <nav class="nav" id="nav" aria-label="Navigasi utama">
+                    {nav.map(([t, h]) => <a href={h} class={active(h) ? "on" : ""}>{t}</a>)}
+                    <a class="btn btn-y nav-cta" href={wa()} target="_blank" rel="noopener">Coba Kelas Gratis</a>
+                </nav>
+                <button class="burger" id="burger" aria-label="Buka menu" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </header>
+        <main><slot /></main>
+        <section class="cta">
+            <div class="wrap">
+                <h2>Mulai dengan satu kelas percobaan gratis</h2>
+                <p>Ceritakan kelas dan mata pelajaran yang dibutuhkan. Kami carikan tutor yang cocok dalam 1×24 jam.</p>
+                <a class="btn btn-y" href={wa()} target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Jadwalkan Kelas Percobaan</a>
+            </div>
+        </section>
+        <footer class="ft">
+            <div class="wrap ft-grid">
+                <div><a href={BASE} class="logo light">Rumah Pintar</a>
+                    <p>Les privat SD–SMA dan persiapan UTBK di Surabaya, Sidoarjo, dan Gresik.</p></div>
+                <div><h4>Halaman</h4>{nav.map(([t, h]) => <a href={h}>{t}</a>)}</div>
+                <div><h4>Kontak</h4>
+                    <a href={wa()} target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> 0812-3456-7890</a>
+                    <a href="mailto:halo@rumahpintar.id"><i class="fa-solid fa-envelope"></i> halo@rumahpintar.id</a>
+                    <a href="https://instagram.com/rumahpintar.id" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i> @rumahpintar.id</a>
+                    <span><i class="fa-solid fa-clock"></i> Senin–Sabtu, 08.00–20.00</span></div>
+            </div>
+            <div class="ft-copy">© 2026 Rumah Pintar Tutoring. Situs demo.</div>
+        </footer>
+    </div>
+</DemoWrapper>
+<script>import "./_interactions.js";</script>

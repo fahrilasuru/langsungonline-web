@@ -1,7 +1,8 @@
 type Menu =
   | "Target"
   | "Pesan"
-  | "Preview";
+  | "Preview"
+    | "SEO";
 
 type SidebarProps = {
   menus: readonly Menu[];

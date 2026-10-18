@@ -66,6 +66,17 @@ export const demos: Demo[] = [
         features: ["Daftar paket wisata", "Halaman destinasi", "Kontak dan FAQ"],
     },
     {
+    kind: "situs",
+    title: "Tutoring & Les Privat",
+    description: "Situs multi-halaman untuk bimbel, les privat, atau lembaga pendidikan dengan program, profil tutor, dan pendaftaran lewat WhatsApp.",
+    url: "/demo/tutoring",
+    icon: "graduation-cap",
+    iconBg: "#dcfce7",
+    iconColor: "#15803d",
+    tags: ["Tutoring", "Bimbel", "Pendidikan"],
+    features: ["Program per jenjang dan profil tutor", "Paket harga, tarif, dan FAQ", "Formulir daftar langsung ke WhatsApp"],
+},
+    {
         kind: "situs",
         title: "Portofolio Pribadi",
         description: "Situs personal untuk desainer, developer, konsultan, atau freelancer.",

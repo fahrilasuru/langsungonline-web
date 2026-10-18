@@ -2,24 +2,28 @@ import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import vercel from "@astrojs/vercel";
 
+import react from "@astrojs/react";
+
 export default defineConfig({
-    site: "https://coba.langsung.online",
-    output: "server",
-    adapter: vercel(),
+  site: "https://coba.langsung.online",
+  output: "server",
+  adapter: vercel(),
 
-    server: {
-        port: 4322,
-    },
+  server: {
+      port: 4322,
+  },
 
-    redirects: {
-        "/preview": "/",
-    },
+  redirects: {
+      "/preview": "/",
+  },
 
-    vite: {
-        plugins: [tailwindcss()],
+  vite: {
+      plugins: [tailwindcss()],
 
-        ssr: {
-            noExternal: ["@langsungonline/ui"],
-        },
-    },
+      ssr: {
+          noExternal: ["@langsungonline/ui"],
+      },
+  },
+
+  integrations: [react()],
 });

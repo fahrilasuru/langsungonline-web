@@ -1,0 +1,16 @@
+---
+import Layout from "./_Layout.astro";
+import PageHero from "./_PageHero.astro";
+import { wa, faqs } from "./_site.js";
+const plans = [["Reguler","Rp340.000","/bulan","4 sesi • 90 menit/sesi",["Tutor sesuai mata pelajaran","Catatan tiap sesi","Laporan bulanan"],false],["Intensif","Rp620.000","/bulan","8 sesi • 90 menit/sesi",["Semua fasilitas Reguler","Latihan soal tambahan","Bisa 2 mata pelajaran"],true],["UTBK Prestasi","Rp1.150.000","/bulan","12 sesi + tryout bulanan",["Pemetaan target jurusan","Tryout dan analisis hasil","Konsultasi strategi"],false]];
+const rows = [["SD","Rp85.000"],["SMP","Rp95.000"],["SMA","Rp110.000"],["UTBK / Alumni","Rp125.000"]];
+---
+<Layout title="Harga & Paket Les | Rumah Pintar Tutoring" description="Paket les privat mulai Rp340.000 per bulan. Kelas percobaan gratis, tanpa biaya pendaftaran.">
+<PageHero title="Harga & Paket" sub="Transparan, tanpa biaya pendaftaran. Kelas percobaan pertama gratis." photo="1522202176988-66273c2fd55f" />
+<section class="sec"><div class="wrap"><div class="grid g3">{plans.map(([n,p,u,s,f,h])=>(<div class={"card plan"+(h?" hot":"")}>{h&&<span class="tag">Paling dipilih</span>}<h3>{n}</h3><div class="pr">{p}<small>{u}</small></div><p>{s}</p>
+<ul class="pl">{f.map(x=>(<li><i class="fa-solid fa-check"></i>{x}</li>))}</ul><a class={"btn "+(h?"btn-y":"btn-d")} href={wa(`Halo Rumah Pintar, saya tertarik paket ${n}.`)} target="_blank" rel="noopener">Pilih paket {n}</a></div>))}</div></div></section>
+<section class="sec alt"><div class="wrap"><div class="sh c"><h2>Tarif per sesi (paket satuan)</h2><p>Untuk yang butuh jadwal tidak tetap. Harga per sesi 90 menit.</p></div>
+<div class="tbl" style="max-width:640px;margin:auto"><table><thead><tr><th>Jenjang</th><th>Tarif per sesi</th></tr></thead><tbody>{rows.map(([a,b])=>(<tr><td>{a}</td><td><b>{b}</b></td></tr>))}</tbody></table></div></div></section>
+<section class="sec"><div class="wrap"><div class="sh c"><h2>Pertanyaan yang sering ditanyakan</h2></div>
+<div class="faq">{faqs.map(([q,a])=>(<details><summary>{q}</summary><p>{a}</p></details>))}</div></div></section>
+</Layout>

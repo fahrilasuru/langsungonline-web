@@ -1,0 +1,39 @@
+---
+import Layout from "./_Layout.astro";
+import { BASE, wa, img, programs, tutors, testi } from "./_site.js";
+const why = [["fa-user-check","Tutor terseleksi","Lulus tes materi, simulasi mengajar, dan verifikasi latar belakang."],["fa-chart-line","Progres terukur","Catatan tiap sesi dan laporan bulanan untuk orang tua."],["fa-house-laptop","Fleksibel","Di rumah, di pusat belajar, atau online sesuai jadwal keluarga."],["fa-shuffle","Bisa ganti tutor","Kurang cocok? Kami carikan penggantinya tanpa biaya."]];
+const steps = [["Ceritakan kebutuhan","Kirim kelas, mata pelajaran, dan kesulitan anak lewat WhatsApp."],["Cocokkan tutor","Kami pilihkan tutor sesuai materi dan gaya belajar anak."],["Kelas percobaan gratis","Satu sesi 60 menit untuk menilai kecocokan."],["Belajar rutin","Jadwal tetap, laporan jelas, evaluasi tiap bulan."]];
+---
+<Layout title="Les Privat SD–SMA & UTBK Surabaya | Rumah Pintar Tutoring" description="Les privat SD, SMP, SMA dan persiapan UTBK di Surabaya, Sidoarjo, Gresik. Tutor terseleksi, kelas percobaan gratis.">
+<section class="hero"><img src={img("1522202176988-66273c2fd55f",1600)} alt="Siswa belajar bersama" loading="eager" />
+  <div class="wrap"><div class="hero-in">
+    <div class="pill"><i class="fa-solid fa-star"></i> Dipercaya 230+ keluarga di Jawa Timur</div>
+    <h1>Belajar jadi lebih mudah dengan tutor yang paham anak Anda</h1>
+    <p>Les privat SD sampai SMA dan persiapan UTBK. Materi disesuaikan dengan kesulitan anak, bukan sekadar mengejar bab.</p>
+    <div class="row"><a class="btn btn-y" href={wa()} target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Coba Kelas Gratis</a><a class="btn btn-o" href={BASE+"program/"}>Lihat Program</a></div>
+    <div class="checks"><span><i class="fa-solid fa-circle-check"></i>Kelas percobaan gratis</span><span><i class="fa-solid fa-circle-check"></i>Tutor bisa diganti</span><span><i class="fa-solid fa-circle-check"></i>Laporan bulanan</span></div>
+  </div></div></section>
+<section class="stats"><div class="wrap"><div><b>8+</b><span>Tahun pengalaman</span></div><div><b>45</b><span>Tutor aktif</span></div><div><b>230+</b><span>Siswa dibimbing</span></div><div><b>4.9/5</b><span>Kepuasan orang tua</span></div></div></section>
+<section class="sec"><div class="wrap">
+  <div class="sh"><h2>Program belajar untuk tiap jenjang</h2><p>Pilih program yang paling dekat dengan kebutuhan anak. Semuanya bisa disesuaikan.</p></div>
+  <div class="grid g3">{programs.slice(0,6).map(p=>(<article class="card"><img class="card-img" src={img(p.img,600)} alt={p.name} loading="lazy"/><div class="card-b"><span class="lvl">{p.lvl}</span><h3>{p.name}</h3><p>{p.desc}</p></div></article>))}</div>
+  <p style="margin-top:32px;text-align:center"><a class="btn btn-d" href={BASE+"program/"}>Detail semua program</a></p>
+</div></section>
+<section class="sec alt"><div class="wrap">
+  <div class="sh c"><h2>Kenapa orang tua memilih Rumah Pintar</h2></div>
+  <div class="grid g4">{why.map(([i,t,d])=>(<div class="feat"><div class="ico"><i class={"fa-solid "+i}></i></div><h3>{t}</h3><p>{d}</p></div>))}</div>
+</div></section>
+<section class="sec"><div class="wrap">
+  <div class="sh c"><h2>Cara mulai belajar</h2><p>Empat langkah sederhana, tanpa biaya pendaftaran.</p></div>
+  <div class="steps">{steps.map(([t,d])=>(<div class="step"><h3>{t}</h3><p>{d}</p></div>))}</div>
+</div></section>
+<section class="sec alt"><div class="wrap">
+  <div class="sh"><h2>Kenalan dengan tutor kami</h2><p>Pengajar berpengalaman dari kampus ternama dan guru aktif.</p></div>
+  <div class="grid g3">{tutors.slice(0,3).map(t=>(<article class="card tut"><img src={img(t.i,500)} alt={t.n} loading="lazy"/><div class="card-b"><h3>{t.n}</h3><div class="sp">{t.s}</div><small>{t.e}</small></div></article>))}</div>
+  <p style="margin-top:32px;text-align:center"><a class="btn btn-d" href={BASE+"tutor/"}>Lihat semua tutor</a></p>
+</div></section>
+<section class="sec"><div class="wrap">
+  <div class="sh c"><h2>Cerita dari orang tua dan siswa</h2></div>
+  <div class="grid g3">{testi.map(t=>(<div class="card tm"><div class="st">{"★★★★★"}</div><blockquote>“{t.q}”</blockquote><div class="who"><img src={img(t.i,120)} alt="" loading="lazy"/><div><b>{t.w}</b><small>{t.r}</small></div></div></div>))}</div>
+</div></section>
+</Layout>

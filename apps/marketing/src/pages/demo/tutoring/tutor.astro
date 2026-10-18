@@ -1,0 +1,12 @@
+---
+import Layout from "./_Layout.astro";
+import PageHero from "./_PageHero.astro";
+import { img, tutors } from "./_site.js";
+const sel = [["fa-file-signature","Tes materi","Kemampuan materi diuji sesuai jenjang yang akan diajar."],["fa-chalkboard-user","Simulasi mengajar","Kami menilai cara tutor menjelaskan dan berinteraksi dengan anak."],["fa-id-card","Verifikasi identitas","Data diri dan latar belakang tutor diperiksa sebelum mengajar."]];
+---
+<Layout title="Tutor Berpengalaman | Rumah Pintar Tutoring" description="Kenali tutor Rumah Pintar: lulusan kampus ternama dan guru aktif yang lolos seleksi ketat.">
+<PageHero title="Tutor Kami" sub="Hanya sekitar 1 dari 5 pelamar yang lolos seleksi menjadi tutor Rumah Pintar." photo="1481627834876-b7833e8f5570" />
+<section class="sec"><div class="wrap"><div class="grid g3">{tutors.map(t=>(<article class="card tut"><img src={img(t.i,500)} alt={t.n} loading="lazy"/><div class="card-b"><h3>{t.n}</h3><div class="sp">{t.s}</div><small>{t.e}</small></div></article>))}</div></div></section>
+<section class="sec alt"><div class="wrap"><div class="sh c"><h2>Bagaimana kami memilih tutor</h2></div>
+<div class="grid g3">{sel.map(([i,t,d])=>(<div class="feat"><div class="ico"><i class={"fa-solid "+i}></i></div><h3>{t}</h3><p>{d}</p></div>))}</div></div></section>
+</Layout>

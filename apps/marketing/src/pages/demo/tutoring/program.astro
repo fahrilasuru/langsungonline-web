@@ -1,0 +1,14 @@
+---
+import Layout from "./_Layout.astro";
+import PageHero from "./_PageHero.astro";
+import { wa, img, programs } from "./_site.js";
+---
+<Layout title="Program Les Privat | Rumah Pintar Tutoring" description="Program les privat Matematika, IPA, Bahasa Inggris, calistung, coding, dan persiapan UTBK.">
+<PageHero title="Program Belajar" sub="Dari calistung sampai persiapan UTBK, semua program disusun mengikuti kebutuhan siswa." photo="1523240795612-9a054b0db644" />
+{programs.map((p,i)=>(<section class={"sec"+(i%2?" alt":"")}><div class="wrap split" style={i%2?"direction:rtl":""}>
+  <img src={img(p.img)} alt={p.name} loading="lazy" />
+  <div style="direction:ltr"><div class="ico"><i class={"fa-solid "+p.icon}></i></div><span class="lvl">{p.lvl}</span><h2 style="font-size:clamp(26px,3.4vw,34px);margin:6px 0 10px">{p.name}</h2><p style="color:var(--mut)">{p.desc}</p>
+  <ul class="pl">{p.pts.map(x=>(<li><i class="fa-solid fa-circle-check"></i>{x}</li>))}</ul>
+  <p style="margin-top:22px"><a class="btn btn-d" href={wa(`Halo Rumah Pintar, saya ingin bertanya tentang program ${p.name}.`)} target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Tanya program ini</a></p></div>
+</div></section>))}
+</Layout>

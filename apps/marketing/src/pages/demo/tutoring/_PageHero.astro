@@ -1,0 +1,6 @@
+---
+import { img } from "./_site.js";
+const { title, sub, photo } = Astro.props;
+---
+<section class="ph"><img src={img(photo, 1600)} alt="" loading="eager" /><div class="ph-ov"></div>
+    <div class="wrap"><h1>{title}</h1><p>{sub}</p></div></section>

@@ -11,14 +11,19 @@
     "gen:types": "node scripts/gen-types.mjs"
   },
   "dependencies": {
+    "@astrojs/react": "^7.1.0",
     "@astrojs/sitemap": "^3.7.0",
     "@astrojs/vercel": "^9.0.4",
     "@fortawesome/fontawesome-free": "^7.1.0",
     "@langsungonline/ui": "workspace:*",
     "@tailwindcss/vite": "^4.1.18",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "aos": "^2.3.4",
     "astro": "^5.17.1",
     "chart.js": "^4.5.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
