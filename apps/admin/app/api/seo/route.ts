@@ -10,8 +10,8 @@ function dateString(date: Date) {
 
 export async function GET(request: NextRequest) {
   try {
-    // WAJIB: validasi sesi admin di sini.
-    // Contoh: await requireAdmin();
+    if (sessionStorage.getItem("loggedIn") !== "true")
+        return;
 
     const params = request.nextUrl.searchParams;
     const days = Math.min(
