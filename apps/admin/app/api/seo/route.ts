@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { querySearchConsole } from "@/lib/search-console";
 
-export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
-
 function dateString(date: Date) {
   return date.toISOString().slice(0, 10);
 }

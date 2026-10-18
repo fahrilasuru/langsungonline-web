@@ -1,8 +1,6 @@
 import { google } from "googleapis";
 import { randomBytes } from "node:crypto";
 
-export const runtime = "nodejs";
-
 export async function GET() {
   const state = randomBytes(32).toString("hex");
 
