@@ -1,13 +1,36 @@
 import { google } from "googleapis";
 import { randomBytes } from "node:crypto";
+import { NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(request: Request) {
+  const redirectUri = process.env.GOOGLE_REDIRECT_URI;
+
+  if (
+    !process.env.GOOGLE_CLIENT_ID ||
+    !process.env.GOOGLE_CLIENT_SECRET ||
+    !redirectUri
+  ) {
+    return new Response("Konfigurasi Google OAuth belum lengkap.", {
+      status: 500,
+    });
+  }
+
+  // Pastikan login dimulai dari hostname callback yang sama.
+  const requestUrl = new URL(request.url);
+
+  if (requestUrl.host !== new URL(redirectUri).host) {
+    return new Response(
+      `Buka halaman OAuth dari domain ini: ${new URL(redirectUri).origin}/api/google/auth`,
+      { status: 400 }
+    );
+  }
+
   const state = randomBytes(32).toString("hex");
 
   const oauth = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
-    process.env.GOOGLE_REDIRECT_URI
+    redirectUri
   );
 
   const url = oauth.generateAuthUrl({
@@ -19,19 +42,15 @@ export async function GET() {
     state,
   });
 
-  return new Response(null, {
-    status: 302,
-    headers: {
-      Location: url,
-      "Set-Cookie": [
-        `google_oauth_state=${state}`,
-        "HttpOnly",
-        "Secure",
-        "SameSite=Lax",
-        "Path=/api/google",
-        "Max-Age=600",
-      ].join("; "),
-      "Cache-Control": "no-store",
-    },
+  const response = NextResponse.redirect(url);
+  response.cookies.set("google_oauth_state", state, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "lax",
+    path: "/",
+    maxAge: 600,
   });
+  response.headers.set("Cache-Control", "no-store");
+
+  return response;
 }

@@ -1,63 +1,67 @@
 import { google } from "googleapis";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
-  const url = new URL(request.url);
-  const code = url.searchParams.get("code");
-  const returnedState = url.searchParams.get("state");
-  const oauthError = url.searchParams.get("error");
+  const code = request.nextUrl.searchParams.get("code");
+  const returnedState = request.nextUrl.searchParams.get("state");
+  const oauthError = request.nextUrl.searchParams.get("error");
 
-  const cookies = Object.fromEntries(
-  (request.headers.get("cookie") ?? "")
-    .split(";")
-    .map((part: string) => part.trim())
-    .filter((part: string) => Boolean(part))
-    .map((part: string) => {
-      const index = part.indexOf("=");
+  const savedState =
+    request.cookies.get("google_oauth_state")?.value;
 
-      return [
-        part.slice(0, index),
-        decodeURIComponent(part.slice(index + 1)),
-      ];
-    })
-);
+  const clearCookie = {
+    httpOnly: true,
+    secure: true,
+    sameSite: "lax" as const,
+    path: "/",
+    maxAge: 0,
+  };
 
-  const clearCookie = [
-    "google_oauth_state=",
-    "HttpOnly",
-    "Secure",
-    "SameSite=Lax",
-    "Path=/api/google",
-    "Max-Age=0",
-  ].join("; ");
+  const respond = (message: string, status = 200) => {
+    const response = new NextResponse(message, {
+      status,
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8",
+        "Cache-Control": "no-store, max-age=0",
+        "Referrer-Policy": "no-referrer",
+        "X-Content-Type-Options": "nosniff",
+      },
+    });
 
-  const respond = (message: string, status = 200) =>
-  new Response(message, {
-    status,
-    headers: {
-      "Content-Type": "text/plain; charset=utf-8",
-      "Cache-Control": "no-store",
-      "Set-Cookie": clearCookie,
-    },
-  });
+    response.cookies.set("google_oauth_state", "", clearCookie);
+    return response;
+  };
 
   if (oauthError) {
-    return respond("Persetujuan OAuth dibatalkan.", 400);
+    return respond(`Google OAuth error: ${oauthError}`, 400);
   }
 
-  if (
-    !code ||
-    !returnedState ||
-    !cookies.google_oauth_state ||
-    returnedState !== cookies.google_oauth_state
-  ) {
-    return respond("Callback OAuth tidak valid.", 400);
+  if (!code || !returnedState || !savedState) {
+    return respond(
+      "Cookie state tidak ditemukan. Pastikan login dan callback memakai hostname yang sama, lalu coba lagi.",
+      400
+    );
+  }
+
+  if (returnedState !== savedState) {
+    return respond(
+      "State berbeda. Mulai OAuth dari awal pada domain produksi yang sama.",
+      400
+    );
+  }
+
+  const clientId = process.env.GOOGLE_CLIENT_ID;
+  const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+  const redirectUri = process.env.GOOGLE_REDIRECT_URI;
+
+  if (!clientId || !clientSecret || !redirectUri) {
+    return respond("Konfigurasi Google OAuth belum lengkap.", 500);
   }
 
   const oauth = new google.auth.OAuth2(
-    process.env.GOOGLE_CLIENT_ID,
-    process.env.GOOGLE_CLIENT_SECRET,
-    process.env.GOOGLE_REDIRECT_URI
+    clientId,
+    clientSecret,
+    redirectUri
   );
 
   try {
@@ -65,20 +69,17 @@ export async function GET(request: NextRequest) {
 
     if (!tokens.refresh_token) {
       return respond(
-        "Refresh token tidak diberikan Google. Coba otorisasi ulang dengan consent.",
+        "Google tidak mengirim refresh token. Periksa consent dan otorisasi akun.",
         400
       );
     }
 
-    // Simpan tokens.refresh_token ke secret manager
-    // atau database production yang aksesnya dibatasi.
-    // Jangan mengirim token ke browser atau mencatatnya ke log.
-
+    // Sementara: salin token ini ke Vercel Environment Variables.
+    // Hapus fitur penampilan token ini setelah selesai.
     return respond(
-      "OAuth berhasil. Refresh token sudah diterima server. Hubungkan fungsi penyimpanan token sebelum digunakan untuk dashboard."
+      `GOOGLE_REFRESH_TOKEN\n\n${tokens.refresh_token}\n\nSalin nilai token di atas ke Vercel Environment Variables. Jangan bagikan token ini.`
     );
-  } catch (error) {
-    console.error("Google OAuth token exchange failed.");
+  } catch {
     return respond("Gagal menukar authorization code.", 500);
   }
 }
