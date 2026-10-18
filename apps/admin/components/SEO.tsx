@@ -48,19 +48,20 @@ export default function SeoDashboard() {
       setError("");
 
       try {
-        const response = await fetch(
-          `/api/admin/seo?days=${days}`,
-          {
-            signal: controller.signal,
-            cache: "no-store",
-          }
-        );
+        
+const response = await fetch(`/api/seo?days=${days}`, {
+  signal: controller.signal,
+  cache: "no-store",
+});
 
-        if (!response.ok) {
-          throw new Error("Data SEO gagal dimuat");
-        }
+if (!response.ok) {
+  const detail = await response.text();
+  throw new Error(
+    `Data SEO gagal dimuat (${response.status}): ${detail}`
+  );
+}
 
-        setData(await response.json());
+setData(await response.json());
       } catch (err) {
         if (err instanceof Error &&
             err.name !== "AbortError") {
