@@ -6,6 +6,7 @@ import Sidebar from "@/components/Sidebar";
 import LoginDialog from "@/components/LoginDialog";
 import ToDoList from "@/components/ToDoList";
 import Messages from "@/components/Messages";
+import Previews from "@/components/Previews";
 import SEO from "@/components/SEO";
 import { menus } from "@/types/menu";
 import type { Menu } from "@/types/menu";

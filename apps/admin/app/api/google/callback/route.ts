@@ -1,24 +1,26 @@
 import { google } from "googleapis";
+import { NextRequest } from "next/server";
 
-export async function GET(request) {
+export async function GET(request: NextRequest) {
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
   const returnedState = url.searchParams.get("state");
   const oauthError = url.searchParams.get("error");
 
   const cookies = Object.fromEntries(
-    (request.headers.get("cookie") || "")
-      .split(";")
-      .map((part) => part.trim())
-      .filter(Boolean)
-      .map((part) => {
-        const index = part.indexOf("=");
-        return [
-          part.slice(0, index),
-          decodeURIComponent(part.slice(index + 1)),
-        ];
-      })
-  );
+  (request.headers.get("cookie") ?? "")
+    .split(";")
+    .map((part: string) => part.trim())
+    .filter((part: string) => Boolean(part))
+    .map((part: string) => {
+      const index = part.indexOf("=");
+
+      return [
+        part.slice(0, index),
+        decodeURIComponent(part.slice(index + 1)),
+      ];
+    })
+);
 
   const clearCookie = [
     "google_oauth_state=",
@@ -29,15 +31,15 @@ export async function GET(request) {
     "Max-Age=0",
   ].join("; ");
 
-  const respond = (message, status = 200) =>
-    new Response(message, {
-      status,
-      headers: {
-        "Content-Type": "text/plain; charset=utf-8",
-        "Cache-Control": "no-store",
-        "Set-Cookie": clearCookie,
-      },
-    });
+  const respond = (message: string, status = 200) =>
+  new Response(message, {
+    status,
+    headers: {
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": "no-store",
+      "Set-Cookie": clearCookie,
+    },
+  });
 
   if (oauthError) {
     return respond("Persetujuan OAuth dibatalkan.", 400);
